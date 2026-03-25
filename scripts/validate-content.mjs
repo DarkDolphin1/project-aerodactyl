@@ -101,7 +101,15 @@ function validateRom(rom, fileName, seenOrders, seenNames) {
 }
 
 function validateSiteContent(siteContent) {
-  const { communityHub, sourceChanges, builderUpdates, supportMatrix, expansionCards } = siteContent
+  const {
+    comments,
+    communityHub,
+    gcamEntries,
+    sourceChanges,
+    builderUpdates,
+    supportMatrix,
+    expansionCards,
+  } = siteContent
 
   assert(communityHub && typeof communityHub === 'object', 'site-content.json: communityHub is required')
   assert(isNonEmptyString(communityHub.title), 'site-content.json: communityHub.title is required')
@@ -112,6 +120,32 @@ function validateSiteContent(siteContent) {
     'site-content.json: communityHub.highlights must be an array of non-empty strings',
   )
   validateTelegramUrl(communityHub.telegramUrl, 'site-content.json: communityHub.telegramUrl')
+
+  assert(Array.isArray(gcamEntries), 'site-content.json: gcamEntries must be an array')
+  gcamEntries.forEach((entry, index) => {
+    assert(isNonEmptyString(entry.name), `site-content.json: gcamEntries[${index}].name is required`)
+    assert(isNonEmptyString(entry.build), `site-content.json: gcamEntries[${index}].build is required`)
+    assert(
+      isNonEmptyString(entry.updatedAt),
+      `site-content.json: gcamEntries[${index}].updatedAt is required`,
+    )
+    assert(
+      Array.isArray(entry.devices) && entry.devices.every(isNonEmptyString),
+      `site-content.json: gcamEntries[${index}].devices must be an array of non-empty strings`,
+    )
+    assert(
+      isNonEmptyString(entry.summary),
+      `site-content.json: gcamEntries[${index}].summary is required`,
+    )
+    assert(
+      typeof entry.downloadUrl === 'string',
+      `site-content.json: gcamEntries[${index}].downloadUrl must be a string`,
+    )
+    assert(
+      typeof entry.configUrl === 'string',
+      `site-content.json: gcamEntries[${index}].configUrl must be a string`,
+    )
+  })
 
   assert(Array.isArray(sourceChanges), 'site-content.json: sourceChanges must be an array')
   sourceChanges.forEach((entry, index) => {
@@ -157,6 +191,15 @@ function validateSiteContent(siteContent) {
       `site-content.json: expansionCards[${index}].summary is required`,
     )
   })
+
+  assert(comments && typeof comments === 'object', 'site-content.json: comments is required')
+  assert(typeof comments.enabled === 'boolean', 'site-content.json: comments.enabled must be a boolean')
+  if (comments.enabled) {
+    assert(isNonEmptyString(comments.repo), 'site-content.json: comments.repo is required')
+    assert(isNonEmptyString(comments.repoId), 'site-content.json: comments.repoId is required')
+    assert(isNonEmptyString(comments.category), 'site-content.json: comments.category is required')
+    assert(isNonEmptyString(comments.categoryId), 'site-content.json: comments.categoryId is required')
+  }
 }
 
 async function main() {

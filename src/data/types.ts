@@ -3,6 +3,28 @@ export type ReleaseLink = {
   url: string
 }
 
+export type GcamEntry = {
+  name: string
+  build: string
+  updatedAt: string
+  devices: string[]
+  summary: string
+  downloadUrl: string
+  configUrl: string
+}
+
+export type CommentsConfig = {
+  enabled: boolean
+  provider: 'giscus'
+  repo: string
+  repoId: string
+  category: string
+  categoryId: string
+  mapping: 'specific'
+  theme: string
+  lang: string
+}
+
 export type RomEntry = {
   order: number
   name: string
@@ -62,4 +84,6 @@ export type SiteContentData = {
   builderUpdates: BuilderUpdate[]
   supportMatrix: SupportDevice[]
   expansionCards: ExpansionCard[]
+  gcamEntries: GcamEntry[]
+  comments: CommentsConfig
 }

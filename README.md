@@ -54,11 +54,13 @@ Shared site sections still live in:
 
 That file controls:
 
+- GCam recommendations and config links
 - Source Pulse entries
 - Builder Notes entries
 - Community hub copy and Telegram URL
 - Device coverage cards
 - Expansion / workflow cards
+- GitHub comments configuration
 
 If you want live release buttons, update the `telegramUrl` value inside the matching ROM JSON file with the correct Telegram post link.
 

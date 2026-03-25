@@ -488,6 +488,57 @@
   margin: 0;
 }
 
+.latest-updates {
+  margin-top: 1rem;
+  padding: 1rem 1.05rem;
+  border: 1px solid var(--outline);
+  border-radius: 1.2rem;
+  background: linear-gradient(180deg, rgba(10, 10, 12, 0.86), rgba(0, 0, 0, 0.78));
+}
+
+.latest-updates-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.latest-updates-head strong {
+  color: var(--text);
+}
+
+.latest-updates-head span {
+  color: var(--muted);
+  font-size: 0.82rem;
+}
+
+.latest-updates-list {
+  display: grid;
+  gap: 0.75rem;
+  margin-top: 0.9rem;
+}
+
+.latest-update-item {
+  display: grid;
+  gap: 0.2rem;
+  padding: 0.9rem 0.95rem;
+  border: 1px solid var(--outline);
+  border-radius: 1rem;
+  background: rgba(255, 255, 255, 0.02);
+}
+
+.latest-update-item span,
+.latest-update-item small {
+  color: var(--muted);
+  font-size: 0.76rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+
+.latest-update-item strong {
+  color: var(--text);
+}
+
 .stat-grid {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
@@ -922,6 +973,53 @@
   margin-bottom: 1rem;
 }
 
+.gcam-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.gcam-card {
+  padding: 1rem;
+  border-radius: 1.15rem;
+  border: 1px solid var(--outline);
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.04), transparent 18%),
+    linear-gradient(180deg, rgba(9, 9, 11, 0.92), rgba(0, 0, 0, 0.84));
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.08),
+    0 6px 16px rgba(0, 0, 0, 0.14);
+}
+
+.gcam-empty {
+  margin-bottom: 1rem;
+}
+
+.comments-thread {
+  margin-top: 1rem;
+  border: 1px solid var(--outline);
+  border-radius: 1rem;
+  background: rgba(255, 255, 255, 0.02);
+  overflow: hidden;
+}
+
+.comments-thread summary {
+  cursor: pointer;
+  list-style: none;
+  padding: 0.9rem 1rem;
+  color: var(--text);
+  font-weight: 700;
+}
+
+.comments-thread summary::-webkit-details-marker {
+  display: none;
+}
+
+.comments-shell {
+  padding: 0 1rem 1rem;
+}
+
 .device-card strong {
   display: block;
   margin-top: 0.9rem;
@@ -1081,7 +1179,8 @@
   .section-banner,
   .insight-grid,
   .support-grid,
-  .expansion-grid {
+  .expansion-grid,
+  .gcam-grid {
     grid-template-columns: 1fr;
   }
 
@@ -1118,6 +1217,11 @@
   .hero-actions,
   .card-actions {
     width: 100%;
+  }
+
+  .latest-updates-head {
+    flex-direction: column;
+    align-items: flex-start;
   }
 
   .action-primary,

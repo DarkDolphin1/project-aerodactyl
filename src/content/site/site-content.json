@@ -10,6 +10,7 @@
     "ctaLabel": "Explore Device Community",
     "telegramUrl": "https://t.me/NothingPhone2aUpdates"
   },
+  "gcamEntries": [],
   "sourceChanges": [
     {
       "title": "Framework and SystemUI",
@@ -89,5 +90,16 @@
       "title": "Extend the Workflow",
       "summary": "The current setup is ready for future JSON feeds, Git-based release data, or a lightweight content workflow when needed."
     }
-  ]
+  ],
+  "comments": {
+    "enabled": false,
+    "provider": "giscus",
+    "repo": "TwistedVision518/project-aerodactyl",
+    "repoId": "",
+    "category": "ROM Feedback",
+    "categoryId": "",
+    "mapping": "specific",
+    "theme": "dark",
+    "lang": "en"
+  }
 }

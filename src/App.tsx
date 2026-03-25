@@ -1,14 +1,18 @@
 import type { CSSProperties } from 'react'
 import './App.css'
+import { CommentsThread } from './components/CommentsThread'
 import { ReactivePanel } from './components/ReactivePanel'
 import { Reveal } from './components/Reveal'
 import { useSceneMotion } from './hooks/useSceneMotion'
-import type { ReleaseLink, RomEntry } from './data/types'
+import type { GcamEntry, ReleaseLink, RomEntry } from './data/types'
 import {
   builderUpdates,
+  comments,
   communityHub,
   expansionCards,
+  gcamEntries,
   quickStats,
+  latestUpdates,
   roms,
   sourceChanges,
   supportMatrix,
@@ -36,6 +40,13 @@ function getReleaseLinks(rom: RomEntry): ReleaseLink[] {
   return hasReleaseLink(rom.telegramUrl)
     ? [{ label: 'Release post', url: rom.telegramUrl }]
     : []
+}
+
+function getGcamLinks(entry: GcamEntry): ReleaseLink[] {
+  return [
+    { label: 'Download GCam', url: entry.downloadUrl },
+    { label: 'Download config', url: entry.configUrl },
+  ].filter((link) => hasReleaseLink(link.url) || link.url.startsWith('https://'))
 }
 
 function App() {
@@ -70,13 +81,16 @@ function App() {
 
         <nav className="nav-links" aria-label="Primary">
           <a href="#rom-directory">ROMs</a>
+          <a href="#gcams">GCams</a>
           <a href="#source-pulse">Source Pulse</a>
           <a href="#builder-notes">Builder Notes</a>
           <a href="#devices">Devices</a>
         </nav>
 
         <div className="topbar-actions">
-          <span className="status-badge">Release Hub</span>
+          <a className="status-badge" href="#top">
+            Release Hub
+          </a>
           <a className="pill-link" href="#rom-directory">
             Open ROM Directory
           </a>
@@ -126,6 +140,22 @@ function App() {
                   Each ROM gets its own lane, while the homepage keeps the
                   bigger picture readable for users, testers, and builders.
                 </p>
+              </div>
+
+              <div className="latest-updates">
+                <div className="latest-updates-head">
+                  <strong>Latest updates</strong>
+                  <span>Auto-sorted from ROM, source, builder, and GCam entries</span>
+                </div>
+                <div className="latest-updates-list">
+                  {latestUpdates.map((entry) => (
+                    <a className="latest-update-item" href={entry.href} key={`${entry.category}-${entry.title}`}>
+                      <span>{entry.category}</span>
+                      <strong>{entry.title}</strong>
+                      <small>{entry.date}</small>
+                    </a>
+                  ))}
+                </div>
               </div>
 
               <div className="stat-grid" aria-label="Project highlights">
@@ -325,6 +355,12 @@ function App() {
                         )}
                         <span className="ghost-pill">{rom.maintenanceNote}</span>
                       </div>
+
+                      <CommentsThread
+                        config={comments}
+                        term={`rom:${rom.name.toLowerCase()}`}
+                        title={`Open GitHub feedback for ${rom.name}`}
+                      />
                     </div>
 
                     <aside className="rom-section-side">
@@ -348,12 +384,71 @@ function App() {
           })}
         </section>
 
+        <Reveal delay={90}>
+          <section className="panel support-panel" id="gcams">
+            <div className="support-copy">
+              <div>
+                <p className="eyebrow">02 / GCams</p>
+                <h2>Current supported GCams and config files.</h2>
+              </div>
+              <p>
+                Publish the currently recommended GCam builds and XML configs in one place so
+                users do not have to search through chat history to find the right setup.
+              </p>
+            </div>
+
+            {gcamEntries.length > 0 ? (
+              <div className="gcam-grid">
+                {gcamEntries.map((entry) => {
+                  const links = getGcamLinks(entry)
+
+                  return (
+                    <article className="gcam-card" key={`${entry.name}-${entry.build}`}>
+                      <div className="update-meta">
+                        <span className="chip chip-tonal">GCam</span>
+                        <small>{entry.updatedAt}</small>
+                      </div>
+                      <h3>{entry.name}</h3>
+                      <p>{entry.summary}</p>
+                      <div className="feature-meta">
+                        <span>{entry.build}</span>
+                        <span>{entry.devices.join(' / ')}</span>
+                      </div>
+                      <div className="card-actions">
+                        {links.map((link) => (
+                          <a href={link.url} key={link.url} target="_blank" rel="noreferrer">
+                            {link.label}
+                          </a>
+                        ))}
+                      </div>
+                    </article>
+                  )
+                })}
+              </div>
+            ) : (
+              <article className="gcam-card gcam-empty">
+                <h3>GCam recommendations will appear here</h3>
+                <p>
+                  This section is ready for current GCam builds and XML configs as soon as you
+                  add them to the shared content JSON.
+                </p>
+              </article>
+            )}
+
+            <CommentsThread
+              config={comments}
+              term="section:gcams"
+              title="Open GitHub feedback for the GCam section"
+            />
+          </section>
+        </Reveal>
+
         <section className="insight-grid">
           <Reveal>
             <div className="panel insight-panel" id="source-pulse">
               <div className="insight-head">
                 <div>
-                  <p className="eyebrow">02 / Source Pulse</p>
+                  <p className="eyebrow">03 / Source Pulse</p>
                   <h2>Recent source work, shaped into something people can read</h2>
                 </div>
                 <p>
@@ -388,7 +483,7 @@ function App() {
             <div className="panel insight-panel" id="builder-notes">
               <div className="insight-head">
                 <div>
-                  <p className="eyebrow">03 / Builder Notes</p>
+                  <p className="eyebrow">04 / Builder Notes</p>
                   <h2>Builder-side progress with room for actual release context</h2>
                 </div>
                 <p>
@@ -417,7 +512,7 @@ function App() {
           <section className="panel support-panel" id="devices">
             <div className="support-copy">
               <div>
-                <p className="eyebrow">04 / Device Coverage</p>
+                <p className="eyebrow">05 / Device Coverage</p>
                 <h2>Focused, expandable, and built around the 2a family.</h2>
               </div>
               <p>
