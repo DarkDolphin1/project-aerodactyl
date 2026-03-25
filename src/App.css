@@ -358,7 +358,6 @@
 .mobile-dock-link {
   flex: 1 1 0;
   position: relative;
-  isolation: isolate;
   display: inline-flex;
   flex-direction: column;
   align-items: center;
@@ -381,29 +380,32 @@
     transform 260ms var(--spring);
 }
 
-.mobile-dock-link::before {
-  content: '';
-  position: absolute;
-  inset: 0.18rem;
-  border-radius: 0.82rem;
-  background:
-    linear-gradient(180deg, rgba(255, 255, 255, 0.08), transparent 48%),
-    rgba(255, 255, 255, 0.02);
-  opacity: 0;
-  transform: translateY(0.3rem) scale(0.88);
-  transition:
-    opacity 220ms ease,
-    transform 320ms var(--spring),
-    background 260ms ease;
-  z-index: -1;
-}
-
 .mobile-dock-icon {
+  position: relative;
   display: inline-flex;
   align-items: center;
   justify-content: center;
   width: 1.55rem;
   height: 1.55rem;
+  border-radius: 999px;
+  transition:
+    transform 260ms var(--spring),
+    color 180ms ease;
+}
+
+.mobile-dock-icon::before {
+  content: '';
+  position: absolute;
+  inset: -0.36rem;
+  border-radius: 999px;
+  background:
+    radial-gradient(circle, rgba(255, 255, 255, 0.16), rgba(255, 255, 255, 0.04) 58%, transparent 72%);
+  opacity: 0;
+  transform: scale(0.72);
+  transition:
+    opacity 220ms ease,
+    transform 320ms var(--spring),
+    background 260ms ease;
 }
 
 .mobile-dock-icon svg {
@@ -430,24 +432,39 @@
 .scene-root[data-active-section='devices'] .mobile-dock-link[data-section='devices'] {
   color: var(--text);
   border-color: color-mix(in srgb, var(--hub-accent, #5a72ff) 30%, rgba(255, 255, 255, 0.08));
-  background: rgba(255, 255, 255, 0.045);
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.08), transparent 42%),
+    color-mix(in srgb, var(--hub-accent-soft, rgba(90, 114, 255, 0.16)) 38%, rgba(255, 255, 255, 0.03));
   box-shadow:
     inset 0 1px 0 rgba(255, 255, 255, 0.07),
     0 0 0 1px color-mix(in srgb, var(--hub-accent, #5a72ff) 10%, transparent);
-  transform: translateY(-0.14rem) scale(1.02);
 }
 
-.scene-root[data-active-section='top'] .mobile-dock-link[data-section='top']::before,
-.scene-root[data-active-section='rom-directory'] .mobile-dock-link[data-section='rom-directory']::before,
-.scene-root[data-active-section='gcams'] .mobile-dock-link[data-section='gcams']::before,
-.scene-root[data-active-section='source-pulse'] .mobile-dock-link[data-section='source-pulse']::before,
-.scene-root[data-active-section='builder-notes'] .mobile-dock-link[data-section='builder-notes']::before,
-.scene-root[data-active-section='devices'] .mobile-dock-link[data-section='devices']::before {
+.scene-root[data-active-section='top'] .mobile-dock-link[data-section='top'] .mobile-dock-icon,
+.scene-root[data-active-section='rom-directory'] .mobile-dock-link[data-section='rom-directory'] .mobile-dock-icon,
+.scene-root[data-active-section='gcams'] .mobile-dock-link[data-section='gcams'] .mobile-dock-icon,
+.scene-root[data-active-section='source-pulse'] .mobile-dock-link[data-section='source-pulse'] .mobile-dock-icon,
+.scene-root[data-active-section='builder-notes'] .mobile-dock-link[data-section='builder-notes'] .mobile-dock-icon,
+.scene-root[data-active-section='devices'] .mobile-dock-link[data-section='devices'] .mobile-dock-icon {
+  transform: translateY(-0.08rem) scale(1.08);
+  color: var(--hub-accent-strong, var(--text));
+}
+
+.scene-root[data-active-section='top'] .mobile-dock-link[data-section='top'] .mobile-dock-icon::before,
+.scene-root[data-active-section='rom-directory'] .mobile-dock-link[data-section='rom-directory'] .mobile-dock-icon::before,
+.scene-root[data-active-section='gcams'] .mobile-dock-link[data-section='gcams'] .mobile-dock-icon::before,
+.scene-root[data-active-section='source-pulse'] .mobile-dock-link[data-section='source-pulse'] .mobile-dock-icon::before,
+.scene-root[data-active-section='builder-notes'] .mobile-dock-link[data-section='builder-notes'] .mobile-dock-icon::before,
+.scene-root[data-active-section='devices'] .mobile-dock-link[data-section='devices'] .mobile-dock-icon::before {
   opacity: 1;
-  transform: translateY(0) scale(1);
+  transform: scale(1);
   background:
-    linear-gradient(180deg, rgba(255, 255, 255, 0.12), transparent 42%),
-    linear-gradient(135deg, color-mix(in srgb, var(--hub-accent-soft, rgba(90, 114, 255, 0.16)) 84%, rgba(255, 255, 255, 0.05)), rgba(255, 255, 255, 0.03));
+    radial-gradient(
+      circle,
+      color-mix(in srgb, var(--hub-accent-soft, rgba(90, 114, 255, 0.16)) 92%, rgba(255, 255, 255, 0.14)),
+      color-mix(in srgb, var(--hub-accent-soft, rgba(90, 114, 255, 0.16)) 36%, transparent) 58%,
+      transparent 74%
+    );
 }
 
 .mobile-dock-link:active {
