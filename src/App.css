@@ -1229,23 +1229,58 @@
 }
 
 @media (pointer: coarse) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  .scene-root {
+    perspective: none;
+  }
+
   .topbar {
-    backdrop-filter: blur(6px);
+    position: static;
+    margin-top: 0.75rem;
+    backdrop-filter: none;
   }
 
   .interactive-scene::before,
   .interactive-scene::after {
-    opacity: 0.42;
+    opacity: 0.34;
+    will-change: auto;
+  }
+
+  .interactive-scene::before {
+    filter: blur(74px) saturate(1.05);
+    animation-duration: 30s;
+  }
+
+  .interactive-scene::after {
+    filter: blur(40px);
+  }
+
+  .scene-aurora,
+  .scene-spotlight,
+  .scene-cursor-trail,
+  .scene-cursor-glow {
+    will-change: auto;
+  }
+
+  .scene-aurora {
+    filter: blur(56px);
   }
 
   .scene-spotlight,
   .scene-cursor-glow {
-    opacity: 0.55;
+    opacity: 0.72;
+  }
+
+  .scene-cursor-glow {
+    filter: blur(18px);
   }
 
   .scene-cursor-trail {
-    opacity: 0.42;
-    filter: blur(28px);
+    opacity: 0.54;
+    filter: blur(22px);
   }
 
   .reactive-panel,
@@ -1255,14 +1290,6 @@
   }
 
   .reveal.is-visible {
-    animation-duration: 620ms;
-  }
-
-  .rom-section,
-  .section-banner,
-  .insight-panel,
-  .support-panel {
-    content-visibility: auto;
-    contain-intrinsic-size: 680px;
+    animation-duration: 520ms;
   }
 }
