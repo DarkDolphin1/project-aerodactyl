@@ -9,15 +9,30 @@ type RevealProps = {
 export function Reveal({ children, className = '', delay = 0 }: RevealProps) {
   const ref = useRef<HTMLDivElement | null>(null)
   const [visible, setVisible] = useState(
-    () =>
-      typeof window !== 'undefined' &&
-      window.matchMedia('(prefers-reduced-motion: reduce)').matches,
+    () => {
+      if (typeof window === 'undefined') {
+        return false
+      }
+
+      return (
+        window.matchMedia('(prefers-reduced-motion: reduce)').matches ||
+        window.matchMedia('(pointer: coarse)').matches
+      )
+    },
   )
 
   useEffect(() => {
-    const media = window.matchMedia('(prefers-reduced-motion: reduce)')
+    const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)')
+    const coarsePointer = window.matchMedia('(pointer: coarse)')
+    const syncVisibility = () => {
+      if (reducedMotion.matches || coarsePointer.matches) {
+        setVisible(true)
+      }
+    }
 
-    if (media.matches) {
+    syncVisibility()
+
+    if (reducedMotion.matches || coarsePointer.matches) {
       return
     }
 

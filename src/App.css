@@ -1292,6 +1292,14 @@
     perspective: none;
   }
 
+  .interactive-scene {
+    background:
+      radial-gradient(circle at 50% -12%, rgba(104, 124, 255, 0.24), transparent 30%),
+      radial-gradient(circle at 0% 36%, rgba(255, 120, 88, 0.2), transparent 34%),
+      radial-gradient(circle at 100% 74%, rgba(72, 205, 190, 0.16), transparent 36%),
+      #000;
+  }
+
   .topbar {
     position: static;
     margin-top: 0.75rem;
@@ -1300,18 +1308,32 @@
 
   .interactive-scene::before,
   .interactive-scene::after {
-    opacity: 0.52;
     will-change: auto;
+    transform: none;
   }
 
   .interactive-scene::before {
-    filter: blur(66px) saturate(1.08);
-    animation-duration: 24s;
+    inset: -18%;
+    background:
+      radial-gradient(circle at 16% 20%, rgba(255, 118, 84, 0.34), transparent 24%),
+      radial-gradient(circle at 82% 18%, rgba(111, 125, 255, 0.36), transparent 26%),
+      radial-gradient(circle at 48% 76%, rgba(44, 182, 255, 0.18), transparent 26%);
+    filter: blur(54px) saturate(1.08);
+    opacity: 0.88;
+    will-change: auto;
+    animation: none;
   }
 
   .interactive-scene::after {
-    filter: blur(32px);
-    opacity: 0.7;
+    inset: 10% 8% 18%;
+    border-radius: 2rem;
+    background:
+      linear-gradient(180deg, rgba(255, 255, 255, 0.035), transparent 18%),
+      radial-gradient(circle at 12% 24%, rgba(255, 122, 88, 0.14), transparent 22%),
+      radial-gradient(circle at 86% 18%, rgba(104, 124, 255, 0.18), transparent 24%),
+      radial-gradient(circle at 52% 78%, rgba(76, 214, 190, 0.12), transparent 24%);
+    filter: blur(28px);
+    opacity: 0.94;
   }
 
   .scene-aurora,
@@ -1322,22 +1344,71 @@
   }
 
   .scene-aurora {
-    filter: blur(48px);
-    opacity: 0.96;
+    filter: blur(42px);
+    opacity: 1;
+    animation: none;
+    transform: none;
+  }
+
+  .scene-aurora-a {
+    background:
+      radial-gradient(circle at 18% 22%, rgba(255, 120, 88, 0.48), transparent 24%),
+      radial-gradient(circle at 82% 20%, rgba(112, 124, 255, 0.54), transparent 28%),
+      radial-gradient(circle at 50% 78%, rgba(255, 204, 128, 0.18), transparent 18%);
+  }
+
+  .scene-aurora-b {
+    background:
+      radial-gradient(circle at 18% 78%, rgba(255, 156, 128, 0.18), transparent 18%),
+      radial-gradient(circle at 84% 70%, rgba(92, 118, 255, 0.24), transparent 20%),
+      radial-gradient(circle at 48% 34%, rgba(55, 194, 255, 0.18), transparent 20%);
   }
 
   .scene-spotlight,
   .scene-cursor-glow {
-    opacity: 0.86;
+    opacity: 1;
+  }
+
+  .scene-spotlight {
+    background:
+      radial-gradient(
+        circle at var(--focus-x, var(--pointer-x)) var(--focus-y, var(--pointer-y)),
+        rgba(255, 255, 255, 0.18),
+        rgba(255, 255, 255, 0.08) 8%,
+        transparent 18%
+      );
   }
 
   .scene-cursor-glow {
-    filter: blur(16px);
+    background:
+      radial-gradient(
+        circle at var(--focus-x, var(--pointer-x)) var(--focus-y, var(--pointer-y)),
+        rgba(255, 255, 255, 0.12),
+        rgba(133, 146, 255, 0.22) 8%,
+        rgba(255, 146, 112, 0.18) 15%,
+        transparent 26%
+      );
+    filter: blur(12px);
   }
 
   .scene-cursor-trail {
-    opacity: 0.72;
-    filter: blur(18px);
+    background:
+      radial-gradient(
+        circle at var(--trail-x) var(--trail-y),
+        rgba(255, 255, 255, 0.08),
+        rgba(116, 132, 255, 0.16) 11%,
+        rgba(58, 176, 255, 0.08) 20%,
+        transparent 28%
+      );
+    opacity: 0.88;
+    filter: blur(16px);
+  }
+
+  .panel::before {
+    background:
+      linear-gradient(180deg, rgba(255, 255, 255, 0.05), transparent 18%),
+      radial-gradient(circle at top left, rgba(255, 255, 255, 0.06), transparent 24%);
+    opacity: 0.46;
   }
 
   .reactive-panel,
@@ -1347,6 +1418,8 @@
   }
 
   .reveal.is-visible {
-    animation-duration: 520ms;
+    opacity: 1;
+    transform: none;
+    animation: none;
   }
 }

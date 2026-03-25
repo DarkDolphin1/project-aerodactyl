@@ -12,14 +12,24 @@ export function useSceneMotion() {
 
     const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)')
     const prefersCoarsePointer = window.matchMedia('(pointer: coarse)')
+    const fineCenter = { x: 0.5, y: 0.28 }
+    const coarseCenter = { x: 0.5, y: 0.24 }
+    const isCoarsePointer = () => prefersCoarsePointer.matches
+    const getCenter = () => (isCoarsePointer() ? coarseCenter : fineCenter)
+    const applyMode = () => {
+      node.dataset.inputMode = isCoarsePointer() ? 'coarse' : 'fine'
+    }
+
+    applyMode()
 
     if (prefersReducedMotion.matches) {
-      node.style.setProperty('--pointer-x', '50%')
-      node.style.setProperty('--pointer-y', '30%')
-      node.style.setProperty('--focus-x', '50%')
-      node.style.setProperty('--focus-y', '30%')
+      const center = getCenter()
+      node.style.setProperty('--pointer-x', `${(center.x * 100).toFixed(2)}%`)
+      node.style.setProperty('--pointer-y', `${(center.y * 100).toFixed(2)}%`)
+      node.style.setProperty('--focus-x', `${(center.x * 100).toFixed(2)}%`)
+      node.style.setProperty('--focus-y', `${(center.y * 100).toFixed(2)}%`)
       node.style.setProperty('--trail-x', '50%')
-      node.style.setProperty('--trail-y', '30%')
+      node.style.setProperty('--trail-y', `${(center.y * 100).toFixed(2)}%`)
       node.style.setProperty('--scene-shift-x', '0px')
       node.style.setProperty('--scene-shift-y', '0px')
       node.style.setProperty('--scene-tilt', '0deg')
@@ -27,12 +37,11 @@ export function useSceneMotion() {
       return
     }
 
-    const target = { x: 0.5, y: 0.28, scroll: 0 }
-    const current = { x: 0.5, y: 0.28, scroll: 0 }
-    const trail = { x: 0.5, y: 0.28 }
+    const center = getCenter()
+    const target = { x: center.x, y: center.y, scroll: 0 }
+    const current = { x: center.x, y: center.y, scroll: 0 }
+    const trail = { x: center.x, y: center.y }
     let frame: number | null = null
-    let touchActive = false
-    const isCoarsePointer = () => prefersCoarsePointer.matches
 
     const setPointer = (x: number, y: number) => {
       node.style.setProperty('--pointer-x', `${(x * 100).toFixed(2)}%`)
@@ -46,9 +55,15 @@ export function useSceneMotion() {
     }
 
     const updateStyles = () => {
-      const pointerEase = isCoarsePointer() ? 0.16 : 0.14
-      const trailEase = isCoarsePointer() ? 0.12 : 0.1
-      const scrollEase = isCoarsePointer() ? 0.1 : 0.14
+      const coarse = isCoarsePointer()
+      const pointerEase = coarse ? 0.28 : 0.14
+      const trailEase = coarse ? 0.14 : 0.1
+      const scrollEase = coarse ? 0 : 0.14
+      const focusX = coarse ? target.x : current.x
+      const focusY = coarse ? target.y : current.y
+      const shiftX = coarse ? 0 : (current.x - 0.5) * 44
+      const shiftY = coarse ? 0 : (current.y - 0.5) * 32
+      const tilt = coarse ? 0 : (current.x - 0.5) * 2.4
 
       current.x += (target.x - current.x) * pointerEase
       current.y += (target.y - current.y) * pointerEase
@@ -56,13 +71,9 @@ export function useSceneMotion() {
       trail.x += (target.x - trail.x) * trailEase
       trail.y += (target.y - trail.y) * trailEase
 
-      const shiftX = (current.x - 0.5) * (isCoarsePointer() ? 14 : 44)
-      const shiftY = (current.y - 0.5) * (isCoarsePointer() ? 12 : 32)
-      const tilt = (current.x - 0.5) * (isCoarsePointer() ? 0 : 2.4)
-
-      setPointer(current.x, current.y)
-      node.style.setProperty('--focus-x', `${(current.x * 100).toFixed(2)}%`)
-      node.style.setProperty('--focus-y', `${(current.y * 100).toFixed(2)}%`)
+      setPointer(focusX, focusY)
+      node.style.setProperty('--focus-x', `${(focusX * 100).toFixed(2)}%`)
+      node.style.setProperty('--focus-y', `${(focusY * 100).toFixed(2)}%`)
       node.style.setProperty('--trail-x', `${(trail.x * 100).toFixed(2)}%`)
       node.style.setProperty('--trail-y', `${(trail.y * 100).toFixed(2)}%`)
       node.style.setProperty('--scene-shift-x', `${shiftX.toFixed(2)}px`)
@@ -71,9 +82,9 @@ export function useSceneMotion() {
       node.style.setProperty('--scroll-progress', current.scroll.toFixed(4))
 
       const settled =
-        Math.abs(target.x - current.x) < 0.0015 &&
-        Math.abs(target.y - current.y) < 0.0015 &&
-        Math.abs(target.scroll - current.scroll) < 0.0015 &&
+        Math.abs(target.x - current.x) < (coarse ? 0.003 : 0.0015) &&
+        Math.abs(target.y - current.y) < (coarse ? 0.003 : 0.0015) &&
+        Math.abs(target.scroll - current.scroll) < (coarse ? 0.01 : 0.0015) &&
         Math.abs(target.x - trail.x) < 0.002 &&
         Math.abs(target.y - trail.y) < 0.002
 
@@ -94,7 +105,7 @@ export function useSceneMotion() {
     }
 
     const handlePointerMove = (event: PointerEvent) => {
-      if (isCoarsePointer() && event.pointerType !== 'touch') {
+      if (isCoarsePointer()) {
         return
       }
 
@@ -118,7 +129,6 @@ export function useSceneMotion() {
         return
       }
 
-      touchActive = true
       updateTarget(touch.clientX, touch.clientY)
     }
 
@@ -129,30 +139,59 @@ export function useSceneMotion() {
         return
       }
 
-      touchActive = true
       updateTarget(touch.clientX, touch.clientY)
     }
 
     const handleTouchEnd = () => {
-      touchActive = false
-      target.x = 0.5
-      target.y = 0.3
+      const nextCenter = getCenter()
+      target.x = nextCenter.x
+      target.y = nextCenter.y
       scheduleUpdate()
     }
 
     const handleScroll = () => {
+      if (isCoarsePointer()) {
+        return
+      }
+
       const maxScroll = Math.max(
         1,
         document.documentElement.scrollHeight - window.innerHeight,
       )
       target.scroll = window.scrollY / maxScroll
+      scheduleUpdate()
+    }
 
-      if (isCoarsePointer() && !touchActive) {
-        target.x = 0.5
-        target.y = 0.3
+    const resetScene = () => {
+      const nextCenter = getCenter()
+
+      target.x = nextCenter.x
+      target.y = nextCenter.y
+      target.scroll = 0
+      current.x = nextCenter.x
+      current.y = nextCenter.y
+      current.scroll = 0
+      trail.x = nextCenter.x
+      trail.y = nextCenter.y
+      applyMode()
+      setPointer(nextCenter.x, nextCenter.y)
+      node.style.setProperty('--focus-x', `${(nextCenter.x * 100).toFixed(2)}%`)
+      node.style.setProperty('--focus-y', `${(nextCenter.y * 100).toFixed(2)}%`)
+      node.style.setProperty('--trail-x', `${(nextCenter.x * 100).toFixed(2)}%`)
+      node.style.setProperty('--trail-y', `${(nextCenter.y * 100).toFixed(2)}%`)
+      node.style.setProperty('--scene-shift-x', '0px')
+      node.style.setProperty('--scene-shift-y', '0px')
+      node.style.setProperty('--scene-tilt', '0deg')
+      node.style.setProperty('--scroll-progress', '0')
+    }
+
+    const handleModeChange = () => {
+      if (frame !== null) {
+        window.cancelAnimationFrame(frame)
+        frame = null
       }
 
-      scheduleUpdate()
+      resetScene()
     }
 
     setPointer(target.x, target.y)
@@ -166,6 +205,7 @@ export function useSceneMotion() {
     window.addEventListener('touchmove', handleTouchMove, { passive: true })
     window.addEventListener('touchend', handleTouchEnd, { passive: true })
     window.addEventListener('scroll', handleScroll, { passive: true })
+    prefersCoarsePointer.addEventListener('change', handleModeChange)
     handleScroll()
 
     return () => {
@@ -178,6 +218,7 @@ export function useSceneMotion() {
       window.removeEventListener('touchmove', handleTouchMove)
       window.removeEventListener('touchend', handleTouchEnd)
       window.removeEventListener('scroll', handleScroll)
+      prefersCoarsePointer.removeEventListener('change', handleModeChange)
     }
   }, [])
 
