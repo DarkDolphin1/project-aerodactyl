@@ -1290,6 +1290,8 @@
     position: static;
     margin-top: 0.75rem;
     backdrop-filter: none;
+    box-shadow: none;
+    contain: none;
   }
 
   .scene-spotlight,
@@ -1311,11 +1313,16 @@
     will-change: auto;
   }
 
-  .panel::before {
-    background:
-      linear-gradient(180deg, rgba(255, 255, 255, 0.05), transparent 18%),
-      radial-gradient(circle at top left, rgba(255, 255, 255, 0.06), transparent 24%);
-    opacity: 0.42;
+  .panel {
+    contain: none;
+    box-shadow: none;
+  }
+
+  .panel::before,
+  .panel::after,
+  .reactive-panel::before,
+  .panel.reactive-panel::before {
+    display: none;
   }
 
   .panel,
@@ -1329,7 +1336,11 @@
   .update-card,
   .device-card,
   .expansion-card {
-    box-shadow: 0 8px 18px rgba(0, 0, 0, 0.16);
+    box-shadow: none;
+  }
+
+  .brand-mark {
+    box-shadow: none;
   }
 
   .rom-section::after {
