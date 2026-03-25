@@ -28,7 +28,7 @@ export function useSceneMotion() {
     const fineCenter = { x: 0.5, y: 0.28 }
     const coarseCenter = { x: 0.5, y: 0.24 }
     const applied = new Map<string, string>()
-    const sectionIds = ['top', 'rom-directory', 'gcams', 'source-pulse', 'builder-notes', 'devices']
+    const sectionIds = ['rom-directory', 'gcams', 'source-pulse', 'builder-notes', 'devices']
     const sections = sectionIds
       .map((id) => document.getElementById(id))
       .filter((section): section is HTMLElement => section !== null)
@@ -95,6 +95,11 @@ export function useSceneMotion() {
     }
     const updateActiveSection = () => {
       sectionFrame = null
+
+      if (window.scrollY < Math.max(160, window.innerHeight * 0.18)) {
+        setActiveSection('top')
+        return
+      }
 
       if (sections.length === 0) {
         return
