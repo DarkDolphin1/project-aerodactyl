@@ -42,8 +42,6 @@ function App() {
   return (
     <div className="app-shell scene-root" ref={sceneRef}>
       <div className="interactive-scene" aria-hidden="true">
-        <div className="scene-aurora scene-aurora-a" />
-        <div className="scene-aurora scene-aurora-b" />
         <div className="scene-spotlight" />
         <div className="scene-cursor-trail" />
         <div className="scene-cursor-glow" />
