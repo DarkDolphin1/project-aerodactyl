@@ -12,8 +12,10 @@ import {
   expansionCards,
   gcamEntries,
   quickStats,
+  latestBuilds,
   latestUpdates,
   roms,
+  siteLastUpdated,
   sourceChanges,
   supportMatrix,
 } from './data/siteContent'
@@ -240,6 +242,8 @@ function App() {
                 ) : null}
               </div>
 
+              <p className="hero-updated">Last updated: {siteLastUpdated}</p>
+
               <div className="stat-grid" aria-label="Project highlights">
                 {quickStats.map((stat) => (
                   <article className="stat-card" key={stat.label}>
@@ -317,6 +321,50 @@ function App() {
         </Reveal>
 
         <Reveal delay={40}>
+          <section className="latest-build-strip panel" aria-label="Latest ROM builds">
+            <div className="latest-build-strip-head">
+              <div>
+                <p className="eyebrow">Pinned Builds</p>
+                <h2>Newest ROM drops across the hub.</h2>
+              </div>
+              <span>Sorted by current build date</span>
+            </div>
+
+            <div className="latest-build-grid">
+              {latestBuilds.map((rom) => {
+                const accentStyle: AccentStyle = {
+                  '--accent': rom.accent,
+                  '--accent-soft': rom.accentSoft,
+                  '--accent-strong': rom.accentStrong,
+                }
+
+                return (
+                  <ReactivePanel
+                    as="a"
+                    className="latest-build-card"
+                    href={`#${toSectionId(rom.name)}`}
+                    intensity={0.5}
+                    key={rom.name}
+                    style={accentStyle}
+                  >
+                    <div className="feature-topline">
+                      <span className="feature-badge">Latest build</span>
+                      <span className="feature-version">{rom.version}</span>
+                    </div>
+                    <h3>{rom.name}</h3>
+                    <p>{rom.tagline}</p>
+                    <div className="feature-meta">
+                      <span>{rom.buildDate}</span>
+                      <span>{rom.devices.join(' / ')}</span>
+                    </div>
+                  </ReactivePanel>
+                )
+              })}
+            </div>
+          </section>
+        </Reveal>
+
+        <Reveal delay={55}>
           <section className="home-rail">
             <div className="latest-updates panel">
               <div className="latest-updates-head">
@@ -512,6 +560,15 @@ function App() {
                         term={`rom:${rom.name.toLowerCase()}`}
                         title={`Open GitHub feedback for ${rom.name}`}
                       />
+
+                      <details className="rom-changelog">
+                        <summary>View build changelog</summary>
+                        <ul className="bullet-list">
+                          {rom.changelog.map((item) => (
+                            <li key={item}>{item}</li>
+                          ))}
+                        </ul>
+                      </details>
                     </div>
 
                     <aside className="rom-section-side">

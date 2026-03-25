@@ -17,5 +17,10 @@
     "Designed for a denser set of changes while keeping release notes readable.",
     "Per-ROM tracking helps feature-heavy builds stay separated from the rest.",
     "Side metadata gives testers a quick view of date, target device, and lane."
+  ],
+  "changelog": [
+    "Grouped the current feature-track work into one clearer release lane.",
+    "Kept tester-facing changes readable despite the broader change set.",
+    "Aligned release metadata and targeting across pacman and pacmanpro."
   ]
 }

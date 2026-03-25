@@ -17,5 +17,10 @@
     "Android 16 base aligned for Nothing Phone 2a and 2a Plus.",
     "Thermal, camera, and day-to-day polish grouped into the current drop.",
     "Release notes stay short enough to scan quickly before downloading."
+  ],
+  "changelog": [
+    "Synced the current Android 16 platform base across pacman and pacmanpro.",
+    "Grouped thermal, camera, and UX-facing cleanup into one stability-focused release.",
+    "Tightened daily-driver polish so the release stays consistent without feature churn."
   ]
 }

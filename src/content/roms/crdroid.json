@@ -17,5 +17,10 @@
     "crDroid v12.7 is now tracked alongside the rest of the active ROM lineup.",
     "The release lane is ready for per-build notes, device targets, and Telegram handoff.",
     "Works cleanly with the same per-ROM update flow used across the rest of the site."
+  ],
+  "changelog": [
+    "Added crDroid to the active public ROM lineup for this hub.",
+    "Prepared the release lane for future per-build notes and device-targeted links.",
+    "Kept the structure aligned with the same update flow used across the rest of the site."
   ]
 }

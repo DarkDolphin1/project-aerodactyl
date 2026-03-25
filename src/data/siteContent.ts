@@ -74,3 +74,14 @@ export const latestUpdates: LatestUpdate[] = [
 ]
   .sort((left, right) => toTimestamp(right.date) - toTimestamp(left.date))
   .slice(0, 6)
+
+export const latestBuilds = [...roms]
+  .sort((left, right) => toTimestamp(right.buildDate) - toTimestamp(left.buildDate))
+  .slice(0, 3)
+
+export const siteLastUpdated =
+  latestUpdates[0]?.date ??
+  roms
+    .map((rom) => rom.buildDate)
+    .sort((left, right) => toTimestamp(right) - toTimestamp(left))[0] ??
+  ''

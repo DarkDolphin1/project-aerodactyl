@@ -17,5 +17,10 @@
     "Clean layout supports shorter notes without looking sparse.",
     "Ideal for stable release communication and small incremental drops.",
     "Device targeting stays clear even on narrower mobile screens."
+  ],
+  "changelog": [
+    "Kept the stable PixelOS lane concise and easy to scan.",
+    "Rolled smaller incremental updates into one cleaner public-facing drop.",
+    "Preserved quick readability for both Nothing Phone 2a variants."
   ]
 }

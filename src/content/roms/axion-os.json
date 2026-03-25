@@ -17,5 +17,10 @@
     "Useful for communicating momentum while the build is still evolving.",
     "A good fit for tester-facing notes and faster release turnover.",
     "Keeps early-stage progress visible without blending into stable lanes."
+  ],
+  "changelog": [
+    "Kept AxionOS visible as an active bring-up lane for both tracked devices.",
+    "Focused this cycle on iteration speed and tester-facing clarity.",
+    "Left the release lane ready for faster follow-up drops as development continues."
   ]
 }
