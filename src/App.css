@@ -372,6 +372,12 @@
   font-weight: 700;
   letter-spacing: 0.02em;
   background: rgba(255, 255, 255, 0.03);
+  -webkit-tap-highlight-color: transparent;
+  tap-highlight-color: transparent;
+  user-select: none;
+  -webkit-user-select: none;
+  -webkit-touch-callout: none;
+  touch-action: manipulation;
   transition:
     color 180ms ease,
     background-color 180ms ease,
@@ -446,8 +452,9 @@
 .scene-root[data-active-section='source-pulse'] .mobile-dock-link[data-section='source-pulse'] .mobile-dock-icon,
 .scene-root[data-active-section='builder-notes'] .mobile-dock-link[data-section='builder-notes'] .mobile-dock-icon,
 .scene-root[data-active-section='devices'] .mobile-dock-link[data-section='devices'] .mobile-dock-icon {
-  transform: translateY(-0.08rem) scale(1.08);
+  transform: translateY(-0.12rem) scale(1.12);
   color: var(--hub-accent-strong, var(--text));
+  animation: dock-icon-bounce 560ms var(--spring);
 }
 
 .scene-root[data-active-section='top'] .mobile-dock-link[data-section='top'] .mobile-dock-icon::before,
@@ -457,7 +464,7 @@
 .scene-root[data-active-section='builder-notes'] .mobile-dock-link[data-section='builder-notes'] .mobile-dock-icon::before,
 .scene-root[data-active-section='devices'] .mobile-dock-link[data-section='devices'] .mobile-dock-icon::before {
   opacity: 1;
-  transform: scale(1);
+  transform: scale(1.08);
   background:
     radial-gradient(
       circle,
@@ -465,10 +472,38 @@
       color-mix(in srgb, var(--hub-accent-soft, rgba(90, 114, 255, 0.16)) 36%, transparent) 58%,
       transparent 74%
     );
+  animation: dock-halo-bloom 560ms var(--spring);
 }
 
 .mobile-dock-link:active {
-  transform: translateY(1px) scale(0.98);
+  transform: translateY(1px) scale(0.96);
+}
+
+@keyframes dock-icon-bounce {
+  0% {
+    transform: translateY(0.18rem) scale(0.92);
+  }
+  55% {
+    transform: translateY(-0.2rem) scale(1.16);
+  }
+  100% {
+    transform: translateY(-0.12rem) scale(1.12);
+  }
+}
+
+@keyframes dock-halo-bloom {
+  0% {
+    opacity: 0;
+    transform: scale(0.58);
+  }
+  55% {
+    opacity: 1;
+    transform: scale(1.16);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1.08);
+  }
 }
 
 .panel {
