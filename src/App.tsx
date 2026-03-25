@@ -597,7 +597,7 @@ function App() {
 
         <Reveal delay={90}>
           <section
-            className="panel support-panel"
+            className="panel support-panel support-panel-gcam"
             data-hub-accent="true"
             id="gcams"
             style={gcamStyle}
@@ -605,11 +605,11 @@ function App() {
             <div className="support-copy">
               <div>
                 <p className="eyebrow">02 / GCams</p>
-                <h2>Supported GCams and config files.</h2>
+                <h2>Camera picks without the usual Telegram digging.</h2>
               </div>
               <p>
-                Publish the currently recommended GCam builds and XML configs in one place so
-                users do not have to search through chat history to find the right setup.
+                Keep the recommended APKs and XML configs in one clean place so users can set up
+                the right camera stack quickly.
               </p>
             </div>
 
@@ -643,10 +643,10 @@ function App() {
               </div>
             ) : (
               <article className="gcam-card gcam-empty">
-                <h3>GCam recommendations will appear here</h3>
+                <h3>Ready for your current GCam picks</h3>
                 <p>
-                  This section is ready for current GCam builds and XML configs as soon as you
-                  add them to the shared content JSON.
+                  Add your recommended APKs and XML configs to the shared content file and this
+                  section becomes the public camera reference for the hub.
                 </p>
               </article>
             )}
@@ -662,7 +662,7 @@ function App() {
         <section className="insight-grid">
           <Reveal>
             <div
-              className="panel insight-panel"
+              className="panel insight-panel insight-panel-source"
               data-hub-accent="true"
               id="source-pulse"
               style={sourceStyle}
@@ -670,7 +670,7 @@ function App() {
               <div className="insight-head">
                 <div>
                   <p className="eyebrow">03 / Source Pulse</p>
-                  <h2>Recent source work, minus the commit spam</h2>
+                  <h2>Readable source movement, not raw commit dump</h2>
                 </div>
                 <p>
                   Surface the important framework, device tree, kernel, and
@@ -702,7 +702,7 @@ function App() {
 
           <Reveal delay={120}>
             <div
-              className="panel insight-panel"
+              className="panel insight-panel insight-panel-builder"
               data-hub-accent="true"
               id="builder-notes"
               style={builderStyle}
@@ -710,7 +710,7 @@ function App() {
               <div className="insight-head">
                 <div>
                   <p className="eyebrow">04 / Builder Notes</p>
-                  <h2>Builder-side notes that users can actually follow</h2>
+                  <h2>Builder notes that still feel public-facing</h2>
                 </div>
                 <p>
                   Keep community-facing notes readable while still making room
@@ -736,16 +736,16 @@ function App() {
 
         <Reveal delay={110}>
           <section
-            className="panel support-panel"
+            className="panel support-panel support-panel-devices"
             data-hub-accent="true"
             id="devices"
             style={devicesStyle}
           >
             <div className="support-copy">
               <div>
-                  <p className="eyebrow">05 / Device Coverage</p>
-                  <h2>Both Nothing Phone 2a variants, tracked together.</h2>
-                </div>
+                <p className="eyebrow">05 / Device Coverage</p>
+                <h2>Two devices, one shared release map.</h2>
+              </div>
               <p>
                 The structure is ready for more ROMs, more devices, and a
                 cleaner release workflow as the project expands.

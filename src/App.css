@@ -1354,12 +1354,16 @@
 .insight-grid {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 1.1rem;
-  margin-top: 3.2rem;
+  gap: 1.2rem;
+  margin-top: 3.3rem;
 }
 
 .insight-panel {
-  padding: 1.35rem;
+  padding: 1.45rem;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.04), transparent 20%),
+    radial-gradient(circle at top right, color-mix(in srgb, var(--accent) 12%, transparent), transparent 42%),
+    linear-gradient(180deg, rgba(8, 8, 10, 0.92), rgba(0, 0, 0, 0.9));
 }
 
 .insight-head,
@@ -1367,14 +1371,41 @@
   display: flex;
   align-items: flex-end;
   justify-content: space-between;
-  gap: 1.1rem;
-  margin-bottom: 1.35rem;
+  gap: 1.25rem;
+  margin-bottom: 1.45rem;
+}
+
+.insight-head > div,
+.support-copy > div {
+  display: grid;
+  gap: 0.9rem;
+}
+
+.insight-head p,
+.support-copy p {
+  max-width: 34rem;
+  line-height: 1.6;
+}
+
+.insight-panel-source {
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.04), transparent 20%),
+    radial-gradient(circle at top right, rgba(86, 199, 255, 0.12), transparent 42%),
+    linear-gradient(180deg, rgba(8, 8, 10, 0.92), rgba(0, 0, 0, 0.9));
+}
+
+.insight-panel-builder {
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.04), transparent 20%),
+    radial-gradient(circle at top right, rgba(255, 138, 91, 0.12), transparent 42%),
+    linear-gradient(180deg, rgba(8, 8, 10, 0.92), rgba(0, 0, 0, 0.9));
 }
 
 .timeline {
   position: relative;
   display: grid;
-  gap: 1.1rem;
+  gap: 1rem;
+  padding-left: 0.15rem;
 }
 
 .timeline::before {
@@ -1416,7 +1447,7 @@
 }
 
 .timeline-topline {
-  margin-bottom: 0.5rem;
+  margin-bottom: 0.6rem;
 }
 
 .timeline-topline span,
@@ -1427,9 +1458,18 @@
   color: var(--text);
 }
 
+.timeline-topline span {
+  font-size: 1rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+
 .timeline-topline small,
 .update-meta small {
   color: var(--muted);
+  font-size: 0.78rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
 }
 
 .update-card h3,
@@ -1444,26 +1484,40 @@
 
 .support-grid {
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  margin-bottom: 1rem;
+  margin-bottom: 1.15rem;
 }
 
 .gcam-grid {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 1rem;
-  margin-bottom: 1rem;
+  margin-bottom: 1.15rem;
 }
 
 .gcam-card {
-  padding: 1.1rem;
-  border-radius: 1.15rem;
+  padding: 1.2rem;
+  border-radius: 1.08rem;
   border: 1px solid var(--outline);
   background:
     linear-gradient(180deg, rgba(255, 255, 255, 0.04), transparent 18%),
-    linear-gradient(180deg, rgba(9, 9, 11, 0.92), rgba(0, 0, 0, 0.84));
+    radial-gradient(circle at top right, rgba(107, 134, 255, 0.1), transparent 38%),
+    linear-gradient(180deg, rgba(9, 9, 11, 0.9), rgba(0, 0, 0, 0.86));
   box-shadow:
     inset 0 1px 0 rgba(255, 255, 255, 0.08),
     0 6px 16px rgba(0, 0, 0, 0.14);
+}
+
+.gcam-card h3 {
+  margin: 0.8rem 0 0.35rem;
+  color: var(--text);
+  font-family: var(--font-display);
+  font-size: 1.45rem;
+  line-height: 1;
+  letter-spacing: -0.04em;
+}
+
+.gcam-card p {
+  margin: 0;
 }
 
 .gcam-empty {
@@ -1498,10 +1552,21 @@
   display: block;
   margin-top: 0.9rem;
   color: var(--text);
+  font-size: 0.95rem;
+  letter-spacing: 0.04em;
 }
 
 .expansion-grid {
   grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1rem;
+}
+
+.support-panel-gcam,
+.support-panel-devices {
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.04), transparent 20%),
+    radial-gradient(circle at top right, color-mix(in srgb, var(--accent) 12%, transparent), transparent 42%),
+    linear-gradient(180deg, rgba(8, 8, 10, 0.92), rgba(0, 0, 0, 0.9));
 }
 
 .reveal {
