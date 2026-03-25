@@ -579,19 +579,19 @@ function App() {
 
                     <aside className="rom-section-side">
                       <div className="rom-detail-card">
-                        <span>Build date</span>
+                        <span>Build Date</span>
                         <strong>{rom.buildDate}</strong>
                       </div>
                       <div className="rom-detail-card">
-                        <span>Supported devices</span>
+                        <span>Supported Devices</span>
                         <strong>{rom.devices.join(' / ')}</strong>
                       </div>
                       <div className="rom-detail-card">
-                        <span>Current focus</span>
+                        <span>Current Focus</span>
                         <strong>{formatMaintenanceNote(rom.maintenanceNote)}</strong>
                       </div>
                       <div className="rom-detail-card">
-                        <span>Telegram channel</span>
+                        <span>Release Channel</span>
                         <strong>{rom.channelLabel}</strong>
                       </div>
                     </aside>
