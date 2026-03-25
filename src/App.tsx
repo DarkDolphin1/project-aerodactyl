@@ -183,7 +183,9 @@ function App() {
 
       <header className="topbar">
         <a className="brand" href="#top">
-          <span className="brand-mark">PA</span>
+          <span className="brand-mark" aria-hidden="true">
+            <img alt="" className="brand-mark-image" src="/favicon.svg" />
+          </span>
           <span className="brand-copy">
             <strong>Project Aerodactyl</strong>
             <small>Nothing Phone 2a / 2a Plus ROM hub</small>
@@ -560,7 +562,10 @@ function App() {
                       />
 
                       <details className="rom-changelog">
-                        <summary>View build changelog</summary>
+                        <summary>
+                          <span>View build changelog</span>
+                          <span className="rom-changelog-hint">Latest notes</span>
+                        </summary>
                         <ul className="bullet-list">
                           {rom.changelog.map((item) => (
                             <li key={item}>{item}</li>
