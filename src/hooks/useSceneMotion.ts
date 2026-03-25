@@ -48,9 +48,31 @@ export function useSceneMotion() {
       node.style.setProperty('--pointer-y', `${(y * 100).toFixed(2)}%`)
     }
 
+    const setFocus = (x: number, y: number) => {
+      node.style.setProperty('--focus-x', `${(x * 100).toFixed(2)}%`)
+      node.style.setProperty('--focus-y', `${(y * 100).toFixed(2)}%`)
+    }
+
+    const setTrail = (x: number, y: number) => {
+      node.style.setProperty('--trail-x', `${(x * 100).toFixed(2)}%`)
+      node.style.setProperty('--trail-y', `${(y * 100).toFixed(2)}%`)
+    }
+
     const updateTarget = (clientX: number, clientY: number) => {
       target.x = Math.max(0, Math.min(1, clientX / window.innerWidth))
       target.y = Math.max(0, Math.min(1, clientY / window.innerHeight))
+
+      if (isCoarsePointer()) {
+        current.x = target.x
+        current.y = target.y
+        trail.x = target.x
+        trail.y = target.y
+        setPointer(target.x, target.y)
+        setFocus(target.x, target.y)
+        setTrail(target.x, target.y)
+        return
+      }
+
       scheduleUpdate()
     }
 
@@ -72,10 +94,8 @@ export function useSceneMotion() {
       trail.y += (target.y - trail.y) * trailEase
 
       setPointer(focusX, focusY)
-      node.style.setProperty('--focus-x', `${(focusX * 100).toFixed(2)}%`)
-      node.style.setProperty('--focus-y', `${(focusY * 100).toFixed(2)}%`)
-      node.style.setProperty('--trail-x', `${(trail.x * 100).toFixed(2)}%`)
-      node.style.setProperty('--trail-y', `${(trail.y * 100).toFixed(2)}%`)
+      setFocus(focusX, focusY)
+      setTrail(trail.x, trail.y)
       node.style.setProperty('--scene-shift-x', `${shiftX.toFixed(2)}px`)
       node.style.setProperty('--scene-shift-y', `${shiftY.toFixed(2)}px`)
       node.style.setProperty('--scene-tilt', `${tilt.toFixed(2)}deg`)
@@ -146,6 +166,18 @@ export function useSceneMotion() {
       const nextCenter = getCenter()
       target.x = nextCenter.x
       target.y = nextCenter.y
+
+      if (isCoarsePointer()) {
+        current.x = nextCenter.x
+        current.y = nextCenter.y
+        trail.x = nextCenter.x
+        trail.y = nextCenter.y
+        setPointer(nextCenter.x, nextCenter.y)
+        setFocus(nextCenter.x, nextCenter.y)
+        setTrail(nextCenter.x, nextCenter.y)
+        return
+      }
+
       scheduleUpdate()
     }
 
@@ -175,10 +207,8 @@ export function useSceneMotion() {
       trail.y = nextCenter.y
       applyMode()
       setPointer(nextCenter.x, nextCenter.y)
-      node.style.setProperty('--focus-x', `${(nextCenter.x * 100).toFixed(2)}%`)
-      node.style.setProperty('--focus-y', `${(nextCenter.y * 100).toFixed(2)}%`)
-      node.style.setProperty('--trail-x', `${(nextCenter.x * 100).toFixed(2)}%`)
-      node.style.setProperty('--trail-y', `${(nextCenter.y * 100).toFixed(2)}%`)
+      setFocus(nextCenter.x, nextCenter.y)
+      setTrail(nextCenter.x, nextCenter.y)
       node.style.setProperty('--scene-shift-x', '0px')
       node.style.setProperty('--scene-shift-y', '0px')
       node.style.setProperty('--scene-tilt', '0deg')
@@ -195,10 +225,8 @@ export function useSceneMotion() {
     }
 
     setPointer(target.x, target.y)
-    node.style.setProperty('--focus-x', `${(current.x * 100).toFixed(2)}%`)
-    node.style.setProperty('--focus-y', `${(current.y * 100).toFixed(2)}%`)
-    node.style.setProperty('--trail-x', `${(trail.x * 100).toFixed(2)}%`)
-    node.style.setProperty('--trail-y', `${(trail.y * 100).toFixed(2)}%`)
+    setFocus(current.x, current.y)
+    setTrail(trail.x, trail.y)
     window.addEventListener('pointermove', handlePointerMove, { passive: true })
     window.addEventListener('pointerleave', handlePointerLeave)
     window.addEventListener('touchstart', handleTouchStart, { passive: true })

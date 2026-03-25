@@ -1294,9 +1294,10 @@
 
   .interactive-scene {
     background:
-      radial-gradient(circle at 50% -12%, rgba(104, 124, 255, 0.24), transparent 30%),
-      radial-gradient(circle at 0% 36%, rgba(255, 120, 88, 0.2), transparent 34%),
-      radial-gradient(circle at 100% 74%, rgba(72, 205, 190, 0.16), transparent 36%),
+      radial-gradient(circle at 50% -8%, rgba(104, 124, 255, 0.34), transparent 34%),
+      radial-gradient(circle at 0% 34%, rgba(255, 120, 88, 0.24), transparent 38%),
+      radial-gradient(circle at 100% 74%, rgba(72, 205, 190, 0.2), transparent 40%),
+      radial-gradient(circle at 50% 88%, rgba(60, 122, 255, 0.14), transparent 32%),
       #000;
   }
 
@@ -1306,109 +1307,101 @@
     backdrop-filter: none;
   }
 
-  .interactive-scene::before,
-  .interactive-scene::after {
-    will-change: auto;
+  .interactive-scene::before {
+    inset: 0;
+    background:
+      linear-gradient(180deg, rgba(255, 255, 255, 0.035), transparent 24%),
+      radial-gradient(circle at 18% 18%, rgba(255, 154, 128, 0.12), transparent 18%),
+      radial-gradient(circle at 84% 18%, rgba(122, 136, 255, 0.14), transparent 20%);
+    opacity: 0.92;
+    filter: none;
+    animation: none;
     transform: none;
   }
 
-  .interactive-scene::before {
-    inset: -18%;
-    background:
-      radial-gradient(circle at 16% 20%, rgba(255, 118, 84, 0.34), transparent 24%),
-      radial-gradient(circle at 82% 18%, rgba(111, 125, 255, 0.36), transparent 26%),
-      radial-gradient(circle at 48% 76%, rgba(44, 182, 255, 0.18), transparent 26%);
-    filter: blur(54px) saturate(1.08);
-    opacity: 0.88;
-    will-change: auto;
-    animation: none;
-  }
-
   .interactive-scene::after {
-    inset: 10% 8% 18%;
-    border-radius: 2rem;
-    background:
-      linear-gradient(180deg, rgba(255, 255, 255, 0.035), transparent 18%),
-      radial-gradient(circle at 12% 24%, rgba(255, 122, 88, 0.14), transparent 22%),
-      radial-gradient(circle at 86% 18%, rgba(104, 124, 255, 0.18), transparent 24%),
-      radial-gradient(circle at 52% 78%, rgba(76, 214, 190, 0.12), transparent 24%);
-    filter: blur(28px);
-    opacity: 0.94;
+    display: none;
   }
 
   .scene-aurora,
   .scene-spotlight,
-  .scene-cursor-trail,
-  .scene-cursor-glow {
-    will-change: auto;
-  }
-
-  .scene-aurora {
-    filter: blur(42px);
-    opacity: 1;
-    animation: none;
-    transform: none;
-  }
-
-  .scene-aurora-a {
-    background:
-      radial-gradient(circle at 18% 22%, rgba(255, 120, 88, 0.48), transparent 24%),
-      radial-gradient(circle at 82% 20%, rgba(112, 124, 255, 0.54), transparent 28%),
-      radial-gradient(circle at 50% 78%, rgba(255, 204, 128, 0.18), transparent 18%);
-  }
-
-  .scene-aurora-b {
-    background:
-      radial-gradient(circle at 18% 78%, rgba(255, 156, 128, 0.18), transparent 18%),
-      radial-gradient(circle at 84% 70%, rgba(92, 118, 255, 0.24), transparent 20%),
-      radial-gradient(circle at 48% 34%, rgba(55, 194, 255, 0.18), transparent 20%);
-  }
-
-  .scene-spotlight,
-  .scene-cursor-glow {
-    opacity: 1;
-  }
-
-  .scene-spotlight {
-    background:
-      radial-gradient(
-        circle at var(--focus-x, var(--pointer-x)) var(--focus-y, var(--pointer-y)),
-        rgba(255, 255, 255, 0.18),
-        rgba(255, 255, 255, 0.08) 8%,
-        transparent 18%
-      );
-  }
-
-  .scene-cursor-glow {
-    background:
-      radial-gradient(
-        circle at var(--focus-x, var(--pointer-x)) var(--focus-y, var(--pointer-y)),
-        rgba(255, 255, 255, 0.12),
-        rgba(133, 146, 255, 0.22) 8%,
-        rgba(255, 146, 112, 0.18) 15%,
-        transparent 26%
-      );
-    filter: blur(12px);
-  }
-
   .scene-cursor-trail {
+    display: none;
+  }
+
+  .scene-cursor-glow {
     background:
       radial-gradient(
-        circle at var(--trail-x) var(--trail-y),
+        circle at var(--focus-x, var(--pointer-x)) var(--focus-y, var(--pointer-y)),
         rgba(255, 255, 255, 0.08),
-        rgba(116, 132, 255, 0.16) 11%,
-        rgba(58, 176, 255, 0.08) 20%,
-        transparent 28%
+        rgba(133, 146, 255, 0.16) 14%,
+        rgba(255, 146, 112, 0.12) 26%,
+        transparent 42%
       );
-    opacity: 0.88;
-    filter: blur(16px);
+    opacity: 0.92;
+    filter: none;
+    will-change: auto;
   }
 
   .panel::before {
     background:
       linear-gradient(180deg, rgba(255, 255, 255, 0.05), transparent 18%),
       radial-gradient(circle at top left, rgba(255, 255, 255, 0.06), transparent 24%);
-    opacity: 0.46;
+    opacity: 0.42;
+  }
+
+  .panel,
+  .hero-story,
+  .stat-card,
+  .hero-feature-card,
+  .directory-preview-item,
+  .rom-directory-item,
+  .rom-detail-card,
+  .timeline-body,
+  .update-card,
+  .device-card,
+  .expansion-card {
+    box-shadow: 0 8px 18px rgba(0, 0, 0, 0.16);
+  }
+
+  .rom-section::after {
+    display: none;
+  }
+
+  .pill-link,
+  .action-primary,
+  .action-secondary,
+  .feature-link,
+  .card-actions a,
+  .directory-preview-item,
+  .rom-directory-item,
+  .timeline-body,
+  .update-card,
+  .device-card,
+  .expansion-card,
+  .rom-section,
+  .panel {
+    transition:
+      border-color 140ms ease,
+      background-color 140ms ease,
+      box-shadow 140ms ease,
+      opacity 140ms ease;
+  }
+
+  .pill-link::after,
+  .action-primary::after,
+  .action-secondary::after,
+  .feature-link::after,
+  .card-actions a::after {
+    display: none;
+  }
+
+  .pill-link::before,
+  .action-primary::before,
+  .action-secondary::before,
+  .feature-link::before,
+  .card-actions a::before {
+    opacity: 0.42;
   }
 
   .reactive-panel,
