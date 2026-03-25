@@ -53,6 +53,10 @@ function getGcamLinks(entry: GcamEntry): ReleaseLink[] {
   ].filter((link) => hasReleaseLink(link.url) || link.url.startsWith('https://'))
 }
 
+function formatMaintenanceNote(value: string) {
+  return value.replace(/^Current focus:\s*/i, '')
+}
+
 function DockGlyph({ section }: { section: DockSection }) {
   const commonProps = {
     fill: 'none',
@@ -552,7 +556,6 @@ function App() {
                             Telegram Release
                           </span>
                         )}
-                        <span className="ghost-pill">{rom.maintenanceNote}</span>
                       </div>
 
                       <CommentsThread
@@ -582,6 +585,10 @@ function App() {
                       <div className="rom-detail-card">
                         <span>Supported devices</span>
                         <strong>{rom.devices.join(' / ')}</strong>
+                      </div>
+                      <div className="rom-detail-card">
+                        <span>Current focus</span>
+                        <strong>{formatMaintenanceNote(rom.maintenanceNote)}</strong>
                       </div>
                       <div className="rom-detail-card">
                         <span>Telegram channel</span>
