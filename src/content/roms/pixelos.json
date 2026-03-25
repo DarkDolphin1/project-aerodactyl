@@ -6,7 +6,7 @@
   "branch": "Pixel track",
   "tagline": "Minimal presentation, quick readability, and easy release scanning.",
   "buildDate": "March 19, 2026",
-  "devices": ["Nothing Phone 2a"],
+  "devices": ["Nothing Phone 2a", "Nothing Phone 2a Plus"],
   "channelLabel": "Telegram release feed",
   "telegramUrl": "",
   "maintenanceNote": "Current lane: concise stable updates",

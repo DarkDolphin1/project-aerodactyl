@@ -52,7 +52,7 @@ function App() {
           <span className="brand-mark">PA</span>
           <span className="brand-copy">
             <strong>Project Aerodactyl</strong>
-            <small>Nothing Phone 2a / 2a Plus ROM release home</small>
+            <small>Nothing Phone 2a (pacman) / 2a Plus (pacmanpro) release home</small>
           </span>
         </a>
 
@@ -82,7 +82,7 @@ function App() {
               </div>
 
               <p className="eyebrow">Project Aerodactyl</p>
-              <h1>A sharper home for the Nothing Phone 2a ROM scene.</h1>
+              <h1>A sharper home for the Nothing Phone 2a and 2a Plus ROM scene.</h1>
               <p className="lede">
                 Current builds, source-side movement, builder notes, and the
                 wider device community, organized into something that feels

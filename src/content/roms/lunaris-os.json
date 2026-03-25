@@ -6,7 +6,7 @@
   "branch": "QPR refresh",
   "tagline": "Smooth, polished, and tuned around a cleaner visual cadence.",
   "buildDate": "March 21, 2026",
-  "devices": ["Nothing Phone 2a"],
+  "devices": ["Nothing Phone 2a", "Nothing Phone 2a Plus"],
   "channelLabel": "Telegram release feed",
   "telegramUrl": "",
   "maintenanceNote": "Current lane: visual polish and consistency",
