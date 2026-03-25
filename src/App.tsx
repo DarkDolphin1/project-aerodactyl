@@ -582,6 +582,27 @@ function App() {
           </section>
         </Reveal>
       </main>
+
+      <nav className="mobile-dock" aria-label="Mobile section navigation">
+        <a className="mobile-dock-link" href="#top">
+          Home
+        </a>
+        <a className="mobile-dock-link" href="#rom-directory">
+          ROMs
+        </a>
+        <a className="mobile-dock-link" href="#gcams">
+          GCams
+        </a>
+        <a className="mobile-dock-link" href="#source-pulse">
+          Pulse
+        </a>
+        <a className="mobile-dock-link" href="#builder-notes">
+          Notes
+        </a>
+        <a className="mobile-dock-link" href="#devices">
+          Devices
+        </a>
+      </nav>
     </div>
   )
 }
