@@ -122,14 +122,14 @@ function App() {
           <section className="hero panel" data-hub-accent="true" style={featuredStyle}>
             <div className="hero-intro">
               <p className="eyebrow">Nothing Phone 2a / 2a Plus release hub</p>
-              <h1>One home for ROMs, releases, and the wider device scene.</h1>
+              <h1>Built for the Nothing Phone 2a custom ROM scene.</h1>
               <p className="lede">
-                A cleaner place to track builds, source movement, support links,
-                and community updates across pacman and pacmanpro.
+                Follow current releases, community links, source movement, and
+                shared device updates across pacman and pacmanpro.
               </p>
               <p className="hero-caption">
-                Built around the same idea: keep the landing experience simple,
-                fast, and immediately useful.
+                A staging concept aimed at a more product-like landing page with
+                stronger hierarchy and a clearer first impression.
               </p>
 
               <div className="hero-actions">
@@ -149,6 +149,15 @@ function App() {
                     {communityHub.ctaLabel}
                   </a>
                 ) : null}
+              </div>
+
+              <div className="hero-marquee" aria-label="Tracked ROMs">
+                {roms.map((rom) => (
+                  <span className="hero-marquee-item" key={rom.name}>
+                    <strong>{rom.name}</strong>
+                    <small>{rom.version}</small>
+                  </span>
+                ))}
               </div>
 
             </div>
@@ -229,27 +238,11 @@ function App() {
         </Reveal>
 
         <Reveal delay={40}>
-          <section className="home-rail">
-            <div className="latest-updates panel">
-              <div className="latest-updates-head">
-                <strong>Latest updates</strong>
-                <span>Recent movement across the whole hub</span>
-              </div>
-              <div className="latest-updates-list">
-                {latestUpdates.map((entry) => (
-                  <a className="latest-update-item" href={entry.href} key={`${entry.category}-${entry.title}`}>
-                    <span>{entry.category}</span>
-                    <strong>{entry.title}</strong>
-                    <small>{entry.date}</small>
-                  </a>
-                ))}
-              </div>
-            </div>
-
+          <section className="landing-strip">
             <div className="directory-preview panel" id="quick-directory">
               <div className="latest-updates-head">
-                <strong>ROM quick jump</strong>
-                <span>Jump straight to a ROM</span>
+                <strong>Browse ROM lanes</strong>
+                <span>Jump straight to a tracked build</span>
               </div>
               <div className="directory-preview-grid">
                 {roms.map((rom) => {
@@ -273,6 +266,22 @@ function App() {
                     </ReactivePanel>
                   )
                 })}
+              </div>
+            </div>
+
+            <div className="latest-updates panel">
+              <div className="latest-updates-head">
+                <strong>Latest updates</strong>
+                <span>Recent movement across the whole hub</span>
+              </div>
+              <div className="latest-updates-list">
+                {latestUpdates.slice(0, 4).map((entry) => (
+                  <a className="latest-update-item" href={entry.href} key={`${entry.category}-${entry.title}`}>
+                    <span>{entry.category}</span>
+                    <strong>{entry.title}</strong>
+                    <small>{entry.date}</small>
+                  </a>
+                ))}
               </div>
             </div>
           </section>
