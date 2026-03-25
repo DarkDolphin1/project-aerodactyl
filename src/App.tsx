@@ -18,6 +18,8 @@ import {
   supportMatrix,
 } from './data/siteContent'
 
+type DockSection = 'top' | 'rom-directory' | 'gcams' | 'source-pulse' | 'builder-notes' | 'devices'
+
 type AccentStyle = CSSProperties & {
   '--accent'?: string
   '--accent-soft'?: string
@@ -48,6 +50,69 @@ function getGcamLinks(entry: GcamEntry): ReleaseLink[] {
     { label: 'Download config', url: entry.configUrl },
   ].filter((link) => hasReleaseLink(link.url) || link.url.startsWith('https://'))
 }
+
+function DockGlyph({ section }: { section: DockSection }) {
+  const commonProps = {
+    fill: 'none',
+    stroke: 'currentColor',
+    strokeLinecap: 'round' as const,
+    strokeLinejoin: 'round' as const,
+    strokeWidth: 1.9,
+  }
+
+  switch (section) {
+    case 'top':
+      return (
+        <svg aria-hidden="true" viewBox="0 0 24 24">
+          <path {...commonProps} d="M4.5 10.5 12 4l7.5 6.5" />
+          <path {...commonProps} d="M7.5 9.5V20h9V9.5" />
+        </svg>
+      )
+    case 'rom-directory':
+      return (
+        <svg aria-hidden="true" viewBox="0 0 24 24">
+          <rect {...commonProps} x="4" y="5" width="16" height="14" rx="3" />
+          <path {...commonProps} d="M8 9.5h8M8 13h5" />
+        </svg>
+      )
+    case 'gcams':
+      return (
+        <svg aria-hidden="true" viewBox="0 0 24 24">
+          <path {...commonProps} d="M8.5 7.5 10 5h4l1.5 2.5H18a2 2 0 0 1 2 2v6.5a3 3 0 0 1-3 3H7a3 3 0 0 1-3-3V9.5a2 2 0 0 1 2-2Z" />
+          <circle {...commonProps} cx="12" cy="13" r="3.2" />
+        </svg>
+      )
+    case 'source-pulse':
+      return (
+        <svg aria-hidden="true" viewBox="0 0 24 24">
+          <path {...commonProps} d="M4 13h3l2-4 3 8 2-5h6" />
+        </svg>
+      )
+    case 'builder-notes':
+      return (
+        <svg aria-hidden="true" viewBox="0 0 24 24">
+          <path {...commonProps} d="M7 5h8l4 4v10a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2Z" />
+          <path {...commonProps} d="M15 5v4h4M9 13h6M9 16h4" />
+        </svg>
+      )
+    case 'devices':
+      return (
+        <svg aria-hidden="true" viewBox="0 0 24 24">
+          <rect {...commonProps} x="7" y="3.5" width="10" height="17" rx="2.6" />
+          <path {...commonProps} d="M10 6.5h4M11 17.5h2" />
+        </svg>
+      )
+  }
+}
+
+const mobileDockItems: Array<{ href: string; label: string; section: DockSection }> = [
+  { href: '#top', label: 'Home', section: 'top' },
+  { href: '#rom-directory', label: 'ROMs', section: 'rom-directory' },
+  { href: '#gcams', label: 'GCams', section: 'gcams' },
+  { href: '#source-pulse', label: 'Pulse', section: 'source-pulse' },
+  { href: '#builder-notes', label: 'Notes', section: 'builder-notes' },
+  { href: '#devices', label: 'Devices', section: 'devices' },
+]
 
 function App() {
   const sceneRef = useSceneMotion()
@@ -584,24 +649,20 @@ function App() {
       </main>
 
       <nav className="mobile-dock" aria-label="Mobile section navigation">
-        <a className="mobile-dock-link" data-section="top" href="#top">
-          Home
-        </a>
-        <a className="mobile-dock-link" data-section="rom-directory" href="#rom-directory">
-          ROMs
-        </a>
-        <a className="mobile-dock-link" data-section="gcams" href="#gcams">
-          GCams
-        </a>
-        <a className="mobile-dock-link" data-section="source-pulse" href="#source-pulse">
-          Pulse
-        </a>
-        <a className="mobile-dock-link" data-section="builder-notes" href="#builder-notes">
-          Notes
-        </a>
-        <a className="mobile-dock-link" data-section="devices" href="#devices">
-          Devices
-        </a>
+        {mobileDockItems.map((item) => (
+          <a
+            aria-label={item.label}
+            className="mobile-dock-link"
+            data-section={item.section}
+            href={item.href}
+            key={item.section}
+          >
+            <span className="mobile-dock-icon">
+              <DockGlyph section={item.section} />
+            </span>
+            <span className="mobile-dock-text">{item.label}</span>
+          </a>
+        ))}
       </nav>
     </div>
   )
