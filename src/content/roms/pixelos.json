@@ -4,18 +4,18 @@
   "version": "v16.2",
   "status": "Stable lane",
   "branch": "Pixel track",
-  "tagline": "Minimal presentation, quick readability, and easy release scanning.",
+  "tagline": "Clean, minimal release notes for users who just want the essentials fast.",
   "buildDate": "March 19, 2026",
   "devices": ["Nothing Phone 2a", "Nothing Phone 2a Plus"],
   "channelLabel": "Telegram release feed",
   "telegramUrl": "https://t.me/NothingPhone2aUpdates/185",
-  "maintenanceNote": "Current lane: concise stable updates",
+  "maintenanceNote": "Current focus: concise stable updates",
   "accent": "#3da3ff",
   "accentSoft": "rgba(61, 163, 255, 0.14)",
   "accentStrong": "#0b71c7",
   "highlights": [
-    "Clean layout supports shorter notes without looking sparse.",
-    "Ideal for stable release communication and small incremental drops.",
+    "Shorter notes stay readable without looking empty or unfinished.",
+    "Fits stable release communication and smaller incremental drops well.",
     "Device targeting stays clear even on narrower mobile screens."
   ],
   "changelog": [

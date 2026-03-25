@@ -4,7 +4,7 @@
   "version": "v3.8",
   "status": "Current build",
   "branch": "QPR refresh",
-  "tagline": "Smooth, polished, and tuned around a cleaner visual cadence.",
+  "tagline": "A polished Android 16 build with extra attention on feel and consistency.",
   "buildDate": "March 21, 2026",
   "devices": ["Nothing Phone 2a", "Nothing Phone 2a Plus"],
   "channelLabel": "Telegram release feed",
@@ -19,14 +19,14 @@
       "url": "https://t.me/NothingPhone2aUpdates/181"
     }
   ],
-  "maintenanceNote": "Current lane: visual polish and consistency",
+  "maintenanceNote": "Current focus: polish and consistency",
   "accent": "#17b68e",
   "accentSoft": "rgba(23, 182, 142, 0.14)",
   "accentStrong": "#0f8c6c",
   "highlights": [
-    "Focused on a refined day-to-day feel without overloading the UI.",
+    "Built around a refined day-to-day feel without overloading the UI.",
     "Animation and surface tuning keep the build feeling quick and light.",
-    "Clear version framing makes it easy to compare against other active ROMs."
+    "Separate pacman and pacmanpro release posts stay easy to reach."
   ],
   "changelog": [
     "Refined motion and surface polish for a smoother day-to-day feel.",

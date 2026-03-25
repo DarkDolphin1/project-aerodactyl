@@ -4,19 +4,19 @@
   "version": "v3.8",
   "status": "Active lane",
   "branch": "Feature track",
-  "tagline": "A broader feature set presented without sacrificing clarity.",
+  "tagline": "Feature-heavy updates presented without turning release notes into a mess.",
   "buildDate": "March 20, 2026",
   "devices": ["Nothing Phone 2a", "Nothing Phone 2a Plus"],
   "channelLabel": "Telegram release feed",
   "telegramUrl": "https://t.me/NothingPhone2aUpdates/186",
-  "maintenanceNote": "Current lane: feature validation across pacman and pacmanpro",
+  "maintenanceNote": "Current focus: feature validation",
   "accent": "#6c7cff",
   "accentSoft": "rgba(108, 124, 255, 0.14)",
   "accentStrong": "#4557e6",
   "highlights": [
-    "Designed for a denser set of changes while keeping release notes readable.",
-    "Per-ROM tracking helps feature-heavy builds stay separated from the rest.",
-    "Side metadata gives testers a quick view of date, target device, and lane."
+    "Designed for denser change sets while keeping release notes readable.",
+    "Per-ROM tracking keeps feature-heavy builds separate from the rest of the list.",
+    "Side metadata gives testers a quick read on date, devices, and release source."
   ],
   "changelog": [
     "Grouped the current feature-track work into one clearer release lane.",
