@@ -5,9 +5,9 @@ import type { GcamEntry, SiteContentData } from './types'
 export { roms }
 
 export const quickStats = [
-  { label: 'ROMs tracked', value: `${roms.length} ROMs` },
-  { label: 'Supported devices', value: '2 devices' },
-  { label: 'Release flow', value: 'Per-ROM tracking' },
+  { label: 'Active ROMs', value: `${roms.length} lanes` },
+  { label: 'Devices covered', value: '2 shared targets' },
+  { label: 'Release model', value: 'Per-ROM tracking' },
 ]
 
 const siteContent = siteContentData as SiteContentData

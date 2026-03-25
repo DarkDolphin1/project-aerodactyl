@@ -200,10 +200,10 @@ function App() {
 
         <div className="topbar-actions">
           <a className="status-badge topbar-button topbar-button-secondary" href="#top">
-            Release Hub
+            Latest Drops
           </a>
           <a className="pill-link topbar-button topbar-button-primary" href="#rom-directory">
-            Open ROM Directory
+            Browse ROMs
           </a>
         </div>
       </header>
@@ -213,14 +213,14 @@ function App() {
           <section className="hero panel" data-hub-accent="true" style={featuredStyle}>
             <div className="hero-copy">
               <div className="hero-kicker">
-                <span className="tonal-chip">Nothing Phone 2a / 2a Plus</span>
+                <span className="tonal-chip">Nothing Phone 2a + 2a Plus</span>
               </div>
 
-              <p className="eyebrow">Project Aerodactyl Release Hub</p>
-              <h1>Nothing Phone 2a and 2a Plus ROMs, in one place.</h1>
+              <p className="eyebrow">Project Aerodactyl</p>
+              <h1>A cleaner release home for the Nothing Phone 2a lineup.</h1>
               <p className="lede">
-                Builds, release notes, source updates, and the community hub,
-                organized to stay clear at a glance.
+                Track current ROM builds, jump straight to release posts, and catch source-side
+                movement without digging through chat history.
               </p>
 
               <div className="hero-actions">
@@ -242,7 +242,7 @@ function App() {
                 ) : null}
               </div>
 
-              <p className="hero-updated">Last updated: {siteLastUpdated}</p>
+              <p className="hero-updated">Updated {siteLastUpdated}</p>
 
               <div className="stat-grid" aria-label="Project highlights">
                 {quickStats.map((stat) => (
@@ -262,7 +262,7 @@ function App() {
                 style={featuredStyle}
               >
                 <div className="feature-topline">
-                  <span className="feature-badge">Spotlight Build</span>
+                  <span className="feature-badge">Spotlight</span>
                   <span className="feature-version">{featuredRom.version}</span>
                 </div>
 
@@ -287,9 +287,7 @@ function App() {
                     target="_blank"
                     rel="noreferrer"
                   >
-                    {featuredRomLinks.length > 1
-                      ? `Open ${featuredRomLinks[0].label}`
-                      : 'Open Release Post'}
+                    {featuredRomLinks.length > 1 ? `Open ${featuredRomLinks[0].label}` : 'Open release post'}
                   </a>
                 ) : (
                   <span className="feature-link is-disabled">Telegram Release Link</span>
@@ -298,12 +296,12 @@ function App() {
 
               <ReactivePanel as="article" className="community-card panel" intensity={0.45}>
                 <div className="feature-topline">
-                  <span className="feature-badge">Community Space</span>
+                  <span className="feature-badge">Community</span>
                   <span className="ghost-pill">Telegram</span>
                 </div>
 
-                <h2>Join the device community.</h2>
-                <p>One shared Telegram space for updates, support, screenshots, and feedback.</p>
+                <h2>Need the wider device chat?</h2>
+                <p>Use the shared Telegram group for support, screenshots, help, and quick feedback.</p>
 
                 {communityHubHasLink ? (
                   <a
@@ -324,10 +322,10 @@ function App() {
           <section className="latest-build-strip panel" aria-label="Latest ROM builds">
             <div className="latest-build-strip-head">
               <div>
-                <p className="eyebrow">Pinned Builds</p>
-                <h2>Newest ROM drops across the hub.</h2>
+                <p className="eyebrow">Pinned builds</p>
+                <h2>Fresh drops.</h2>
               </div>
-              <span>Sorted by current build date</span>
+              <span>Newest public builds first</span>
             </div>
 
             <div className="latest-build-grid">
@@ -368,8 +366,8 @@ function App() {
           <section className="home-rail">
             <div className="latest-updates panel">
               <div className="latest-updates-head">
-                <strong>Latest updates</strong>
-                <span>Auto-sorted across the whole hub</span>
+                <strong>Fresh signals</strong>
+                <span>ROMs, sources, and builder notes</span>
               </div>
               <div className="latest-updates-list">
                 {latestUpdates.map((entry) => (
@@ -384,8 +382,8 @@ function App() {
 
             <div className="directory-preview panel" id="quick-directory">
               <div className="latest-updates-head">
-                <strong>ROM quick jump</strong>
-                <span>Jump straight to a ROM</span>
+                <strong>ROM lanes</strong>
+                <span>Jump to the build you want</span>
               </div>
               <div className="directory-preview-grid">
                 {roms.map((rom) => {
@@ -423,10 +421,10 @@ function App() {
           >
             <div className="section-banner-copy">
               <p className="eyebrow">01 / ROM Directory</p>
-              <h2>Every active ROM, easy to scan and easy to trust.</h2>
+              <h2>Pick a ROM and get to the right build fast.</h2>
               <p>
-                Jump straight to the build you want without mixing versions,
-                devices, release links, or builder context.
+                Separate lanes keep versions, devices, release links, and maintainer notes from
+                bleeding into each other.
               </p>
             </div>
 
@@ -602,7 +600,7 @@ function App() {
             <div className="support-copy">
               <div>
                 <p className="eyebrow">02 / GCams</p>
-                <h2>Current supported GCams and config files.</h2>
+                <h2>Supported GCams and config files.</h2>
               </div>
               <p>
                 Publish the currently recommended GCam builds and XML configs in one place so
@@ -667,7 +665,7 @@ function App() {
               <div className="insight-head">
                 <div>
                   <p className="eyebrow">03 / Source Pulse</p>
-                  <h2>Recent source work, shaped into something people can read</h2>
+                  <h2>Recent source work, minus the commit spam</h2>
                 </div>
                 <p>
                   Surface the important framework, device tree, kernel, and
@@ -707,7 +705,7 @@ function App() {
               <div className="insight-head">
                 <div>
                   <p className="eyebrow">04 / Builder Notes</p>
-                  <h2>Builder-side progress with room for actual release context</h2>
+                  <h2>Builder-side notes that users can actually follow</h2>
                 </div>
                 <p>
                   Keep community-facing notes readable while still making room
@@ -740,9 +738,9 @@ function App() {
           >
             <div className="support-copy">
               <div>
-                <p className="eyebrow">05 / Device Coverage</p>
-                <h2>Focused, expandable, and built around the 2a family.</h2>
-              </div>
+                  <p className="eyebrow">05 / Device Coverage</p>
+                  <h2>Both Nothing Phone 2a variants, tracked together.</h2>
+                </div>
               <p>
                 The structure is ready for more ROMs, more devices, and a
                 cleaner release workflow as the project expands.
