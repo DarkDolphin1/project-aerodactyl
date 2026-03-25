@@ -3,6 +3,7 @@ import './App.css'
 import { ReactivePanel } from './components/ReactivePanel'
 import { Reveal } from './components/Reveal'
 import { useSceneMotion } from './hooks/useSceneMotion'
+import type { ReleaseLink, RomEntry } from './data/types'
 import {
   builderUpdates,
   communityHub,
@@ -27,10 +28,21 @@ function hasReleaseLink(url: string) {
   return Boolean(url) && url.startsWith('https://t.me/')
 }
 
+function getReleaseLinks(rom: RomEntry): ReleaseLink[] {
+  if (rom.telegramLinks?.length) {
+    return rom.telegramLinks.filter((entry) => hasReleaseLink(entry.url))
+  }
+
+  return hasReleaseLink(rom.telegramUrl)
+    ? [{ label: 'Release post', url: rom.telegramUrl }]
+    : []
+}
+
 function App() {
   const sceneRef = useSceneMotion()
   const featuredRom = roms.find((rom) => rom.name === 'Evolution X') ?? roms[0]
-  const featuredRomHasLink = hasReleaseLink(featuredRom.telegramUrl)
+  const featuredRomLinks = getReleaseLinks(featuredRom)
+  const featuredRomHasLink = featuredRomLinks.length > 0
   const communityHubHasLink = hasReleaseLink(communityHub.telegramUrl)
 
   const featuredStyle: AccentStyle = {
@@ -182,11 +194,13 @@ function App() {
                 {featuredRomHasLink ? (
                   <a
                     className="feature-link"
-                    href={featuredRom.telegramUrl}
+                    href={featuredRomLinks[0].url}
                     target="_blank"
                     rel="noreferrer"
                   >
-                    Open Release Post
+                    {featuredRomLinks.length > 1
+                      ? `Open ${featuredRomLinks[0].label}`
+                      : 'Open Release Post'}
                   </a>
                 ) : (
                   <span className="feature-link is-disabled">Telegram Release Link</span>
@@ -260,7 +274,8 @@ function App() {
 
         <section className="rom-sections">
           {roms.map((rom, index) => {
-            const romHasLink = hasReleaseLink(rom.telegramUrl)
+            const romLinks = getReleaseLinks(rom)
+            const romHasLink = romLinks.length > 0
             const accentStyle: AccentStyle = {
               '--accent': rom.accent,
               '--accent-soft': rom.accentSoft,
@@ -298,9 +313,11 @@ function App() {
 
                       <div className="card-actions">
                         {romHasLink ? (
-                          <a href={rom.telegramUrl} target="_blank" rel="noreferrer">
-                            Telegram Release
-                          </a>
+                          romLinks.map((link) => (
+                            <a href={link.url} key={link.url} target="_blank" rel="noreferrer">
+                              {romLinks.length > 1 ? link.label : 'Telegram Release'}
+                            </a>
+                          ))
                         ) : (
                           <span className="feature-link is-disabled card-action-disabled">
                             Telegram Release

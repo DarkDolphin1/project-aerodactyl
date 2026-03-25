@@ -1,3 +1,8 @@
+export type ReleaseLink = {
+  label: string
+  url: string
+}
+
 export type RomEntry = {
   order: number
   name: string
@@ -9,6 +14,7 @@ export type RomEntry = {
   devices: string[]
   channelLabel: string
   telegramUrl: string
+  telegramLinks?: ReleaseLink[]
   maintenanceNote: string
   accent: string
   accentSoft: string

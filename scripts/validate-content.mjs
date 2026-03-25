@@ -79,6 +79,25 @@ function validateRom(rom, fileName, seenOrders, seenNames) {
   )
 
   validateTelegramUrl(rom.telegramUrl, `${fileName}: telegramUrl`)
+
+  if (rom.telegramLinks !== undefined) {
+    assert(Array.isArray(rom.telegramLinks), `${fileName}: telegramLinks must be an array`)
+    rom.telegramLinks.forEach((entry, index) => {
+      assert(
+        entry && typeof entry === 'object',
+        `${fileName}: telegramLinks[${index}] must be an object`,
+      )
+      assert(
+        isNonEmptyString(entry.label),
+        `${fileName}: telegramLinks[${index}].label is required`,
+      )
+      validateTelegramUrl(entry.url, `${fileName}: telegramLinks[${index}].url`)
+      assert(
+        isNonEmptyString(entry.url),
+        `${fileName}: telegramLinks[${index}].url is required`,
+      )
+    })
+  }
 }
 
 function validateSiteContent(siteContent) {

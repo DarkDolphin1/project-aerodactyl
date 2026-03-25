@@ -8,7 +8,7 @@
   "buildDate": "March 22, 2026",
   "devices": ["Nothing Phone 2a", "Nothing Phone 2a Plus"],
   "channelLabel": "Telegram release feed",
-  "telegramUrl": "",
+  "telegramUrl": "https://t.me/NothingPhone2aUpdates/183",
   "maintenanceNote": "Current lane: stability-first release cycle",
   "accent": "#ff7a62",
   "accentSoft": "rgba(255, 122, 98, 0.14)",
