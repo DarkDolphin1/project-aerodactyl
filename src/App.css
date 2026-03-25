@@ -958,6 +958,109 @@
   max-width: 54ch;
 }
 
+.rom-filter-bar {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-top: 1.3rem;
+  margin-bottom: 1.15rem;
+}
+
+.rom-search {
+  display: grid;
+  gap: 0.5rem;
+  min-width: min(100%, 24rem);
+}
+
+.rom-search span {
+  color: var(--muted);
+  font-size: 0.76rem;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+}
+
+.rom-search input {
+  width: 100%;
+  min-height: 3rem;
+  padding: 0.9rem 1rem;
+  border: 1px solid var(--outline);
+  border-radius: 1rem;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.04), transparent 18%),
+    rgba(255, 255, 255, 0.03);
+  color: var(--text);
+  font: inherit;
+  outline: none;
+  transition:
+    border-color 180ms ease,
+    box-shadow 180ms ease,
+    background-color 180ms ease;
+}
+
+.rom-search input::placeholder {
+  color: color-mix(in srgb, var(--muted) 84%, transparent);
+}
+
+.rom-search input:focus {
+  border-color: color-mix(in srgb, var(--hub-accent, #5a72ff) 38%, var(--outline));
+  box-shadow: 0 0 0 3px
+    color-mix(in srgb, var(--hub-accent-soft, rgba(90, 114, 255, 0.16)) 70%, transparent);
+}
+
+.rom-filter-pills {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: 0.6rem;
+}
+
+.rom-filter-pills button {
+  min-height: 2.7rem;
+  padding: 0.7rem 0.95rem;
+  border: 1px solid var(--outline);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.03);
+  color: var(--muted);
+  font: inherit;
+  font-size: 0.86rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition:
+    color 180ms ease,
+    background-color 180ms ease,
+    border-color 180ms ease,
+    transform 180ms var(--spring);
+}
+
+.rom-filter-pills button:hover {
+  color: var(--text);
+  transform: translateY(-1px);
+}
+
+.rom-filter-pills button.is-active {
+  color: var(--text);
+  border-color: color-mix(in srgb, var(--hub-accent, #5a72ff) 34%, var(--outline));
+  background:
+    linear-gradient(135deg, color-mix(in srgb, var(--hub-accent-soft, rgba(90, 114, 255, 0.16)) 72%, rgba(255, 255, 255, 0.04)), rgba(255, 255, 255, 0.03)),
+    rgba(255, 255, 255, 0.04);
+  box-shadow: 0 0 0 1px color-mix(in srgb, var(--hub-accent, #5a72ff) 10%, transparent);
+}
+
+.rom-filter-empty {
+  display: grid;
+  gap: 0.35rem;
+  margin-top: 0.8rem;
+  padding: 1rem 1.05rem;
+  border: 1px dashed var(--outline);
+  border-radius: 1rem;
+  color: var(--muted);
+}
+
+.rom-filter-empty strong {
+  color: var(--text);
+}
+
 .rom-directory-grid,
 .support-grid,
 .expansion-grid,
@@ -1328,6 +1431,24 @@
   transform: scaleX(1);
 }
 
+.scene-root[data-active-section='rom-directory'] .nav-links a[data-section='rom-directory'],
+.scene-root[data-active-section='gcams'] .nav-links a[data-section='gcams'],
+.scene-root[data-active-section='source-pulse'] .nav-links a[data-section='source-pulse'],
+.scene-root[data-active-section='builder-notes'] .nav-links a[data-section='builder-notes'],
+.scene-root[data-active-section='devices'] .nav-links a[data-section='devices'] {
+  color: var(--text);
+}
+
+.scene-root[data-active-section='rom-directory'] .nav-links a[data-section='rom-directory']::after,
+.scene-root[data-active-section='gcams'] .nav-links a[data-section='gcams']::after,
+.scene-root[data-active-section='source-pulse'] .nav-links a[data-section='source-pulse']::after,
+.scene-root[data-active-section='builder-notes'] .nav-links a[data-section='builder-notes']::after,
+.scene-root[data-active-section='devices'] .nav-links a[data-section='devices']::after {
+  opacity: 1;
+  transform: scaleX(1);
+  background: color-mix(in srgb, var(--hub-accent, #5a72ff) 56%, rgba(255, 255, 255, 0.2));
+}
+
 .pill-link:hover,
 .action-primary:hover,
 .action-secondary:hover,
@@ -1421,6 +1542,7 @@
   }
 
   .topbar-actions,
+  .rom-filter-bar,
   .insight-head,
   .support-copy,
   .rom-section-header {
@@ -1493,6 +1615,15 @@
   .timeline-topline {
     align-items: flex-start;
     flex-direction: column;
+  }
+
+  .rom-search,
+  .rom-filter-pills {
+    width: 100%;
+  }
+
+  .rom-filter-pills {
+    justify-content: flex-start;
   }
 
   .mobile-dock {

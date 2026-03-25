@@ -1,4 +1,4 @@
-import type { CSSProperties } from 'react'
+import { useMemo, useState, type CSSProperties } from 'react'
 import './App.css'
 import { CommentsThread } from './components/CommentsThread'
 import { ReactivePanel } from './components/ReactivePanel'
@@ -116,10 +116,34 @@ const mobileDockItems: Array<{ href: string; label: string; section: DockSection
 
 function App() {
   const sceneRef = useSceneMotion()
+  const [romQuery, setRomQuery] = useState('')
+  const [deviceFilter, setDeviceFilter] = useState<'all' | 'pacman' | 'pacmanpro'>('all')
   const featuredRom = roms.find((rom) => rom.name === 'Evolution X') ?? roms[0]
   const featuredRomLinks = getReleaseLinks(featuredRom)
   const featuredRomHasLink = featuredRomLinks.length > 0
   const communityHubHasLink = hasReleaseLink(communityHub.telegramUrl)
+  const filteredRoms = useMemo(() => {
+    const query = romQuery.trim().toLowerCase()
+
+    return roms.filter((rom) => {
+      const matchesQuery =
+        query.length === 0 ||
+        rom.name.toLowerCase().includes(query) ||
+        rom.version.toLowerCase().includes(query) ||
+        rom.branch.toLowerCase().includes(query) ||
+        rom.status.toLowerCase().includes(query)
+
+      const matchesDevice =
+        deviceFilter === 'all' ||
+        rom.devices.some((device) =>
+          deviceFilter === 'pacman'
+            ? device.toLowerCase().includes('2a') && !device.toLowerCase().includes('plus')
+            : device.toLowerCase().includes('plus'),
+        )
+
+      return matchesQuery && matchesDevice
+    })
+  }, [deviceFilter, romQuery])
 
   const featuredStyle: AccentStyle = {
     '--accent': featuredRom.accent,
@@ -165,11 +189,11 @@ function App() {
         </a>
 
         <nav className="nav-links" aria-label="Primary">
-          <a href="#rom-directory">ROMs</a>
-          <a href="#gcams">GCams</a>
-          <a href="#source-pulse">Source Pulse</a>
-          <a href="#builder-notes">Builder Notes</a>
-          <a href="#devices">Devices</a>
+          <a data-section="rom-directory" href="#rom-directory">ROMs</a>
+          <a data-section="gcams" href="#gcams">GCams</a>
+          <a data-section="source-pulse" href="#source-pulse">Source Pulse</a>
+          <a data-section="builder-notes" href="#builder-notes">Builder Notes</a>
+          <a data-section="devices" href="#devices">Devices</a>
         </nav>
 
         <div className="topbar-actions">
@@ -358,8 +382,44 @@ function App() {
               </p>
             </div>
 
+            <div className="rom-filter-bar" aria-label="ROM filters">
+              <label className="rom-search">
+                <span>Search</span>
+                <input
+                  onChange={(event) => setRomQuery(event.target.value)}
+                  placeholder="Search ROMs, status, branch, or version"
+                  type="search"
+                  value={romQuery}
+                />
+              </label>
+
+              <div className="rom-filter-pills" role="tablist" aria-label="Device filters">
+                <button
+                  className={deviceFilter === 'all' ? 'is-active' : undefined}
+                  onClick={() => setDeviceFilter('all')}
+                  type="button"
+                >
+                  All devices
+                </button>
+                <button
+                  className={deviceFilter === 'pacman' ? 'is-active' : undefined}
+                  onClick={() => setDeviceFilter('pacman')}
+                  type="button"
+                >
+                  2a / pacman
+                </button>
+                <button
+                  className={deviceFilter === 'pacmanpro' ? 'is-active' : undefined}
+                  onClick={() => setDeviceFilter('pacmanpro')}
+                  type="button"
+                >
+                  2a Plus / pacmanpro
+                </button>
+              </div>
+            </div>
+
             <div className="rom-directory-grid">
-              {roms.map((rom) => {
+              {filteredRoms.map((rom) => {
                 const accentStyle: AccentStyle = {
                   '--accent': rom.accent,
                   '--accent-soft': rom.accentSoft,
@@ -382,11 +442,18 @@ function App() {
                 )
               })}
             </div>
+
+            {filteredRoms.length === 0 ? (
+              <div className="rom-filter-empty">
+                <strong>No ROMs match that filter yet.</strong>
+                <span>Try clearing the search or switching the selected device.</span>
+              </div>
+            ) : null}
           </section>
         </Reveal>
 
         <section className="rom-sections">
-          {roms.map((rom, index) => {
+          {filteredRoms.map((rom, index) => {
             const romLinks = getReleaseLinks(rom)
             const romHasLink = romLinks.length > 0
             const accentStyle: AccentStyle = {
