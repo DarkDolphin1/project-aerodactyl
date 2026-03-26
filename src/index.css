@@ -36,6 +36,25 @@
   color-scheme: dark;
 }
 
+:root[data-theme='light'] {
+  --primary: #172033;
+  --primary-strong: #0e1524;
+  --secondary: #516078;
+  --outline: rgba(78, 96, 128, 0.16);
+  --outline-strong: rgba(78, 96, 128, 0.28);
+  --text: #111827;
+  --muted: #5f6f86;
+  --glass-white: rgba(255, 255, 255, 0.55);
+  --surface-primary: rgba(255, 255, 255, 0.78);
+  --surface: rgba(255, 255, 255, 0.9);
+  --surface-2: rgba(242, 246, 252, 0.88);
+  --surface-nav: rgba(255, 255, 255, 0.82);
+  --bg: linear-gradient(180deg, #eef4ff 0%, #f8fbff 100%);
+  --shadow-soft: 0 16px 40px rgba(71, 92, 130, 0.12);
+  --shadow-large: 0 28px 72px rgba(71, 92, 130, 0.18);
+  color-scheme: light;
+}
+
 *,
 *::before,
 *::after {
@@ -57,6 +76,10 @@ body {
   color: var(--text);
   background-color: #000;
   background: var(--bg);
+}
+
+:root[data-theme='light'] body {
+  background-color: #f4f7fb;
 }
 
 a {
@@ -84,4 +107,8 @@ img {
 
 ::selection {
   background: rgba(255, 255, 255, 0.18);
+}
+
+:root[data-theme='light'] ::selection {
+  background: rgba(58, 96, 255, 0.18);
 }

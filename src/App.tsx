@@ -1,4 +1,4 @@
-import { useMemo, useState, type CSSProperties } from 'react'
+import { useEffect, useMemo, useState, type CSSProperties } from 'react'
 import './App.css'
 import { CommentsThread } from './components/CommentsThread'
 import { ReactivePanel } from './components/ReactivePanel'
@@ -21,6 +21,8 @@ import {
 } from './data/siteContent'
 
 type DockSection = 'top' | 'rom-directory' | 'gcams' | 'source-pulse' | 'builder-notes' | 'devices'
+type ThemeMode = 'dark' | 'light'
+type PerformanceMode = 'auto' | 'lite'
 
 type AccentStyle = CSSProperties & {
   '--accent'?: string
@@ -121,7 +123,27 @@ const mobileDockItems: Array<{ href: string; label: string; section: DockSection
 ]
 
 function App() {
-  const sceneRef = useSceneMotion()
+  const [themeMode, setThemeMode] = useState<ThemeMode>(() => {
+    if (typeof window === 'undefined') {
+      return 'dark'
+    }
+
+    const stored = window.localStorage.getItem('project-aerodactyl-theme')
+    if (stored === 'dark' || stored === 'light') {
+      return stored
+    }
+
+    return window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark'
+  })
+  const [performanceMode, setPerformanceMode] = useState<PerformanceMode>(() => {
+    if (typeof window === 'undefined') {
+      return 'auto'
+    }
+
+    const stored = window.localStorage.getItem('project-aerodactyl-performance')
+    return stored === 'lite' ? 'lite' : 'auto'
+  })
+  const sceneRef = useSceneMotion(performanceMode)
   const [romQuery, setRomQuery] = useState('')
   const [deviceFilter, setDeviceFilter] = useState<'all' | 'pacman' | 'pacmanpro'>('all')
   const featuredRom = roms.find((rom) => rom.name === 'Evolution X') ?? roms[0]
@@ -177,6 +199,16 @@ function App() {
     '--accent-strong': '#c0ffeb',
   }
 
+  useEffect(() => {
+    document.documentElement.dataset.theme = themeMode
+    document.documentElement.style.colorScheme = themeMode
+    window.localStorage.setItem('project-aerodactyl-theme', themeMode)
+  }, [themeMode])
+
+  useEffect(() => {
+    window.localStorage.setItem('project-aerodactyl-performance', performanceMode)
+  }, [performanceMode])
+
   return (
     <div className="app-shell scene-root" ref={sceneRef}>
       <div className="interactive-scene" aria-hidden="true">
@@ -205,6 +237,24 @@ function App() {
         </nav>
 
         <div className="topbar-actions">
+          <div className="topbar-controls" aria-label="Display controls">
+            <button
+              aria-pressed={themeMode === 'light'}
+              className={`control-toggle ${themeMode === 'light' ? 'is-active' : ''}`.trim()}
+              onClick={() => setThemeMode(themeMode === 'light' ? 'dark' : 'light')}
+              type="button"
+            >
+              {themeMode === 'light' ? 'Light mode' : 'Dark mode'}
+            </button>
+            <button
+              aria-pressed={performanceMode === 'lite'}
+              className={`control-toggle ${performanceMode === 'lite' ? 'is-active' : ''}`.trim()}
+              onClick={() => setPerformanceMode(performanceMode === 'lite' ? 'auto' : 'lite')}
+              type="button"
+            >
+              {performanceMode === 'lite' ? 'Low lag on' : 'Low lag off'}
+            </button>
+          </div>
           <a className="status-badge topbar-button topbar-button-secondary" href="#top">
             Latest Drops
           </a>

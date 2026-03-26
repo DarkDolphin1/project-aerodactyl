@@ -11,7 +11,7 @@ type NavigatorPerformanceHints = Navigator & {
   deviceMemory?: number
 }
 
-export function useSceneMotion() {
+export function useSceneMotion(performanceMode: 'auto' | 'lite' = 'auto') {
   const ref = useRef<HTMLDivElement | null>(null)
 
   useEffect(() => {
@@ -63,6 +63,11 @@ export function useSceneMotion() {
       node.dataset.inputMode = isCoarsePointer() ? 'coarse' : 'fine'
     }
     const applyPerformanceProfile = () => {
+      if (performanceMode === 'lite') {
+        node.dataset.performance = 'lite'
+        return
+      }
+
       if (isCoarsePointer()) {
         node.dataset.performance = 'lite'
         return
@@ -284,7 +289,7 @@ export function useSceneMotion() {
       prefersCoarsePointer.removeEventListener('change', handleModeChange)
       connection?.removeEventListener?.('change', handleModeChange)
     }
-  }, [])
+  }, [performanceMode])
 
   return ref
 }

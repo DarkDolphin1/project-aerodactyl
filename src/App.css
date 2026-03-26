@@ -182,6 +182,44 @@
   gap: 0.75rem;
 }
 
+.topbar-controls {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+}
+
+.control-toggle {
+  min-height: 2.4rem;
+  padding: 0.55rem 0.8rem;
+  border: 1px solid var(--outline);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.035);
+  color: var(--muted);
+  font: inherit;
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.01em;
+  cursor: pointer;
+  transition:
+    color 180ms ease,
+    border-color 180ms ease,
+    background-color 180ms ease,
+    transform 180ms var(--spring);
+}
+
+.control-toggle:hover {
+  color: var(--text);
+  transform: translateY(-1px);
+}
+
+.control-toggle.is-active {
+  color: var(--text);
+  border-color: color-mix(in srgb, var(--hub-accent, #5a72ff) 30%, var(--outline));
+  background:
+    linear-gradient(135deg, color-mix(in srgb, var(--hub-accent-soft, rgba(90, 114, 255, 0.16)) 72%, rgba(255, 255, 255, 0.04)), rgba(255, 255, 255, 0.03)),
+    rgba(255, 255, 255, 0.04);
+}
+
 .topbar-button {
   min-width: 10rem;
   min-height: 2.65rem;
@@ -191,6 +229,103 @@
   font-weight: 700;
   letter-spacing: -0.01em;
   white-space: nowrap;
+}
+
+:root[data-theme='light'] .interactive-scene {
+  background:
+    radial-gradient(circle at 50% 6%, rgba(82, 112, 255, 0.08), transparent 30%),
+    #eff5ff url('/scene-backdrop.svg') center / cover no-repeat;
+}
+
+:root[data-theme='light'] .topbar {
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.78), rgba(244, 248, 255, 0.92));
+  box-shadow: 0 16px 36px rgba(81, 101, 138, 0.12);
+}
+
+:root[data-theme='light'] .brand-mark {
+  background:
+    linear-gradient(135deg, rgba(255, 255, 255, 0.9), rgba(226, 235, 249, 0.88));
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.82),
+    0 10px 22px rgba(81, 101, 138, 0.14);
+}
+
+:root[data-theme='light'] .status-badge,
+:root[data-theme='light'] .tonal-chip,
+:root[data-theme='light'] .chip-tonal,
+:root[data-theme='light'] .feature-badge,
+:root[data-theme='light'] .chip,
+:root[data-theme='light'] .ghost-pill,
+:root[data-theme='light'] .feature-meta span,
+:root[data-theme='light'] .version-pill,
+:root[data-theme='light'] .feature-version,
+:root[data-theme='light'] .control-toggle,
+:root[data-theme='light'] .rom-filter-pills button,
+:root[data-theme='light'] .rom-search input,
+:root[data-theme='light'] .mobile-dock-link {
+  background: rgba(255, 255, 255, 0.7);
+  color: var(--text);
+}
+
+:root[data-theme='light'] .topbar-button-primary,
+:root[data-theme='light'] .pill-link,
+:root[data-theme='light'] .action-primary,
+:root[data-theme='light'] .feature-link,
+:root[data-theme='light'] .card-actions a {
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.92), rgba(234, 241, 251, 0.92));
+  color: #152033;
+  box-shadow: 0 10px 24px rgba(81, 101, 138, 0.14);
+}
+
+:root[data-theme='light'] .topbar-button-secondary,
+:root[data-theme='light'] .action-secondary {
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.82), rgba(242, 246, 252, 0.92));
+  color: var(--text);
+}
+
+:root[data-theme='light'] .panel,
+:root[data-theme='light'] .stat-card,
+:root[data-theme='light'] .latest-build-card,
+:root[data-theme='light'] .hero-feature-card,
+:root[data-theme='light'] .community-card,
+:root[data-theme='light'] .latest-updates,
+:root[data-theme='light'] .latest-update-item,
+:root[data-theme='light'] .directory-preview,
+:root[data-theme='light'] .directory-preview-item,
+:root[data-theme='light'] .section-banner,
+:root[data-theme='light'] .rom-directory-item,
+:root[data-theme='light'] .rom-section,
+:root[data-theme='light'] .rom-detail-card,
+:root[data-theme='light'] .rom-changelog,
+:root[data-theme='light'] .comments-thread,
+:root[data-theme='light'] .timeline-body,
+:root[data-theme='light'] .update-card,
+:root[data-theme='light'] .device-card,
+:root[data-theme='light'] .expansion-card,
+:root[data-theme='light'] .gcam-card,
+:root[data-theme='light'] .support-panel,
+:root[data-theme='light'] .insight-panel,
+:root[data-theme='light'] .mobile-dock {
+  border-color: rgba(78, 96, 128, 0.14);
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.86), rgba(244, 248, 255, 0.92));
+  box-shadow: 0 16px 34px rgba(81, 101, 138, 0.12);
+}
+
+:root[data-theme='light'] .panel::before,
+:root[data-theme='light'] .reactive-panel::before,
+:root[data-theme='light'] .panel.reactive-panel::before {
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.42), transparent 18%),
+    radial-gradient(circle at top left, rgba(91, 119, 255, 0.08), transparent 24%);
+}
+
+:root[data-theme='light'] .interactive-scene,
+:root[data-theme='light'] .scene-root[data-performance='lite'] .interactive-scene {
+  background-color: #eff5ff;
 }
 
 .status-badge,
