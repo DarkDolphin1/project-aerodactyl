@@ -99,13 +99,17 @@ function App() {
           </span>
         </a>
 
-        <nav className="nav-links" aria-label="Primary">
-          <a href="#rom-directory">ROMs</a>
-          <a href="#gcams">GCams</a>
-          <a href="#source-pulse">Source Pulse</a>
-          <a href="#builder-notes">Builder Notes</a>
-          <a href="#devices">Devices</a>
-        </nav>
+        <div className="topbar-center">
+          <nav className="nav-shell" aria-label="Primary">
+            <div className="nav-links">
+              <a href="#rom-directory">ROMs</a>
+              <a href="#gcams">GCams</a>
+              <a href="#source-pulse">Source Pulse</a>
+              <a href="#builder-notes">Builder Notes</a>
+              <a href="#devices">Devices</a>
+            </div>
+          </nav>
+        </div>
 
         <div className="topbar-actions">
           <a className="status-badge topbar-button topbar-button-secondary" href="#top">
@@ -121,16 +125,20 @@ function App() {
         <Reveal>
           <section className="hero panel" data-hub-accent="true" style={featuredStyle}>
             <div className="hero-intro">
-              <p className="eyebrow">Nothing Phone 2a / 2a Plus release hub</p>
-              <h1>Built for the Nothing Phone 2a custom ROM scene.</h1>
+              <div className="hero-kicker-row">
+                <p className="eyebrow">Nothing Phone 2a / 2a Plus release hub</p>
+                <span className="hero-kicker-chip">Telegram-linked updates</span>
+              </div>
+              <h1>A calmer release surface for the Nothing Phone 2a lineup.</h1>
               <p className="lede">
-                Follow current releases, community links, source movement, and
-                shared device updates across pacman and pacmanpro.
+                Follow current releases, community links, source movement, and shared device
+                updates across pacman and pacmanpro without bouncing between chats and posts.
               </p>
-              <p className="hero-caption">
-                A staging concept aimed at a more product-like landing page with
-                stronger hierarchy and a clearer first impression.
-              </p>
+              <div className="hero-signal-row" aria-label="Project signals">
+                <span className="hero-signal">Current public builds</span>
+                <span className="hero-signal">Source-side movement</span>
+                <span className="hero-signal">Shared device community</span>
+              </div>
 
               <div className="hero-actions">
                 <a className="action-primary" href="#rom-directory">
@@ -241,8 +249,8 @@ function App() {
           <section className="landing-strip">
             <div className="directory-preview panel" id="quick-directory">
               <div className="latest-updates-head">
-                <strong>Browse ROM lanes</strong>
-                <span>Jump straight to a tracked build</span>
+                <strong>Browse ROM lineup</strong>
+                <span>Jump straight to any tracked build</span>
               </div>
               <div className="directory-preview-grid">
                 {roms.map((rom) => {
@@ -272,7 +280,7 @@ function App() {
             <div className="latest-updates panel">
               <div className="latest-updates-head">
                 <strong>Latest updates</strong>
-                <span>Recent movement across the whole hub</span>
+                <span>Recent movement across releases, sources, and notes</span>
               </div>
               <div className="latest-updates-list">
                 {latestUpdates.slice(0, 4).map((entry) => (
