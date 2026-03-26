@@ -283,7 +283,6 @@
     box-shadow 220ms var(--spring),
     border-color 220ms ease,
     background-color 220ms ease,
-    color 220ms ease,
     border-radius 260ms var(--spring);
 }
 
@@ -339,7 +338,7 @@
   z-index: 1;
   width: min(var(--shell-width), calc(100% - 2rem));
   margin: 0 auto;
-  padding: 1.5rem 0 4.8rem;
+  padding: 1.35rem 0 4.5rem;
 }
 
 .mobile-dock {
@@ -681,12 +680,6 @@
   margin-top: 1.35rem;
 }
 
-.hero-actions .action-secondary {
-  background:
-    linear-gradient(180deg, rgba(255, 255, 255, 0.04), transparent 28%),
-    rgba(255, 255, 255, 0.03);
-}
-
 .action-primary,
 .action-secondary,
 .feature-link,
@@ -735,7 +728,7 @@
 }
 
 .latest-build-strip {
-  margin-top: 1.55rem;
+  margin-top: 1.35rem;
   padding: 1.28rem 1.3rem;
   background:
     linear-gradient(180deg, rgba(255, 255, 255, 0.03), transparent 18%),
@@ -802,7 +795,7 @@
   display: grid;
   grid-template-columns: minmax(0, 1.18fr) minmax(340px, 0.82fr);
   gap: 1.3rem;
-  margin-top: 1.45rem;
+  margin-top: 1.3rem;
 }
 
 .latest-updates {
@@ -845,10 +838,6 @@
   background:
     linear-gradient(90deg, rgba(255, 255, 255, 0.04), transparent 18%),
     rgba(255, 255, 255, 0.02);
-  transition:
-    transform 220ms var(--spring),
-    border-color 220ms ease,
-    background-color 220ms ease;
 }
 
 .latest-update-item span,
@@ -861,14 +850,6 @@
 
 .latest-update-item strong {
   color: var(--text);
-}
-
-.latest-update-item:hover {
-  transform: translateY(-0.08rem);
-  border-color: var(--outline-strong);
-  background:
-    linear-gradient(90deg, rgba(255, 255, 255, 0.05), transparent 20%),
-    rgba(255, 255, 255, 0.025);
 }
 
 .stat-grid {
@@ -1064,7 +1045,7 @@
 
 .section-banner,
 .support-panel {
-  margin-top: 3.45rem;
+  margin-top: 3.2rem;
 }
 
 .section-banner {
@@ -1231,7 +1212,7 @@
 .rom-sections {
   display: grid;
   gap: 1.2rem;
-  margin-top: 1.8rem;
+  margin-top: 1.5rem;
 }
 
 .rom-section {
@@ -1583,9 +1564,7 @@
   margin-top: 1.1rem;
   border: 1px solid var(--outline);
   border-radius: 1rem;
-  background:
-    linear-gradient(180deg, rgba(255, 255, 255, 0.025), transparent 28%),
-    rgba(255, 255, 255, 0.02);
+  background: rgba(255, 255, 255, 0.02);
   overflow: hidden;
 }
 
@@ -1734,7 +1713,7 @@
 .feature-link:hover,
 .card-actions a:hover {
   border-radius: 1.28rem;
-  box-shadow: 0 16px 30px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 22px 42px rgba(0, 0, 0, 0.22);
 }
 
 .pill-link:hover::after,
@@ -1755,28 +1734,6 @@
 .rom-section:hover {
   border-color: var(--outline-strong);
   box-shadow: 0 14px 28px rgba(0, 0, 0, 0.22);
-}
-
-.latest-build-strip,
-.section-banner,
-.support-panel,
-.insight-panel {
-  position: relative;
-}
-
-.latest-build-strip::after,
-.section-banner::after,
-.support-panel::after,
-.insight-panel::after {
-  content: '';
-  position: absolute;
-  left: 1.4rem;
-  right: 1.4rem;
-  bottom: -1.3rem;
-  height: 1px;
-  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.08), transparent);
-  pointer-events: none;
-  opacity: 0.75;
 }
 
 .scene-root[data-performance='lite'] .interactive-scene {
@@ -1892,15 +1849,6 @@
     padding: 1.05rem;
   }
 
-  .latest-build-strip::after,
-  .section-banner::after,
-  .support-panel::after,
-  .insight-panel::after {
-    left: 1rem;
-    right: 1rem;
-    bottom: -1rem;
-  }
-
   .hero {
     min-height: 0;
   }
@@ -1968,13 +1916,6 @@
   .insight-panel,
   .rom-section {
     padding: 0.95rem;
-  }
-
-  .latest-build-strip::after,
-  .section-banner::after,
-  .support-panel::after,
-  .insight-panel::after {
-    display: none;
   }
 
   .rom-section-header {
