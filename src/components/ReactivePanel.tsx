@@ -38,24 +38,42 @@ export function ReactivePanel<T extends ElementType = 'div'>({
     }
 
     const media = window.matchMedia('(hover: hover) and (pointer: fine)')
-    const updateMode = () => {
-      interactiveRef.current = media.matches
-    }
-
-    updateMode()
-    media.addEventListener('change', updateMode)
+    let listening = false
 
     const resetRect = () => {
       rectRef.current = null
     }
 
-    window.addEventListener('resize', resetRect, { passive: true })
-    window.addEventListener('scroll', resetRect, { passive: true })
+    const syncListeners = () => {
+      if (media.matches && !listening) {
+        window.addEventListener('resize', resetRect, { passive: true })
+        listening = true
+      } else if (!media.matches && listening) {
+        window.removeEventListener('resize', resetRect)
+        listening = false
+      }
+    }
+
+    const updateMode = () => {
+      interactiveRef.current = media.matches
+      if (!media.matches) {
+        rectRef.current = null
+      }
+      syncListeners()
+    }
+
+    updateMode()
+    media.addEventListener('change', updateMode)
 
     return () => {
+      if (frameRef.current !== null) {
+        window.cancelAnimationFrame(frameRef.current)
+      }
+
       media.removeEventListener('change', updateMode)
-      window.removeEventListener('resize', resetRect)
-      window.removeEventListener('scroll', resetRect)
+      if (listening) {
+        window.removeEventListener('resize', resetRect)
+      }
     }
   }, [])
 
