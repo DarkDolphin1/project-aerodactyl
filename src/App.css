@@ -1996,9 +1996,7 @@
 }
 
 .scene-root[data-performance='lite'] .interactive-scene {
-  background:
-    radial-gradient(circle at 50% 6%, rgba(255, 255, 255, 0.02), transparent 30%),
-    #000 url('/scene-backdrop.svg') center / cover no-repeat;
+  display: none;
 }
 
 .scene-root[data-performance='lite'] .scene-cursor-trail {
@@ -2010,16 +2008,82 @@
 }
 
 .scene-root[data-performance='lite'] .scene-cursor-glow {
-  opacity: 0.54;
+  display: none;
 }
 
 .scene-root[data-performance='lite'] .rom-section::after {
-  animation: none;
-  opacity: 0.42;
+  display: none;
+}
+
+.scene-root[data-performance='lite'] {
+  perspective: none;
+  background: var(--bg);
+}
+
+.scene-root[data-performance='lite'] .panel,
+.scene-root[data-performance='lite'] .stat-card,
+.scene-root[data-performance='lite'] .hero-feature-card,
+.scene-root[data-performance='lite'] .community-card,
+.scene-root[data-performance='lite'] .latest-build-strip,
+.scene-root[data-performance='lite'] .latest-build-card,
+.scene-root[data-performance='lite'] .latest-updates,
+.scene-root[data-performance='lite'] .latest-update-item,
+.scene-root[data-performance='lite'] .directory-preview,
+.scene-root[data-performance='lite'] .directory-preview-item,
+.scene-root[data-performance='lite'] .rom-directory-item,
+.scene-root[data-performance='lite'] .rom-section,
+.scene-root[data-performance='lite'] .rom-detail-card,
+.scene-root[data-performance='lite'] .rom-changelog,
+.scene-root[data-performance='lite'] .comments-thread,
+.scene-root[data-performance='lite'] .timeline-body,
+.scene-root[data-performance='lite'] .update-card,
+.scene-root[data-performance='lite'] .device-card,
+.scene-root[data-performance='lite'] .expansion-card,
+.scene-root[data-performance='lite'] .gcam-card,
+.scene-root[data-performance='lite'] .mobile-dock {
+  box-shadow: none !important;
+  background:
+    linear-gradient(180deg, rgba(10, 10, 12, 0.94), rgba(2, 2, 4, 0.92)) !important;
+}
+
+.scene-root[data-performance='lite'] .panel::before,
+.scene-root[data-performance='lite'] .panel::after,
+.scene-root[data-performance='lite'] .reactive-panel::before,
+.scene-root[data-performance='lite'] .panel.reactive-panel::before {
+  display: none !important;
+}
+
+.scene-root[data-performance='lite'] .topbar,
+.scene-root[data-performance='lite'] .mobile-dock {
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+}
+
+.scene-root[data-performance='lite'] .pill-link,
+.scene-root[data-performance='lite'] .action-primary,
+.scene-root[data-performance='lite'] .action-secondary,
+.scene-root[data-performance='lite'] .feature-link,
+.scene-root[data-performance='lite'] .card-actions a,
+.scene-root[data-performance='lite'] .directory-preview-item,
+.scene-root[data-performance='lite'] .rom-directory-item,
+.scene-root[data-performance='lite'] .timeline-body,
+.scene-root[data-performance='lite'] .update-card,
+.scene-root[data-performance='lite'] .device-card,
+.scene-root[data-performance='lite'] .expansion-card,
+.scene-root[data-performance='lite'] .rom-section,
+.scene-root[data-performance='lite'] .panel,
+.scene-root[data-performance='lite'] .latest-update-item {
+  transition: none !important;
 }
 
 .scene-root[data-performance='lite'] .reactive-panel > * {
   transform: none;
+}
+
+.scene-root[data-performance='lite'] .reactive-panel,
+.scene-root[data-performance='lite'] .reactive-panel:hover {
+  transform: none;
+  box-shadow: none !important;
 }
 
 .scene-root[data-performance='lite'] .reveal.is-visible {
