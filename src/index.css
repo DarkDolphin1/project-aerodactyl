@@ -34,6 +34,9 @@
   --spring: cubic-bezier(0.22, 1, 0.36, 1);
   --letter-spacing-tight: -0.02em;
   --letter-spacing-wide: 0.06em;
+  --section-gap: 8rem;
+  --container-padding: 3.5rem;
+  --card-padding: 2.25rem;
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;

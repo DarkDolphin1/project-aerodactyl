@@ -1,4 +1,5 @@
-import { useEffect, useMemo, useState, type CSSProperties } from 'react'
+import { useEffect, useMemo, useState, type CSSProperties, type MouseEvent } from 'react'
+import { flushSync } from 'react-dom'
 import './App.css'
 import { CommentsThread } from './components/CommentsThread'
 import { ReactivePanel } from './components/ReactivePanel'
@@ -26,6 +27,18 @@ type AccentStyle = CSSProperties & {
   '--accent'?: string
   '--accent-soft'?: string
   '--accent-strong'?: string
+}
+
+function SunIcon() {
+  return (
+    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+  )
+}
+
+function MoonIcon() {
+  return (
+    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+  )
 }
 
 function toSectionId(name: string) {
@@ -199,6 +212,41 @@ function App() {
     window.localStorage.setItem('project-aerodactyl-theme', themeMode)
   }, [themeMode])
 
+  const toggleTheme = (event: MouseEvent<HTMLButtonElement>) => {
+    const newTheme = themeMode === 'light' ? 'dark' : 'light'
+
+    if (!document.startViewTransition) {
+      setThemeMode(newTheme)
+      return
+    }
+
+    const transition = document.startViewTransition(() => {
+      flushSync(() => {
+        setThemeMode(newTheme)
+      })
+    })
+
+    const x = event.clientX
+    const y = event.clientY
+    const endRadius = Math.hypot(Math.max(x, innerWidth - x), Math.max(y, innerHeight - y))
+
+    transition.ready.then(() => {
+      document.documentElement.animate(
+        {
+          clipPath: [
+            `circle(0px at ${x}px ${y}px)`,
+            `circle(${endRadius}px at ${x}px ${y}px)`,
+          ],
+        },
+        {
+          duration: 450,
+          easing: 'cubic-bezier(0.4, 0, 0.2, 1)',
+          pseudoElement: '::view-transition-new(root)',
+        },
+      )
+    })
+  }
+
   return (
     <div className="app-shell scene-root" ref={sceneRef}>
       <div className="interactive-scene" aria-hidden="true">
@@ -230,12 +278,13 @@ function App() {
         <div className="topbar-actions">
           <div className="topbar-controls" aria-label="Display controls">
             <button
+              aria-label={themeMode === 'light' ? 'Switch to dark theme' : 'Switch to light theme'}
               aria-pressed={themeMode === 'light'}
               className={`control-toggle ${themeMode === 'light' ? 'is-active' : ''}`.trim()}
-              onClick={() => setThemeMode(themeMode === 'light' ? 'dark' : 'light')}
+              onClick={toggleTheme}
               type="button"
             >
-              {themeMode === 'light' ? 'Light' : 'Dark'}
+              {themeMode === 'light' ? <SunIcon /> : <MoonIcon />}
             </button>
           </div>
           <a className="status-badge topbar-button topbar-button-secondary" href="#top">
