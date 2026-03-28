@@ -10,7 +10,7 @@ export function LoadingScreen({ onComplete }: { onComplete: () => void }) {
   const imagesRef = useRef<HTMLImageElement[][]>([[], [], []])
   const lastTimeRef = useRef(0)
   
-  const fps = 90
+  const fps = 60
   const interval = 1000 / fps
 
   const parts = [
@@ -54,7 +54,7 @@ export function LoadingScreen({ onComplete }: { onComplete: () => void }) {
       if (!isPreloaded) {
         setIsPreloaded(true)
       }
-    }, 3000)
+    }, 5000)
 
     return () => clearTimeout(preloadTimeout)
   }, [])
@@ -76,7 +76,7 @@ export function LoadingScreen({ onComplete }: { onComplete: () => void }) {
       if (delta > interval) {
         lastTimeRef.current = time - (delta % interval)
         
-        let nextFrame = frameRef.current + (partRef.current === 0 ? 3 : 1)
+        let nextFrame = frameRef.current + 1
         let nextPart = partRef.current
 
         if (nextFrame > parts[nextPart].frames) {
@@ -84,27 +84,10 @@ export function LoadingScreen({ onComplete }: { onComplete: () => void }) {
             nextPart += 1
             nextFrame = 1
             partRef.current = nextPart
-          } else if (parts[nextPart].loop) {
-            nextFrame = 1
           } else {
-            // Clamp and end animation
-            nextFrame = parts[nextPart].frames
+            // End animation
             setIsVisible(false)
-            setTimeout(onComplete, 300)
-            
-            // Set final frame and draw one last time
-            frameRef.current = nextFrame
-            if (ctx && canvas) {
-              const img = imagesRef.current[nextPart][nextFrame - 1]
-              if (img) {
-                if (canvas.width !== img.width || canvas.height !== img.height) {
-                  canvas.width = img.width
-                  canvas.height = img.height
-                }
-                ctx.clearRect(0, 0, canvas.width, canvas.height)
-                ctx.drawImage(img, 0, 0)
-              }
-            }
+            onComplete()
             return
           }
         }
@@ -135,7 +118,7 @@ export function LoadingScreen({ onComplete }: { onComplete: () => void }) {
     const timeout = setTimeout(() => {
       setIsVisible(false)
       setTimeout(onComplete, 500)
-    }, 3000)
+    }, 5000)
 
     return () => {
       cancelAnimationFrame(animationId)
