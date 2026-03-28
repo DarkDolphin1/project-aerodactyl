@@ -211,12 +211,17 @@ function App() {
   }, [themeMode])
 
   const toggleTheme = (event: MouseEvent<HTMLButtonElement>) => {
-    const newTheme = themeMode === 'light' ? 'dark' : 'light'
+    const isToDark = themeMode === 'light'
+    const newTheme = isToDark ? 'dark' : 'light'
 
     if (!document.startViewTransition) {
       setThemeMode(newTheme)
       return
     }
+
+    const x = event.clientX
+    const y = event.clientY
+    const endRadius = Math.hypot(Math.max(x, innerWidth - x), Math.max(y, innerHeight - y))
 
     const transition = document.startViewTransition(() => {
       flushSync(() => {
@@ -224,22 +229,20 @@ function App() {
       })
     })
 
-    const x = event.clientX
-    const y = event.clientY
-    const endRadius = Math.hypot(Math.max(x, innerWidth - x), Math.max(y, innerHeight - y))
-
     transition.ready.then(() => {
+      const clipPath = [
+        `circle(0px at ${x}px ${y}px)`,
+        `circle(${endRadius}px at ${x}px ${y}px)`,
+      ]
+
       document.documentElement.animate(
         {
-          clipPath: [
-            `circle(0px at ${x}px ${y}px)`,
-            `circle(${endRadius}px at ${x}px ${y}px)`,
-          ],
+          clipPath: isToDark ? clipPath : [...clipPath].reverse(),
         },
         {
-          duration: 450,
-          easing: 'cubic-bezier(0.4, 0, 0.2, 1)',
-          pseudoElement: '::view-transition-new(root)',
+          duration: 650,
+          easing: 'cubic-bezier(0.45, 0, 0.55, 1)',
+          pseudoElement: isToDark ? '::view-transition-new(root)' : '::view-transition-old(root)',
         },
       )
     })
