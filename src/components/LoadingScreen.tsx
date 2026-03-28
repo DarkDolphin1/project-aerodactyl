@@ -100,8 +100,13 @@ export function LoadingScreen({ onComplete }: { onComplete: () => void }) {
         if (ctx && canvas) {
           const img = imagesRef.current[nextPart][nextFrame - 1]
           if (img) {
+            // Update canvas size to match image native size to prevent stretching
+            if (canvas.width !== img.width || canvas.height !== img.height) {
+              canvas.width = img.width
+              canvas.height = img.height
+            }
             ctx.clearRect(0, 0, canvas.width, canvas.height)
-            ctx.drawImage(img, 0, 0, canvas.width, canvas.height)
+            ctx.drawImage(img, 0, 0)
           }
         }
       }
@@ -128,10 +133,7 @@ export function LoadingScreen({ onComplete }: { onComplete: () => void }) {
       <div className="loading-content">
         <canvas 
           ref={canvasRef}
-          width={1080} 
-          height={2400} 
           className="loading-canvas"
-          style={{ width: '240px', height: 'auto' }}
         />
       </div>
     </div>
