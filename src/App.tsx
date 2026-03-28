@@ -4,7 +4,6 @@ import './App.css'
 import { CommentsThread } from './components/CommentsThread'
 import { ReactivePanel } from './components/ReactivePanel'
 import { Reveal } from './components/Reveal'
-import { useSceneMotion } from './hooks/useSceneMotion'
 import type { GcamEntry, ReleaseLink, RomEntry } from './data/types'
 import {
   builderUpdates,
@@ -150,7 +149,6 @@ function App() {
 
     return window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark'
   })
-  const sceneRef = useSceneMotion()
   const [romQuery, setRomQuery] = useState('')
   const [deviceFilter, setDeviceFilter] = useState<'all' | 'pacman' | 'pacmanpro'>('all')
   const featuredRom = roms.find((rom) => rom.name === 'Evolution X') ?? roms[0]
@@ -248,7 +246,7 @@ function App() {
   }
 
   return (
-    <div className="app-shell scene-root" ref={sceneRef}>
+    <div className="app-shell scene-root">
       <div className="interactive-scene" aria-hidden="true">
         <div className="scene-overlay-dots" />
       </div>
