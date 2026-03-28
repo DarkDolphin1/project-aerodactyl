@@ -250,10 +250,7 @@ function App() {
   return (
     <div className="app-shell scene-root" ref={sceneRef}>
       <div className="interactive-scene" aria-hidden="true">
-        <div className="scene-spotlight" />
         <div className="scene-overlay-dots" />
-        <div className="scene-cursor-trail" />
-        <div className="scene-cursor-glow" />
       </div>
 
       <header className="topbar">
