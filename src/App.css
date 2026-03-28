@@ -243,9 +243,7 @@ h3 { font-size: 1.2rem; font-weight: 600; margin: 0; }
   width: 100%;
   margin: 0;
   border-radius: 0;
-  border-left: none;
-  border-right: none;
-  border-top: none;
+  border: none;
 }
 
 .topbar-content {
@@ -255,6 +253,10 @@ h3 { font-size: 1.2rem; font-weight: 600; margin: 0; }
   align-items: center;
   justify-content: space-between;
   gap: 1rem;
+  background: var(--surface-nav);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-bottom: 1px solid var(--outline);
 }
 
 .brand {
