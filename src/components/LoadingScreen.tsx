@@ -73,9 +73,11 @@ export function LoadingScreen({ onComplete }: { onComplete: () => void }) {
         }
 
         const delta = time - lastTimeRef.current
+        // Use a slightly longer interval for part0 (e.g. 50 FPS instead of 60 FPS)
+        const currentInterval = partRef.current === 0 ? (1000 / 50) : interval
 
-        if (delta > interval) {
-          lastTimeRef.current = time - (delta % interval)
+        if (delta > currentInterval) {
+          lastTimeRef.current = time - (delta % currentInterval)
           
           let nextFrame = frameRef.current + 1
           let nextPart = partRef.current
