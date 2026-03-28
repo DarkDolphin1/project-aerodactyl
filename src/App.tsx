@@ -279,9 +279,6 @@ function App() {
                   {themeMode === 'light' ? <SunIcon /> : <MoonIcon />}
                 </button>
               </div>
-              <a className="pill-link topbar-button topbar-button-primary" href="#roms" onClick={navigate('roms')}>
-                Browse ROMs
-              </a>
             </div>
           </div>
         </header>
