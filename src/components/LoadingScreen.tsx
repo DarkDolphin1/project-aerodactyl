@@ -66,53 +66,56 @@ export function LoadingScreen({ onComplete }: { onComplete: () => void }) {
     const canvas = canvasRef.current
     const ctx = canvas?.getContext('2d')
 
-    const animate = (time: number) => {
-      if (!lastTimeRef.current) {
-        lastTimeRef.current = time
-      }
-
-      const delta = time - lastTimeRef.current
-
-      if (delta > interval) {
-        lastTimeRef.current = time - (delta % interval)
-        
-        let nextFrame = frameRef.current + 1
-        let nextPart = partRef.current
-
-        if (nextFrame > parts[nextPart].frames) {
-          if (nextPart < parts.length - 1) {
-            nextPart += 1
-            nextFrame = 1
-            partRef.current = nextPart
-          } else {
-            // End animation
-            setIsVisible(false)
-            setTimeout(onComplete, 450)
-            return
-          }
+    const startAnimation = () => {
+      const animate = (time: number) => {
+        if (!lastTimeRef.current) {
+          lastTimeRef.current = time
         }
 
-        frameRef.current = nextFrame
-        
-        // Draw the frame to canvas
-        if (ctx && canvas) {
-          const img = imagesRef.current[nextPart][nextFrame - 1]
-          if (img) {
-            // Update canvas size to match image native size to prevent stretching
-            if (canvas.width !== img.width || canvas.height !== img.height) {
-              canvas.width = img.width
-              canvas.height = img.height
+        const delta = time - lastTimeRef.current
+
+        if (delta > interval) {
+          lastTimeRef.current = time - (delta % interval)
+          
+          let nextFrame = frameRef.current + 1
+          let nextPart = partRef.current
+
+          if (nextFrame > parts[nextPart].frames) {
+            if (nextPart < parts.length - 1) {
+              nextPart += 1
+              nextFrame = 1
+              partRef.current = nextPart
+            } else {
+              // End animation
+              setIsVisible(false)
+              setTimeout(onComplete, 450)
+              return
             }
-            ctx.clearRect(0, 0, canvas.width, canvas.height)
-            ctx.drawImage(img, 0, 0)
+          }
+
+          frameRef.current = nextFrame
+          
+          if (ctx && canvas) {
+            const img = imagesRef.current[nextPart][nextFrame - 1]
+            if (img) {
+              if (canvas.width !== img.width || canvas.height !== img.height) {
+                canvas.width = img.width
+                canvas.height = img.height
+              }
+              ctx.clearRect(0, 0, canvas.width, canvas.height)
+              ctx.drawImage(img, 0, 0)
+            }
           }
         }
+
+        animationId = requestAnimationFrame(animate)
       }
 
       animationId = requestAnimationFrame(animate)
     }
 
-    animationId = requestAnimationFrame(animate)
+    // Add a 0.3s delay before starting the animation
+    const delayTimeout = setTimeout(startAnimation, 300)
 
     // Auto-complete loading after some time if it's too long
     const timeout = setTimeout(() => {
@@ -122,6 +125,7 @@ export function LoadingScreen({ onComplete }: { onComplete: () => void }) {
 
     return () => {
       cancelAnimationFrame(animationId)
+      clearTimeout(delayTimeout)
       clearTimeout(timeout)
     }
   }, [isPreloaded, onComplete])
