@@ -10,13 +10,13 @@ export function LoadingScreen({ onComplete }: { onComplete: () => void }) {
   const imagesRef = useRef<HTMLImageElement[][]>([[], [], []])
   const lastTimeRef = useRef(0)
   
-  const fps = 60
+  const fps = 90
   const interval = 1000 / fps
 
   const parts = [
     { name: 'part0', frames: 98, startNum: 1001 },
     { name: 'part1', frames: 39, startNum: 2001 },
-    { name: 'part2', frames: 80, startNum: 3001, loop: true },
+    { name: 'part2', frames: 80, startNum: 3001, loop: false }, // Only play part2 once during loading
   ]
 
   useEffect(() => {
@@ -76,7 +76,7 @@ export function LoadingScreen({ onComplete }: { onComplete: () => void }) {
       if (delta > interval) {
         lastTimeRef.current = time - (delta % interval)
         
-        let nextFrame = frameRef.current + 1
+        let nextFrame = frameRef.current + (partRef.current === 0 ? 3 : 1)
         let nextPart = partRef.current
 
         if (nextFrame > parts[nextPart].frames) {
@@ -87,9 +87,24 @@ export function LoadingScreen({ onComplete }: { onComplete: () => void }) {
           } else if (parts[nextPart].loop) {
             nextFrame = 1
           } else {
-            // End of animation
+            // Clamp and end animation
+            nextFrame = parts[nextPart].frames
             setIsVisible(false)
             setTimeout(onComplete, 300)
+            
+            // Set final frame and draw one last time
+            frameRef.current = nextFrame
+            if (ctx && canvas) {
+              const img = imagesRef.current[nextPart][nextFrame - 1]
+              if (img) {
+                if (canvas.width !== img.width || canvas.height !== img.height) {
+                  canvas.width = img.width
+                  canvas.height = img.height
+                }
+                ctx.clearRect(0, 0, canvas.width, canvas.height)
+                ctx.drawImage(img, 0, 0)
+              }
+            }
             return
           }
         }
@@ -120,7 +135,7 @@ export function LoadingScreen({ onComplete }: { onComplete: () => void }) {
     const timeout = setTimeout(() => {
       setIsVisible(false)
       setTimeout(onComplete, 500)
-    }, 8000)
+    }, 3000)
 
     return () => {
       cancelAnimationFrame(animationId)
