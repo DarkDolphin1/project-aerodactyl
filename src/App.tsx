@@ -271,6 +271,8 @@ function App() {
             </a>
 
             <nav className="nav-links" aria-label="Primary">
+              <a data-section="pinned-builds" href="#pinned-builds">01 / Pinned</a>
+              <a data-section="hub-signals" href="#hub-signals">02 / Signals</a>
               <a data-section="rom-directory" href="#rom-directory">03 / ROMs</a>
               <a data-section="gcams" href="#gcams">04 / GCams</a>
               <a data-section="source-pulse" href="#source-pulse">05 / Pulse</a>
@@ -417,7 +419,7 @@ function App() {
         </Reveal>
 
         <Reveal delay={40}>
-          <section className="latest-build-strip panel" aria-label="Latest ROM builds">
+          <section className="latest-build-strip panel" aria-label="Latest ROM builds" id="pinned-builds">
             <div className="latest-build-strip-head">
               <div>
                 <p className="eyebrow">01 / PINNED BUILDS</p>
@@ -464,10 +466,10 @@ function App() {
         </Reveal>
 
         <Reveal delay={55}>
-          <section className="home-rail">
+          <section className="home-rail" id="hub-signals">
             <div className="latest-updates panel">
               <div className="latest-updates-head">
-                <strong>02 / FRESH SIGNALS</strong>
+                <strong>FRESH SIGNALS</strong>
                 <span>ROMs, sources, and builder notes</span>
               </div>
               <div className="latest-updates-list">
@@ -483,7 +485,7 @@ function App() {
 
             <div className="directory-preview panel" id="quick-directory">
               <div className="latest-updates-head">
-                <strong>02 / TRACKED ROMS</strong>
+                <strong>QUICK DIRECTORY</strong>
                 <span>Quick jump into each release section</span>
               </div>
               <div className="directory-preview-grid">

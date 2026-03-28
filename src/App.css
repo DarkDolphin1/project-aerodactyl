@@ -240,6 +240,12 @@ h3 { font-size: 1.4rem; font-weight: 800; margin: 0; }
   gap: 0.8rem;
 }
 
+.brand-copy {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+
 .brand-mark {
   width: 2.4rem;
   height: 2.4rem;
