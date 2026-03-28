@@ -985,3 +985,9 @@ h3 { font-size: 1.2rem; font-weight: 600; margin: 0; }
   image-rendering: crisp-edges;
 }
 
+@media (max-width: 768px) {
+  .loading-canvas {
+    max-width: 240px;
+  }
+}
+
