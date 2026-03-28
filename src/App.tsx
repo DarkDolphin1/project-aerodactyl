@@ -253,7 +253,7 @@ function App() {
   return (
     <>
       {loading && <LoadingScreen onComplete={() => setLoading(false)} />}
-      <div className="app-shell scene-root">
+      <div className="app-shell scene-root" data-loaded={!loading}>
         <div className="interactive-scene" aria-hidden="true">
           <div className="scene-overlay-dots" />
         </div>

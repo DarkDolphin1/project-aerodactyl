@@ -87,7 +87,7 @@ export function LoadingScreen({ onComplete }: { onComplete: () => void }) {
           } else {
             // End animation
             setIsVisible(false)
-            onComplete()
+            setTimeout(onComplete, 450)
             return
           }
         }
