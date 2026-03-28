@@ -6,8 +6,6 @@ export { roms }
 
 export const quickStats = [
   { label: 'Active ROMs', value: `${roms.length} lanes` },
-  { label: 'Devices covered', value: '2 shared targets' },
-  { label: 'Release model', value: 'Per-ROM tracking' },
 ]
 
 const siteContent = siteContentData as SiteContentData

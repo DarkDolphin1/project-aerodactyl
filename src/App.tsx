@@ -10,13 +10,10 @@ import {
   builderUpdates,
   comments,
   communityHub,
-  expansionCards,
   gcamEntries,
   quickStats,
   latestBuilds,
   roms,
-  sourceChanges,
-  supportMatrix,
 } from './data/siteContent'
 
 type DockSection = 'top' | 'rom-directory' | 'gcams' | 'source-pulse' | 'builder-notes' | 'devices'
@@ -123,21 +120,13 @@ function DockGlyph({ section }: { section: DockSection }) {
   }
 }
 
-const mobileDockItems: Array<{ href: string; label: string; section: DockSection }> = [
-  { href: '#top', label: 'Home', section: 'top' },
-  { href: '#rom-directory', label: 'ROMs', section: 'rom-directory' },
-  { href: '#gcams', label: 'GCams', section: 'gcams' },
-  { href: '#source-pulse', label: 'Pulse', section: 'source-pulse' },
-  { href: '#builder-notes', label: 'Notes', section: 'builder-notes' },
-  { href: '#devices', label: 'Devices', section: 'devices' },
-]
-
 function StatusDot({ active = false }: { active?: boolean }) {
   return <span className={`status-dot ${active ? 'is-active' : ''}`.trim()} aria-hidden="true" />
 }
 
 function App() {
   const [loading, setLoading] = useState(true)
+  const [currentPage, setCurrentPage] = useState('home')
   const [themeMode, setThemeMode] = useState<ThemeMode>(() => {
     if (typeof window === 'undefined') {
       return 'dark'
@@ -152,6 +141,11 @@ function App() {
   })
   const [romQuery, setRomQuery] = useState('')
   const [deviceFilter, setDeviceFilter] = useState<'all' | 'pacman' | 'pacmanpro'>('all')
+
+  useEffect(() => {
+    window.scrollTo(0, 0)
+  }, [currentPage])
+
   const featuredRom = roms.find((rom) => rom.name === 'Evolution X') ?? roms[0]
   const featuredRomLinks = getReleaseLinks(featuredRom)
   const featuredRomHasLink = featuredRomLinks.length > 0
@@ -189,20 +183,10 @@ function App() {
     '--accent-soft': 'rgba(107, 134, 255, 0.18)',
     '--accent-strong': '#b7c5ff',
   }
-  const sourceStyle: AccentStyle = {
-    '--accent': '#56c7ff',
-    '--accent-soft': 'rgba(86, 199, 255, 0.16)',
-    '--accent-strong': '#aee7ff',
-  }
   const builderStyle: AccentStyle = {
     '--accent': '#ff8a5b',
     '--accent-soft': 'rgba(255, 138, 91, 0.16)',
     '--accent-strong': '#ffd0be',
-  }
-  const devicesStyle: AccentStyle = {
-    '--accent': '#52d2ad',
-    '--accent-soft': 'rgba(82, 210, 173, 0.16)',
-    '--accent-strong': '#c0ffeb',
   }
 
   useEffect(() => {
@@ -249,6 +233,11 @@ function App() {
     })
   }
 
+  const navigate = (page: string) => (e: MouseEvent) => {
+    e.preventDefault()
+    setCurrentPage(page)
+  }
+
   return (
     <>
       {loading && <LoadingScreen onComplete={() => setLoading(false)} />}
@@ -259,7 +248,7 @@ function App() {
 
         <header className="topbar">
           <div className="topbar-content">
-            <a className="brand" href="#top">
+            <a className="brand" href="/" onClick={navigate('home')}>
               <span className="brand-mark" aria-hidden="true">
                 <img alt="" className="brand-mark-image" src="/favicon.svg" />
               </span>
@@ -270,12 +259,12 @@ function App() {
             </a>
 
             <nav className="nav-links" aria-label="Primary">
-              <a data-section="pinned-builds" href="#pinned-builds">01 / Pinned</a>
-              <a data-section="rom-directory" href="#rom-directory">02 / ROMs</a>
-              <a data-section="gcams" href="#gcams">03 / GCams</a>
-              <a data-section="source-pulse" href="#source-pulse">04 / Pulse</a>
-              <a data-section="builder-notes" href="#builder-notes">05 / Notes</a>
-              <a data-section="devices" href="#devices">06 / Devices</a>
+              <a className={currentPage === 'roms' ? 'is-active' : ''} href="#roms" onClick={navigate('roms')}>Custom ROMs</a>
+              <a className={currentPage === 'gcams' ? 'is-active' : ''} href="#gcams" onClick={navigate('gcams')}>GCams</a>
+              <a className={currentPage === 'guides' ? 'is-active' : ''} href="#guides" onClick={navigate('guides')}>Guides</a>
+              <a className={currentPage === 'kernels' ? 'is-active' : ''} href="#kernels" onClick={navigate('kernels')}>Custom Kernels</a>
+              <a className={currentPage === 'maintainers' ? 'is-active' : ''} href="#maintainers" onClick={navigate('maintainers')}>Maintainers</a>
+              <a href={communityHub.telegramUrl} target="_blank" rel="noreferrer">Community</a>
             </nav>
 
             <div className="topbar-actions">
@@ -290,10 +279,7 @@ function App() {
                   {themeMode === 'light' ? <SunIcon /> : <MoonIcon />}
                 </button>
               </div>
-              <a className="status-badge topbar-button topbar-button-secondary" href="#top">
-                Latest Drops
-              </a>
-              <a className="pill-link topbar-button topbar-button-primary" href="#rom-directory">
+              <a className="pill-link topbar-button topbar-button-primary" href="#roms" onClick={navigate('roms')}>
                 Browse ROMs
               </a>
             </div>
@@ -301,548 +287,528 @@ function App() {
         </header>
 
         <main className="page" id="top">
-        <Reveal>
-          <section className="hero panel" data-hub-accent="true" style={featuredStyle}>
-            <div className="hero-copy">
-              <div className="hero-kicker">
-                <span className="tonal-chip">Nothing Phone 2a + 2a Plus</span>
-              </div>
+          {currentPage === 'home' && (
+            <>
+              <Reveal>
+                <section className="hero panel" data-hub-accent="true" style={featuredStyle}>
+                  <div className="hero-copy">
+                    <div className="hero-kicker">
+                      <span className="tonal-chip">Nothing Phone 2a + 2a Plus</span>
+                    </div>
 
-              <p className="eyebrow">AERODACTYL / HUB</p>
-              <h1>A cleaner release home for the Nothing Phone 2a lineup.</h1>
-              <p className="lede">
-                Track builds, jump to releases, and catch source updates without the chat history noise.
-              </p>
+                    <p className="eyebrow">AERODACTYL / HUB</p>
+                    <h1>Nothing Phone 2a Series Hub</h1>
+                    <p className="lede">
+                      Track builds, jump to releases, and catch source updates without the chat history noise.
+                    </p>
 
-              <div className="hero-actions">
-                <a className="action-primary" href="#rom-directory">
-                  View Current Builds
-                </a>
-                <a className="action-secondary" href="#source-pulse">
-                  Read Source Pulse
-                </a>
-                {communityHubHasLink ? (
-                  <a
-                    className="action-secondary"
-                    href={communityHub.telegramUrl}
-                    target="_blank"
-                    rel="noreferrer"
-                  >
-                    {communityHub.ctaLabel}
-                  </a>
-                ) : null}
-              </div>
+                    <div className="hero-actions">
+                      <a className="action-primary" href="#roms" onClick={navigate('roms')}>
+                        View Current Builds
+                      </a>
+                      {communityHubHasLink ? (
+                        <a
+                          className="action-secondary"
+                          href={communityHub.telegramUrl}
+                          target="_blank"
+                          rel="noreferrer"
+                        >
+                          {communityHub.ctaLabel}
+                        </a>
+                      ) : null}
+                    </div>
 
-              <div className="stat-grid" aria-label="Project highlights">
-                {quickStats.map((stat) => (
-                  <article className="stat-card" key={stat.label}>
-                    <span>{stat.label}</span>
-                    <strong>{stat.value}</strong>
-                  </article>
-                ))}
-              </div>
-            </div>
-
-            <div className="hero-stage">
-              <ReactivePanel
-                as="article"
-                className="hero-feature-card"
-                intensity={0.7}
-                style={featuredStyle}
-              >
-                <div className="feature-column-badge">
-                  <div className="feature-topline">
-                    <span className="feature-badge">
-                      <StatusDot active />
-                      Spotlight
-                    </span>
-                    <span className="feature-version">{featuredRom.version}</span>
-                  </div>
-                </div>
-
-                <div className="feature-column-main">
-                  <h2>{featuredRom.name}</h2>
-                  <p>{featuredRom.tagline}</p>
-
-                  <ul className="feature-list" aria-label={`${featuredRom.name} summary`}>
-                    {featuredRom.highlights.slice(0, 2).map((item) => (
-                      <li key={item}>{item}</li>
-                    ))}
-                  </ul>
-                </div>
-
-                <div className="feature-column-action">
-                  <div className="feature-meta">
-                    <span>{featuredRom.buildDate}</span>
-                    <span>{featuredRom.devices.join(' / ')}</span>
+                    <div className="stat-grid" aria-label="Project highlights">
+                      {quickStats.map((stat) => (
+                        <article className="stat-card" key={stat.label}>
+                          <span>{stat.label}</span>
+                          <strong>{stat.value}</strong>
+                        </article>
+                      ))}
+                    </div>
                   </div>
 
-                  {featuredRomHasLink ? (
-                    <a
-                      className="feature-link"
-                      href={featuredRomLinks[0].url}
-                      target="_blank"
-                      rel="noreferrer"
+                  <div className="hero-stage">
+                    <ReactivePanel
+                      as="article"
+                      className="hero-feature-card"
+                      intensity={0.7}
+                      style={featuredStyle}
                     >
-                      {featuredRomLinks.length > 1 ? `Open ${featuredRomLinks[0].label}` : 'Open release'}
-                    </a>
-                  ) : (
-                    <span className="feature-link is-disabled">Release Pending</span>
-                  )}
-                </div>
-              </ReactivePanel>
-
-              <ReactivePanel as="article" className="community-card panel" intensity={0.45}>
-                <div className="feature-topline">
-                  <span className="feature-badge">Community</span>
-                  <span className="ghost-pill">Telegram</span>
-                </div>
-
-                <h2>Need the wider device chat?</h2>
-                <p>Use the shared Telegram group for support, screenshots, help, and quick feedback.</p>
-
-                {communityHubHasLink ? (
-                  <a
-                    className="feature-link"
-                    href={communityHub.telegramUrl}
-                    target="_blank"
-                    rel="noreferrer"
-                  >
-                    {communityHub.ctaLabel}
-                  </a>
-                ) : null}
-              </ReactivePanel>
-            </div>
-          </section>
-        </Reveal>
-
-        <Reveal delay={40}>
-          <section className="latest-build-strip panel" aria-label="Latest ROM builds" id="pinned-builds">
-            <div className="latest-build-strip-head">
-              <div>
-                <p className="eyebrow">01 / PINNED BUILDS</p>
-                <h2>Fresh drops.</h2>
-              </div>
-              <span>Newest public builds first</span>
-            </div>
-
-            <div className="latest-build-grid">
-              {latestBuilds.map((rom) => {
-                const accentStyle: AccentStyle = {
-                  '--accent': rom.accent,
-                  '--accent-soft': rom.accentSoft,
-                  '--accent-strong': rom.accentStrong,
-                }
-
-                return (
-                  <ReactivePanel
-                    as="a"
-                    className="latest-build-card"
-                    href={`#${toSectionId(rom.name)}`}
-                    intensity={0.5}
-                    key={rom.name}
-                    style={accentStyle}
-                  >
-                    <div className="feature-topline">
-                      <span className="feature-badge">
-                        <StatusDot active />
-                        Latest build
-                      </span>
-                      <span className="feature-version">{rom.version}</span>
-                    </div>
-                    <h3>{rom.name}</h3>
-                    <p>{rom.tagline}</p>
-                    <div className="feature-meta">
-                      <span>{rom.buildDate}</span>
-                      <span>{rom.devices.join(' / ')}</span>
-                    </div>
-                  </ReactivePanel>
-                )
-              })}
-            </div>
-          </section>
-        </Reveal>
-
-        <Reveal delay={80}>
-          <section
-            className="section-banner panel"
-            data-hub-accent="true"
-            id="rom-directory"
-            style={featuredStyle}
-          >
-            <div className="section-banner-copy">
-              <p className="eyebrow">02 / ROM DIRECTORY</p>
-              <h2>Browse every tracked ROM with clear version and device context.</h2>
-              <p>
-                Tracked builds with release links, supported devices, and changelogs in one view.
-              </p>
-            </div>
-
-            <div className="rom-filter-bar" aria-label="ROM filters">
-              <label className="rom-search">
-                <span>Search the directory</span>
-                <input
-                  onChange={(event) => setRomQuery(event.target.value)}
-                  placeholder="Search by ROM name, Android base, version, or release status"
-                  type="search"
-                  value={romQuery}
-                />
-              </label>
-
-              <div className="rom-filter-pills" role="tablist" aria-label="Device filters">
-                <button
-                  className={deviceFilter === 'all' ? 'is-active' : undefined}
-                  onClick={() => setDeviceFilter('all')}
-                  type="button"
-                >
-                  All supported devices
-                </button>
-                <button
-                  className={deviceFilter === 'pacman' ? 'is-active' : undefined}
-                  onClick={() => setDeviceFilter('pacman')}
-                  type="button"
-                >
-                  2a / pacman
-                </button>
-                <button
-                  className={deviceFilter === 'pacmanpro' ? 'is-active' : undefined}
-                  onClick={() => setDeviceFilter('pacmanpro')}
-                  type="button"
-                >
-                  2a Plus / pacmanpro
-                </button>
-              </div>
-            </div>
-
-            <div className="rom-directory-grid">
-              {filteredRoms.map((rom) => {
-                const accentStyle: AccentStyle = {
-                  '--accent': rom.accent,
-                  '--accent-soft': rom.accentSoft,
-                  '--accent-strong': rom.accentStrong,
-                }
-
-                return (
-                  <ReactivePanel
-                    as="a"
-                    className="rom-directory-item"
-                    href={`#${toSectionId(rom.name)}`}
-                    intensity={0.6}
-                    key={rom.name}
-                    style={accentStyle}
-                  >
-                    <StatusDot active={rom.status === 'Stable'} />
-                    <span>{rom.name}</span>
-                    <strong>{rom.version}</strong>
-                    <small>{rom.devices.join(' / ')}</small>
-                  </ReactivePanel>
-                )
-              })}
-            </div>
-
-            {filteredRoms.length === 0 ? (
-              <div className="rom-filter-empty">
-                <strong>No ROMs matched the current search.</strong>
-                <span>Try a broader search term or switch the selected device filter.</span>
-              </div>
-            ) : null}
-          </section>
-        </Reveal>
-
-        <section className="rom-sections">
-          {filteredRoms.map((rom, index) => {
-            const romLinks = getReleaseLinks(rom)
-            const romHasLink = romLinks.length > 0
-            const accentStyle: AccentStyle = {
-              '--accent': rom.accent,
-              '--accent-soft': rom.accentSoft,
-              '--accent-strong': rom.accentStrong,
-            }
-
-            return (
-              <Reveal delay={index * 55} key={rom.name}>
-                <ReactivePanel
-                  as="section"
-                  className="rom-section panel"
-                  data-hub-accent="true"
-                  id={toSectionId(rom.name)}
-                  intensity={0.9}
-                  style={accentStyle}
-                >
-                  <div className="rom-section-header">
-                    <div>
-                      <div className="chip-row">
-                        <span className="chip chip-tonal">{rom.status}</span>
-                        <span className="chip">{rom.branch}</span>
-                      </div>
-                      <h2>
-                        <StatusDot active={rom.status === 'Stable'} />
-                        {rom.name}
-                      </h2>
-                      <p>{rom.tagline}</p>
-                    </div>
-                    <span className="version-pill">{rom.version}</span>
-                  </div>
-
-                  <div className="rom-section-body">
-                    <div className="rom-section-main">
-                      <ul className="bullet-list" aria-label={`${rom.name} highlights`}>
-                        {rom.highlights.map((item) => (
-                          <li key={item}>{item}</li>
-                        ))}
-                      </ul>
-
-                      <div className="card-actions">
-                        {romHasLink ? (
-                          romLinks.map((link) => (
-                            <a href={link.url} key={link.url} target="_blank" rel="noreferrer">
-                              {romLinks.length > 1 ? link.label : 'Telegram Release'}
-                            </a>
-                          ))
-                        ) : (
-                          <span className="feature-link is-disabled card-action-disabled">
-                            Telegram Release
+                      <div className="feature-column-badge">
+                        <div className="feature-topline">
+                          <span className="feature-badge">
+                            <StatusDot active />
+                            Spotlight
                           </span>
-                        )}
+                          <span className="feature-version">{featuredRom.version}</span>
+                        </div>
                       </div>
 
-                      <CommentsThread
-                        config={comments}
-                        term={`rom:${rom.name.toLowerCase()}`}
-                        title={`Open GitHub feedback for ${rom.name}`}
-                      />
+                      <div className="feature-column-main">
+                        <h2>{featuredRom.name}</h2>
+                        <p>{featuredRom.tagline}</p>
 
-                      <details className="rom-changelog">
-                        <summary>
-                          <span>Build Changelog</span>
-                        </summary>
-                        <ul className="bullet-list">
-                          {rom.changelog.map((item) => (
+                        <ul className="feature-list" aria-label={`${featuredRom.name} summary`}>
+                          {featuredRom.highlights.slice(0, 2).map((item) => (
                             <li key={item}>{item}</li>
                           ))}
                         </ul>
-                      </details>
-                    </div>
+                      </div>
 
-                    <aside className="rom-section-side">
-                      <div className="rom-detail-card">
-                        <span>Build Date</span>
-                        <strong>{rom.buildDate}</strong>
+                      <div className="feature-column-action">
+                        <div className="feature-meta">
+                          <span>{featuredRom.buildDate}</span>
+                          <span>{featuredRom.devices.join(' / ')}</span>
+                        </div>
+
+                        {featuredRomHasLink ? (
+                          <a
+                            className="feature-link"
+                            href={featuredRomLinks[0].url}
+                            target="_blank"
+                            rel="noreferrer"
+                          >
+                            {featuredRomLinks.length > 1 ? `Open ${featuredRomLinks[0].label}` : 'Open release'}
+                          </a>
+                        ) : (
+                          <span className="feature-link is-disabled">Release Pending</span>
+                        )}
                       </div>
-                      <div className="rom-detail-card">
-                        <span>Supported Devices</span>
-                        <strong>{rom.devices.join(' / ')}</strong>
+                    </ReactivePanel>
+
+                    <ReactivePanel as="article" className="community-card panel" intensity={0.45}>
+                      <div className="feature-topline">
+                        <span className="feature-badge">Community</span>
+                        <span className="ghost-pill">Telegram</span>
                       </div>
-                      <div className="rom-detail-card">
-                        <span>Current Focus</span>
-                        <strong>{formatMaintenanceNote(rom.maintenanceNote)}</strong>
-                      </div>
-                      <div className="rom-detail-card">
-                        <span>Release Channel</span>
-                        <strong>{rom.channelLabel}</strong>
-                      </div>
-                    </aside>
+
+                      <h2>Need the wider device chat?</h2>
+                      <p>Use the shared Telegram group for support, screenshots, help, and quick feedback.</p>
+
+                      {communityHubHasLink ? (
+                        <a
+                          className="feature-link"
+                          href={communityHub.telegramUrl}
+                          target="_blank"
+                          rel="noreferrer"
+                        >
+                          {communityHub.ctaLabel}
+                        </a>
+                      ) : null}
+                    </ReactivePanel>
                   </div>
-                </ReactivePanel>
+                </section>
               </Reveal>
-            )
-          })}
-        </section>
 
-        <Reveal delay={90}>
-          <section
-            className="panel support-panel support-panel-gcam"
-            data-hub-accent="true"
-            id="gcams"
-            style={gcamStyle}
-          >
-            <div className="support-copy">
-              <div>
-                <p className="eyebrow">03 / GCAMS</p>
-                <h2>Camera picks without the usual Telegram digging.</h2>
-              </div>
-              <p>
-                Recommended APKs and XML configs in one clean place.
-              </p>
-            </div>
+              <Reveal delay={40}>
+                <section className="latest-build-strip panel" aria-label="Latest ROM builds" id="pinned-builds">
+                  <div className="latest-build-strip-head">
+                    <div>
+                      <p className="eyebrow">01 / PINNED BUILDS</p>
+                      <h2>Fresh drops.</h2>
+                    </div>
+                    <span>Newest public builds first</span>
+                  </div>
 
-            {gcamEntries.length > 0 ? (
-              <div className="gcam-grid">
-                {gcamEntries.map((entry) => {
-                  const links = getGcamLinks(entry)
+                  <div className="latest-build-grid">
+                    {latestBuilds.map((rom) => {
+                      const accentStyle: AccentStyle = {
+                        '--accent': rom.accent,
+                        '--accent-soft': rom.accentSoft,
+                        '--accent-strong': rom.accentStrong,
+                      }
+
+                      return (
+                        <ReactivePanel
+                          as="a"
+                          className="latest-build-card"
+                          href={`#${toSectionId(rom.name)}`}
+                          intensity={0.5}
+                          key={rom.name}
+                          onClick={(e) => {
+                            e.preventDefault();
+                            setCurrentPage('roms');
+                          }}
+                          style={accentStyle}
+                        >
+                          <div className="feature-topline">
+                            <span className="feature-badge">
+                              <StatusDot active />
+                              Latest build
+                            </span>
+                            <span className="feature-version">{rom.version}</span>
+                          </div>
+                          <h3>{rom.name}</h3>
+                          <p>{rom.tagline}</p>
+                          <div className="feature-meta">
+                            <span>{rom.buildDate}</span>
+                            <span>{rom.devices.join(' / ')}</span>
+                          </div>
+                        </ReactivePanel>
+                      )
+                    })}
+                  </div>
+                </section>
+              </Reveal>
+            </>
+          )}
+
+          {currentPage === 'roms' && (
+            <>
+              <Reveal delay={80}>
+                <section
+                  className="section-banner panel"
+                  data-hub-accent="true"
+                  id="rom-directory"
+                  style={featuredStyle}
+                >
+                  <div className="section-banner-copy">
+                    <p className="eyebrow">02 / ROM DIRECTORY</p>
+                    <h2>Browse every tracked ROM with clear version and device context.</h2>
+                    <p>
+                      Tracked builds with release links, supported devices, and changelogs in one view.
+                    </p>
+                  </div>
+
+                  <div className="rom-filter-bar" aria-label="ROM filters">
+                    <label className="rom-search">
+                      <span>Search the directory</span>
+                      <input
+                        onChange={(event) => setRomQuery(event.target.value)}
+                        placeholder="Search by ROM name, Android base, version, or release status"
+                        type="search"
+                        value={romQuery}
+                      />
+                    </label>
+
+                    <div className="rom-filter-pills" role="tablist" aria-label="Device filters">
+                      <button
+                        className={deviceFilter === 'all' ? 'is-active' : undefined}
+                        onClick={() => setDeviceFilter('all')}
+                        type="button"
+                      >
+                        All supported devices
+                      </button>
+                      <button
+                        className={deviceFilter === 'pacman' ? 'is-active' : undefined}
+                        onClick={() => setDeviceFilter('pacman')}
+                        type="button"
+                      >
+                        2a / pacman
+                      </button>
+                      <button
+                        className={deviceFilter === 'pacmanpro' ? 'is-active' : undefined}
+                        onClick={() => setDeviceFilter('pacmanpro')}
+                        type="button"
+                      >
+                        2a Plus / pacmanpro
+                      </button>
+                    </div>
+                  </div>
+
+                  <div className="rom-directory-grid">
+                    {filteredRoms.map((rom) => {
+                      const accentStyle: AccentStyle = {
+                        '--accent': rom.accent,
+                        '--accent-soft': rom.accentSoft,
+                        '--accent-strong': rom.accentStrong,
+                      }
+
+                      return (
+                        <ReactivePanel
+                          as="a"
+                          className="rom-directory-item"
+                          href={`#${toSectionId(rom.name)}`}
+                          intensity={0.6}
+                          key={rom.name}
+                          style={accentStyle}
+                        >
+                          <StatusDot active={rom.status === 'Stable'} />
+                          <span>{rom.name}</span>
+                          <strong>{rom.version}</strong>
+                          <small>{rom.devices.join(' / ')}</small>
+                        </ReactivePanel>
+                      )
+                    })}
+                  </div>
+
+                  {filteredRoms.length === 0 ? (
+                    <div className="rom-filter-empty">
+                      <strong>No ROMs matched the current search.</strong>
+                      <span>Try a broader search term or switch the selected device filter.</span>
+                    </div>
+                  ) : null}
+                </section>
+              </Reveal>
+
+              <section className="rom-sections">
+                {filteredRoms.map((rom, index) => {
+                  const romLinks = getReleaseLinks(rom)
+                  const romHasLink = romLinks.length > 0
+                  const accentStyle: AccentStyle = {
+                    '--accent': rom.accent,
+                    '--accent-soft': rom.accentSoft,
+                    '--accent-strong': rom.accentStrong,
+                  }
 
                   return (
-                    <article className="gcam-card" key={`${entry.name}-${entry.build}`}>
-                      <div className="update-meta">
-                        <span className="chip chip-tonal">GCam</span>
-                        <small>{entry.updatedAt}</small>
-                      </div>
-                      <h3>{entry.name}</h3>
-                      <p>{entry.summary}</p>
-                      <div className="feature-meta">
-                        <span>{entry.build}</span>
-                        <span>{entry.devices.join(' / ')}</span>
-                      </div>
-                      <div className="card-actions">
-                        {links.map((link) => (
-                          <a href={link.url} key={link.url} target="_blank" rel="noreferrer">
-                            {link.label}
-                          </a>
-                        ))}
-                      </div>
-                    </article>
+                    <Reveal delay={index * 55} key={rom.name}>
+                      <ReactivePanel
+                        as="section"
+                        className="rom-section panel"
+                        data-hub-accent="true"
+                        id={toSectionId(rom.name)}
+                        intensity={0.9}
+                        style={accentStyle}
+                      >
+                        <div className="rom-section-header">
+                          <div>
+                            <div className="chip-row">
+                              <span className="chip chip-tonal">{rom.status}</span>
+                              <span className="chip">{rom.branch}</span>
+                            </div>
+                            <h2>
+                              <StatusDot active={rom.status === 'Stable'} />
+                              {rom.name}
+                            </h2>
+                            <p>{rom.tagline}</p>
+                          </div>
+                          <span className="version-pill">{rom.version}</span>
+                        </div>
+
+                        <div className="rom-section-body">
+                          <div className="rom-section-main">
+                            <ul className="bullet-list" aria-label={`${rom.name} highlights`}>
+                              {rom.highlights.map((item) => (
+                                <li key={item}>{item}</li>
+                              ))}
+                            </ul>
+
+                            <div className="card-actions">
+                              {romHasLink ? (
+                                romLinks.map((link) => (
+                                  <a href={link.url} key={link.url} target="_blank" rel="noreferrer">
+                                    {romLinks.length > 1 ? link.label : 'Telegram Release'}
+                                  </a>
+                                ))
+                              ) : (
+                                <span className="feature-link is-disabled card-action-disabled">
+                                  Telegram Release
+                                </span>
+                              )}
+                            </div>
+
+                            <CommentsThread
+                              config={comments}
+                              term={`rom:${rom.name.toLowerCase()}`}
+                              title={`Open GitHub feedback for ${rom.name}`}
+                            />
+
+                            <details className="rom-changelog">
+                              <summary>
+                                <span>Build Changelog</span>
+                              </summary>
+                              <ul className="bullet-list">
+                                {rom.changelog.map((item) => (
+                                  <li key={item}>{item}</li>
+                                ))}
+                              </ul>
+                            </details>
+                          </div>
+
+                          <aside className="rom-section-side">
+                            <div className="rom-detail-card">
+                              <span>Build Date</span>
+                              <strong>{rom.buildDate}</strong>
+                            </div>
+                            <div className="rom-detail-card">
+                              <span>Supported Devices</span>
+                              <strong>{rom.devices.join(' / ')}</strong>
+                            </div>
+                            <div className="rom-detail-card">
+                              <span>Current Focus</span>
+                              <strong>{formatMaintenanceNote(rom.maintenanceNote)}</strong>
+                            </div>
+                            <div className="rom-detail-card">
+                              <span>Release Channel</span>
+                              <strong>{rom.channelLabel}</strong>
+                            </div>
+                          </aside>
+                        </div>
+                      </ReactivePanel>
+                    </Reveal>
                   )
                 })}
-              </div>
-            ) : (
-              <article className="gcam-card gcam-empty">
-                <h3>Ready for your current GCam picks</h3>
-                <p>
-                  Add your recommended APKs and XML configs to the shared content file and this
-                  section becomes the public camera reference for the hub.
-                </p>
-              </article>
-            )}
+              </section>
+            </>
+          )}
 
-            <CommentsThread
-              config={comments}
-              term="section:gcams"
-              title="Open GitHub feedback for the GCam section"
-            />
-          </section>
-        </Reveal>
-
-        <section className="insight-grid">
-          <Reveal>
-            <div
-              className="panel insight-panel insight-panel-source"
-              data-hub-accent="true"
-              id="source-pulse"
-              style={sourceStyle}
-            >
-              <div className="insight-head">
-                <div>
-                  <p className="eyebrow">04 / SOURCE PULSE</p>
-                  <h2>Readable source movement, not raw commit dump</h2>
+          {currentPage === 'gcams' && (
+            <Reveal delay={90}>
+              <section
+                className="panel support-panel support-panel-gcam"
+                data-hub-accent="true"
+                id="gcams"
+                style={gcamStyle}
+              >
+                <div className="support-copy">
+                  <div>
+                    <p className="eyebrow">03 / GCAMS</p>
+                    <h2>Camera picks without the usual Telegram digging.</h2>
+                  </div>
+                  <p>
+                    Recommended APKs and XML configs in one clean place.
+                  </p>
                 </div>
-                <p>
-                  Important framework, device tree, kernel, and
-                  vendor-side changes without the raw commit noise.
-                </p>
-              </div>
 
-              <div className="timeline">
-                {sourceChanges.map((entry) => (
-                  <article className="timeline-entry" key={entry.title}>
-                    <div className="timeline-marker" aria-hidden="true" />
-                    <div className="timeline-body">
-                      <div className="timeline-topline">
-                        <span>{entry.title}</span>
-                        <small>{entry.date}</small>
+                {gcamEntries.length > 0 ? (
+                  <div className="gcam-grid">
+                    {gcamEntries.map((entry) => {
+                      const links = getGcamLinks(entry)
+
+                      return (
+                        <article className="gcam-card" key={`${entry.name}-${entry.build}`}>
+                          <div className="update-meta">
+                            <span className="chip chip-tonal">GCam</span>
+                            <small>{entry.updatedAt}</small>
+                          </div>
+                          <h3>{entry.name}</h3>
+                          <p>{entry.summary}</p>
+                          <div className="feature-meta">
+                            <span>{entry.build}</span>
+                            <span>{entry.devices.join(' / ')}</span>
+                          </div>
+                          <div className="card-actions">
+                            {links.map((link) => (
+                              <a href={link.url} key={link.url} target="_blank" rel="noreferrer">
+                                {link.label}
+                              </a>
+                            ))}
+                          </div>
+                        </article>
+                      )
+                    })}
+                  </div>
+                ) : (
+                  <article className="gcam-card gcam-empty">
+                    <h3>Ready for your current GCam picks</h3>
+                    <p>
+                      Add your recommended APKs and XML configs to the shared content file and this
+                      section becomes the public camera reference for the hub.
+                    </p>
+                  </article>
+                )}
+
+                <CommentsThread
+                  config={comments}
+                  term="section:gcams"
+                  title="Open GitHub feedback for the GCam section"
+                />
+              </section>
+            </Reveal>
+          )}
+
+          {currentPage === 'guides' && (
+            <Reveal>
+              <section className="panel">
+                <div className="support-copy">
+                  <div>
+                    <p className="eyebrow">Guides</p>
+                    <h2>Documentation & How-tos.</h2>
+                  </div>
+                  <p>Guides content coming soon...</p>
+                </div>
+              </section>
+            </Reveal>
+          )}
+
+          {currentPage === 'kernels' && (
+            <Reveal>
+              <section className="panel">
+                <div className="support-copy">
+                  <div>
+                    <p className="eyebrow">Custom Kernels</p>
+                    <h2>Fine-tuned performance.</h2>
+                  </div>
+                  <p>Custom Kernels content coming soon...</p>
+                </div>
+              </section>
+            </Reveal>
+          )}
+
+          {currentPage === 'maintainers' && (
+            <Reveal>
+              <section
+                className="panel insight-panel insight-panel-builder"
+                data-hub-accent="true"
+                id="maintainers"
+                style={builderStyle}
+              >
+                <div className="insight-head">
+                  <div>
+                    <p className="eyebrow">Maintainers</p>
+                    <h2>The people behind the builds.</h2>
+                  </div>
+                  <p>
+                    Track project movement and meet the developers maintaining your favorite ROMs.
+                  </p>
+                </div>
+
+                <div className="update-stack">
+                  {builderUpdates.map((update) => (
+                    <article className="update-card" key={update.title}>
+                      <div className="update-meta">
+                        <span className="chip chip-tonal">{update.type}</span>
+                        <small>{update.date}</small>
                       </div>
-                      <p>{entry.summary}</p>
-                      <ul className="bullet-list">
-                        {entry.items.map((item) => (
-                          <li key={item}>{item}</li>
-                        ))}
-                      </ul>
-                    </div>
-                  </article>
-                ))}
-              </div>
-            </div>
-          </Reveal>
-
-          <Reveal delay={120}>
-            <div
-              className="panel insight-panel insight-panel-builder"
-              data-hub-accent="true"
-              id="builder-notes"
-              style={builderStyle}
-            >
-              <div className="insight-head">
-                <div>
-                  <p className="eyebrow">05 / BUILDER NOTES</p>
-                  <h2>Builder notes that still feel public-facing</h2>
-                </div>
-                <p>
-                  Bring-up status, blockers, and release readiness.
-                </p>
-              </div>
-
-              <div className="update-stack">
-                {builderUpdates.map((update) => (
-                  <article className="update-card" key={update.title}>
+                      <h3>{update.title}</h3>
+                      <p>{update.summary}</p>
+                    </article>
+                  ))}
+                  {/* Mock maintainers as requested */}
+                  <article className="update-card">
                     <div className="update-meta">
-                      <span className="chip chip-tonal">{update.type}</span>
-                      <small>{update.date}</small>
+                      <span className="chip chip-tonal">Lead Developer</span>
                     </div>
-                    <h3>{update.title}</h3>
-                    <p>{update.summary}</p>
+                    <h3>Arun T.K.</h3>
+                    <p>Core maintainer for Evolution-X and primary kernel development for the 2a series.</p>
                   </article>
-                ))}
-              </div>
-            </div>
-          </Reveal>
-        </section>
+                  <article className="update-card">
+                    <div className="update-meta">
+                      <span className="chip chip-tonal">Maintainer</span>
+                    </div>
+                    <h3>Balaal</h3>
+                    <p>PixelOS maintainer focusing on stability and device tree refinements.</p>
+                  </article>
+                </div>
+              </section>
+            </Reveal>
+          )}
+        </main>
 
-        <Reveal delay={110}>
-          <section
-            className="panel support-panel support-panel-devices"
-            data-hub-accent="true"
-            id="devices"
-            style={devicesStyle}
-          >
-            <div className="support-copy">
-              <div>
-                <p className="eyebrow">06 / DEVICES</p>
-                <h2>Two devices, one shared release map.</h2>
-              </div>
-              <p>
-                The coverage map for the Nothing Phone 2a lineup.
-              </p>
-            </div>
-
-            <div className="support-grid">
-              {supportMatrix.map((device) => (
-                <article className="device-card" key={device.name}>
-                  <span className="chip chip-tonal">{device.badge}</span>
-                  <h3>{device.name}</h3>
-                  <p>{device.summary}</p>
-                  <strong>{device.focus}</strong>
-                </article>
-              ))}
-            </div>
-
-            <div className="expansion-grid">
-              {expansionCards.map((card) => (
-                <article className="expansion-card" key={card.title}>
-                  <h3>{card.title}</h3>
-                  <p>{card.summary}</p>
-                </article>
-              ))}
-            </div>
-          </section>
-        </Reveal>
-      </main>
-
-      <nav className="mobile-dock" aria-label="Mobile section navigation">
-        {mobileDockItems.map((item) => (
-          <a
-            aria-label={item.label}
-            className="mobile-dock-link"
-            data-section={item.section}
-            href={item.href}
-            key={item.section}
-          >
-            <span className="mobile-dock-icon">
-              <DockGlyph section={item.section} />
-            </span>
-            <span className="mobile-dock-text">{item.label}</span>
-          </a>
-        ))}
-      </nav>
-    </div>
+        <nav className="mobile-dock" aria-label="Mobile section navigation">
+          {[
+            { id: 'home', label: 'Home', icon: 'top' },
+            { id: 'roms', label: 'ROMs', icon: 'rom-directory' },
+            { id: 'gcams', label: 'GCams', icon: 'gcams' },
+            { id: 'maintainers', label: 'People', icon: 'builder-notes' },
+          ].map((item) => (
+            <a
+              aria-label={item.label}
+              className={`mobile-dock-link ${currentPage === item.id ? 'is-active' : ''}`}
+              href={`#${item.id}`}
+              key={item.id}
+              onClick={navigate(item.id)}
+            >
+              <span className="mobile-dock-icon">
+                <DockGlyph section={item.icon as DockSection} />
+              </span>
+              <span className="mobile-dock-text">{item.label}</span>
+            </a>
+          ))}
+        </nav>
+      </div>
     </>
   )
 }

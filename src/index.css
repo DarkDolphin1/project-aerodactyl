@@ -1,4 +1,4 @@
-@import '@fontsource-variable/arimo';
+@import '@fontsource-variable/google-sans-flex';
 
 :root {
   --pointer-x: 50%;
@@ -11,8 +11,8 @@
   --scene-shift-y: 0px;
   --scene-tilt: 0deg;
   --scroll-progress: 0;
-  --font-display: 'Arimo Variable', sans-serif;
-  --font-body: 'Arimo Variable', sans-serif;
+  --font-display: 'Google Sans Flex Variable', 'Segoe UI Variable', sans-serif;
+  --font-body: 'Google Sans Flex Variable', 'Segoe UI Variable', sans-serif;
   --primary: #ffffff;
   --primary-strong: #ffffff;
   --secondary: #97a8c2;
@@ -25,7 +25,7 @@
   --surface-primary: rgba(255, 255, 255, 0.04);
   --surface: rgba(10, 10, 12, 0.84);
   --surface-2: rgba(18, 18, 22, 0.74);
-  --surface-nav: rgba(0, 0, 0, 0.65);
+  --surface-nav: rgba(0, 0, 0, 0.4);
   --bg: #000000;
   --dot-pattern: radial-gradient(rgba(255, 255, 255, 0.22) 1px, transparent 1px);
   --dot-size: 24px 24px;
@@ -57,7 +57,7 @@
   --surface-primary: rgba(255, 255, 255, 0.82);
   --surface: rgba(255, 255, 255, 0.88);
   --surface-2: rgba(246, 249, 255, 0.9);
-  --surface-nav: rgba(255, 255, 255, 0.65);
+  --surface-nav: rgba(255, 255, 255, 0.4);
   --bg: #ffffff;
   --dot-pattern: radial-gradient(rgba(0, 0, 0, 0.15) 1px, transparent 1px);
   color-scheme: light;
@@ -80,7 +80,7 @@ body {
   min-width: 320px;
   min-height: 100vh;
   font-family: var(--font-body);
-  font-weight: 400;
+  font-variation-settings: 'opsz' 20, 'GRAD' 0, 'slnt' 0;
   line-height: 1.5;
   color: var(--text);
   background-color: #000;
