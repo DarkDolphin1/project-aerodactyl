@@ -263,11 +263,11 @@ function App() {
         </a>
 
         <nav className="nav-links" aria-label="Primary">
-          <a data-section="rom-directory" href="#rom-directory">01 / ROMs</a>
-          <a data-section="gcams" href="#gcams">02 / GCams</a>
-          <a data-section="source-pulse" href="#source-pulse">03 / Pulse</a>
-          <a data-section="builder-notes" href="#builder-notes">04 / Notes</a>
-          <a data-section="devices" href="#devices">05 / Devices</a>
+          <a data-section="rom-directory" href="#rom-directory">03 / ROMs</a>
+          <a data-section="gcams" href="#gcams">04 / GCams</a>
+          <a data-section="source-pulse" href="#source-pulse">05 / Pulse</a>
+          <a data-section="builder-notes" href="#builder-notes">06 / Notes</a>
+          <a data-section="devices" href="#devices">07 / Devices</a>
         </nav>
 
         <div className="topbar-actions">
@@ -411,7 +411,7 @@ function App() {
           <section className="latest-build-strip panel" aria-label="Latest ROM builds">
             <div className="latest-build-strip-head">
               <div>
-                <p className="eyebrow">PINNED BUILDS</p>
+                <p className="eyebrow">01 / PINNED BUILDS</p>
                 <h2>Fresh drops.</h2>
               </div>
               <span>Newest public builds first</span>
@@ -458,7 +458,7 @@ function App() {
           <section className="home-rail">
             <div className="latest-updates panel">
               <div className="latest-updates-head">
-                <strong>03 / FRESH SIGNALS</strong>
+                <strong>02 / FRESH SIGNALS</strong>
                 <span>ROMs, sources, and builder notes</span>
               </div>
               <div className="latest-updates-list">
@@ -474,7 +474,7 @@ function App() {
 
             <div className="directory-preview panel" id="quick-directory">
               <div className="latest-updates-head">
-                <strong>01 / TRACKED ROMS</strong>
+                <strong>02 / TRACKED ROMS</strong>
                 <span>Quick jump into each release section</span>
               </div>
               <div className="directory-preview-grid">
@@ -513,7 +513,7 @@ function App() {
             style={featuredStyle}
           >
             <div className="section-banner-copy">
-              <p className="eyebrow">01 / ROM DIRECTORY</p>
+              <p className="eyebrow">03 / ROM DIRECTORY</p>
               <h2>Browse every tracked ROM with clear version and device context.</h2>
               <p>
                 Tracked builds with release links, supported devices, and changelogs in one view.
@@ -700,7 +700,7 @@ function App() {
           >
             <div className="support-copy">
               <div>
-                <p className="eyebrow">02 / GCAMS</p>
+                <p className="eyebrow">04 / GCAMS</p>
                 <h2>Camera picks without the usual Telegram digging.</h2>
               </div>
               <p>
@@ -764,7 +764,7 @@ function App() {
             >
               <div className="insight-head">
                 <div>
-                  <p className="eyebrow">03 / SOURCE PULSE</p>
+                  <p className="eyebrow">05 / SOURCE PULSE</p>
                   <h2>Readable source movement, not raw commit dump</h2>
                 </div>
                 <p>
@@ -804,7 +804,7 @@ function App() {
             >
               <div className="insight-head">
                 <div>
-                  <p className="eyebrow">04 / BUILDER NOTES</p>
+                  <p className="eyebrow">06 / BUILDER NOTES</p>
                   <h2>Builder notes that still feel public-facing</h2>
                 </div>
                 <p>
@@ -837,7 +837,7 @@ function App() {
           >
             <div className="support-copy">
               <div>
-                <p className="eyebrow">05 / DEVICES</p>
+                <p className="eyebrow">07 / DEVICES</p>
                 <h2>Two devices, one shared release map.</h2>
               </div>
               <p>
