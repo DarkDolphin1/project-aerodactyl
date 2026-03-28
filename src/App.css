@@ -63,9 +63,12 @@ h1, h2, h3, h4,
   font-family: var(--font-display);
 }
 
-h1 { font-size: clamp(3rem, 7vw, 5.5rem); font-weight: 700; line-height: 0.85; margin: 1rem 0; }
-h2 { font-size: clamp(1.6rem, 3.5vw, 2.8rem); font-weight: 700; line-height: 1; margin: 0; }
-h3 { font-size: 1.4rem; font-weight: 700; margin: 0; }
+p, li { font-weight: 400; }
+strong { font-weight: 600; }
+
+h1 { font-size: clamp(2.5rem, 6vw, 4rem); font-weight: 600; line-height: 0.85; margin: 1rem 0; }
+h2 { font-size: clamp(1.4rem, 3vw, 2rem); font-weight: 600; line-height: 1; margin: 0; }
+h3 { font-size: 1.2rem; font-weight: 600; margin: 0; }
 
 .eyebrow {
   display: inline-flex;
@@ -73,7 +76,7 @@ h3 { font-size: 1.4rem; font-weight: 700; margin: 0; }
   border: 1px solid var(--outline);
   background: var(--surface-2);
   font-size: 0.7rem;
-  font-weight: 700;
+  font-weight: 600;
   color: var(--muted);
   border-radius: 0.5rem;
 }
@@ -165,7 +168,7 @@ h3 { font-size: 1.4rem; font-weight: 700; margin: 0; }
 
 .latest-update-item strong {
   font-size: 0.95rem;
-  font-weight: 700;
+  font-weight: 600;
 }
 
 .latest-update-item small {
@@ -191,7 +194,7 @@ h3 { font-size: 1.4rem; font-weight: 700; margin: 0; }
 }
 
 .directory-preview-item span {
-  font-weight: 700;
+  font-weight: 600;
   font-size: 0.9rem;
 }
 
@@ -247,7 +250,7 @@ h3 { font-size: 1.4rem; font-weight: 700; margin: 0; }
 
 .topbar-content {
   width: 100%;
-  padding: 1.25rem 4rem;
+  padding: 1rem 3rem;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -267,7 +270,7 @@ h3 { font-size: 1.4rem; font-weight: 700; margin: 0; }
 }
 
 .brand-copy strong {
-  font-weight: 700;
+  font-weight: 600;
 }
 
 .brand-mark {
@@ -293,7 +296,7 @@ h3 { font-size: 1.4rem; font-weight: 700; margin: 0; }
 
 .nav-links a {
   font-size: 0.8rem;
-  font-weight: 700;
+  font-weight: 600;
   color: var(--muted);
 }
 
@@ -330,7 +333,7 @@ h3 { font-size: 1.4rem; font-weight: 700; margin: 0; }
 .topbar-button {
   padding: 0.55rem 1.1rem;
   border-radius: 0.75rem;
-  font-weight: 700;
+  font-weight: 600;
   font-size: 0.75rem;
 }
 
@@ -348,7 +351,7 @@ h3 { font-size: 1.4rem; font-weight: 700; margin: 0; }
 .page {
   width: min(1600px, 92vw);
   margin: 0 auto;
-  padding: 2.5rem 2rem 10rem;
+  padding: 2rem 2rem 8rem;
   display: flex;
   flex-direction: column;
   gap: var(--section-gap);
@@ -369,7 +372,7 @@ h3 { font-size: 1.4rem; font-weight: 700; margin: 0; }
 
 
 .lede {
-  font-size: 1.1rem;
+  font-size: 1rem;
   color: var(--muted);
   margin: 1rem 0 1.5rem;
   max-width: 42ch;
@@ -387,7 +390,7 @@ h3 { font-size: 1.4rem; font-weight: 700; margin: 0; }
 .action-secondary {
   padding: 0.85rem 1.75rem;
   border-radius: 0.85rem;
-  font-weight: 700;
+  font-weight: 600;
 }
 
 .action-primary {
@@ -408,8 +411,8 @@ h3 { font-size: 1.4rem; font-weight: 700; margin: 0; }
 }
 
 .stat-card {
-  padding: 1.5rem 2rem;
-  min-width: 180px;
+  padding: 1.25rem 1.75rem;
+  min-width: 160px;
   flex: 0 1 auto;
 }
 
@@ -420,7 +423,8 @@ h3 { font-size: 1.4rem; font-weight: 700; margin: 0; }
 }
 
 .stat-card strong { 
-  font-size: 1.4rem; 
+  font-size: 1.2rem; 
+  font-weight: 600;
   display: block; 
   margin-top: 0.4rem; 
   white-space: nowrap;
@@ -428,8 +432,8 @@ h3 { font-size: 1.4rem; font-weight: 700; margin: 0; }
 
 .hero-stage {
   display: grid;
-  grid-template-columns: 1fr 320px;
-  gap: 2.5rem;
+  grid-template-columns: 1fr min(300px, 30%);
+  gap: 2rem;
   align-items: stretch;
 }
 
@@ -438,7 +442,7 @@ h3 { font-size: 1.4rem; font-weight: 700; margin: 0; }
   grid-template-columns: 1fr 1.5fr 1fr;
   gap: 3rem;
   align-items: center;
-  padding: 2.5rem 3rem;
+  padding: 2rem 2.5rem;
   height: 100%;
 }
 
@@ -478,7 +482,7 @@ h3 { font-size: 1.4rem; font-weight: 700; margin: 0; }
   border-radius: 0.75rem; 
   background: var(--text); 
   color: var(--bg); 
-  font-weight: 700; 
+  font-weight: 600; 
   font-size: 0.75rem; 
   text-align: center;
   transition: opacity 0.2s ease;
@@ -498,14 +502,14 @@ h3 { font-size: 1.4rem; font-weight: 700; margin: 0; }
   align-items: center;
   gap: 0.4rem;
   font-size: 0.65rem;
-  font-weight: 700;
+  font-weight: 600;
   color: var(--muted);
   text-transform: uppercase;
 }
 
 .feature-version {
   font-size: 0.65rem;
-  font-weight: 700;
+  font-weight: 600;
   color: var(--accent-red);
 }
 
@@ -576,7 +580,7 @@ h3 { font-size: 1.4rem; font-weight: 700; margin: 0; }
 }
 
 .latest-build-card {
-  padding: 2.5rem;
+  padding: 2rem;
 }
 
 .home-rail {
@@ -602,7 +606,7 @@ h3 { font-size: 1.4rem; font-weight: 700; margin: 0; }
 }
 
 .rom-directory-item {
-  padding: 2.5rem;
+  padding: 2rem;
   display: flex;
   flex-direction: column;
   gap: 0.75rem;
@@ -610,8 +614,8 @@ h3 { font-size: 1.4rem; font-weight: 700; margin: 0; }
 }
 
 .rom-directory-item span {
-  font-size: 1.2rem;
-  font-weight: 700;
+  font-size: 1rem;
+  font-weight: 600;
   margin-top: 0.25rem;
 }
 
@@ -657,7 +661,7 @@ h3 { font-size: 1.4rem; font-weight: 700; margin: 0; }
 }
 
 .rom-changelog summary span {
-  font-weight: 700;
+  font-weight: 600;
   text-transform: uppercase;
   letter-spacing: var(--letter-spacing-wide);
   font-family: var(--font-display);
@@ -702,11 +706,11 @@ h3 { font-size: 1.4rem; font-weight: 700; margin: 0; }
 .expansion-card,
 .update-card,
 .timeline-body {
-  padding: 2.5rem;
+  padding: 2rem;
 }
 
 .panel {
-  padding: 3rem 2.5rem;
+  padding: 2rem;
 }
 
 .rom-section-header {
@@ -802,7 +806,7 @@ h3 { font-size: 1.4rem; font-weight: 700; margin: 0; }
 }
 
 .mobile-dock-icon { margin-bottom: 0.2rem; }
-.mobile-dock-text { font-size: 0.55rem; font-weight: 700; }
+.mobile-dock-text { font-size: 0.55rem; font-weight: 600; }
 
 /* 9. REACTIVE PANEL & INTERACTIVE */
 .reactive-panel {
@@ -859,7 +863,7 @@ h3 { font-size: 1.4rem; font-weight: 700; margin: 0; }
   border: 1px solid var(--outline);
   background: transparent;
   color: var(--muted);
-  font-weight: 700;
+  font-weight: 600;
   cursor: pointer;
   transition: all 0.2s ease;
 }
@@ -891,7 +895,7 @@ h3 { font-size: 1.4rem; font-weight: 700; margin: 0; }
   align-items: center;
   padding: 0.3rem 0.7rem;
   font-size: 0.7rem;
-  font-weight: 700;
+  font-weight: 600;
   border-radius: 0.4rem;
   border: 1px solid var(--outline);
   background: var(--surface-2);

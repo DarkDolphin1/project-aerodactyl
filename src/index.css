@@ -32,11 +32,11 @@
   --shadow-soft: 0 16px 40px rgba(0, 0, 0, 0.45);
   --shadow-large: 0 28px 72px rgba(0, 0, 0, 0.6);
   --spring: cubic-bezier(0.22, 1, 0.36, 1);
-  --letter-spacing-tight: -0.02em;
-  --letter-spacing-wide: 0.06em;
-  --section-gap: 8rem;
-  --container-padding: 3.5rem;
-  --card-padding: 2.25rem;
+  --letter-spacing-tight: -0.01em;
+  --letter-spacing-wide: 0.04em;
+  --section-gap: 5rem;
+  --container-padding: 2rem;
+  --card-padding: 1.5rem;
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
@@ -71,6 +71,7 @@
 
 html {
   scroll-behavior: smooth;
+  font-size: 14px;
 }
 
 body {
@@ -79,10 +80,12 @@ body {
   min-width: 320px;
   min-height: 100vh;
   font-family: var(--font-body);
-  line-height: 1.55;
+  font-weight: 400;
+  line-height: 1.5;
   color: var(--text);
   background-color: #000;
   background: var(--bg);
+  -webkit-text-size-adjust: 100%;
 }
 
 :root[data-theme='light'] body {
