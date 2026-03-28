@@ -27,7 +27,7 @@
   --surface-2: rgba(18, 18, 22, 0.74);
   --surface-nav: rgba(0, 0, 0, 0.8);
   --bg: #000000;
-  --dot-pattern: radial-gradient(rgba(255, 255, 255, 0.12) 1px, transparent 1px);
+  --dot-pattern: radial-gradient(rgba(255, 255, 255, 0.22) 1px, transparent 1px);
   --dot-size: 24px 24px;
   --shadow-soft: 0 16px 40px rgba(0, 0, 0, 0.45);
   --shadow-large: 0 28px 72px rgba(0, 0, 0, 0.6);
@@ -59,7 +59,7 @@
   --surface-2: rgba(246, 249, 255, 0.9);
   --surface-nav: rgba(255, 255, 255, 0.74);
   --bg: #ffffff;
-  --dot-pattern: radial-gradient(rgba(0, 0, 0, 0.08) 1px, transparent 1px);
+  --dot-pattern: radial-gradient(rgba(0, 0, 0, 0.15) 1px, transparent 1px);
   color-scheme: light;
 }
 
