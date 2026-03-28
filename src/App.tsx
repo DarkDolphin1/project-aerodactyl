@@ -505,7 +505,6 @@ function App() {
                       key={rom.name}
                       style={accentStyle}
                     >
-                      <StatusDot active={rom.status === 'Stable'} />
                       <span>{rom.name}</span>
                       <strong>{rom.version}</strong>
                     </ReactivePanel>
